@@ -106,13 +106,13 @@ void Player::update(int deltaTime)
 	}
 	else
 	{
-		if (sprite->animation() == JUMP_LEFT)
-			sprite->changeAnimation(STAND_LEFT);
-		else if (sprite->animation() == JUMP_RIGHT)
-			sprite->changeAnimation(STAND_RIGHT);
 		posPlayer.y += FALL_STEP;
 		if(map->collisionMoveDown(posPlayer, glm::ivec2(16, 16), &posPlayer.y))
 		{
+			if (sprite->animation() == JUMP_LEFT)
+				sprite->changeAnimation(STAND_LEFT);
+			else if (sprite->animation() == JUMP_RIGHT)
+				sprite->changeAnimation(STAND_RIGHT);
 			if(Game::instance().getSpecialKey(GLUT_KEY_UP))
 			{
 				bJumping = true;

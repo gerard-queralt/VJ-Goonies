@@ -6,9 +6,9 @@
 
 #include "Sprite.h"
 
-
-#define SCREEN_X 32
-#define SCREEN_Y 20
+//Vores negres de la pantalla
+#define SCREEN_X 0
+#define SCREEN_Y 0
 
 #define INIT_PLAYER_X_TILES 2
 #define INIT_PLAYER_Y_TILES 2
@@ -60,22 +60,25 @@ void Scene::render()
 {
 	glm::mat4 modelview;
 
+	switch (currentState)
+	{
+	case MENU:
+		title->render();
+		break;
+	case LEVEL1:
+		glm::vec2 mapSize = map->getMapSize();
+		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f, 0.f);
+		map->render();
+		player->render();
+		break;
+	}
+
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	switch (currentState)
-	{
-	case MENU: 
-		title->render();
-		break;
-	case LEVEL1: 
-		map->render();
-		player->render();
-		break;
-	}
 }
 
 void Scene::changeState()

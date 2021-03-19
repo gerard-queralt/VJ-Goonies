@@ -30,3 +30,8 @@
 *.app
 /Goonies/Goonies/Debug
 /Goonies/Goonies/Release
+/Goonies/Debug
+/Goonies/Release
+/Goonies/.vs/Goonies/v14
+/Goonies/Goonies.VC.VC.opendb
+/Goonies/Goonies.VC.db

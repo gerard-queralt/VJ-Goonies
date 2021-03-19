@@ -82,9 +82,9 @@ bool TileMap::loadLevel(const string &levelFile)
 	{
 		for(int i=0; i<mapSize.x; i++)
 		{
-			int t;
-			fin >> t;
-			map[j*mapSize.x+i] = t;
+			int tile;
+			fin >> tile;
+			map[j*mapSize.x+i] = tile;
 		}
 		fin.get(tile);
 #ifndef _WIN32
@@ -200,6 +200,11 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, i
 	}
 	
 	return false;
+}
+
+glm::vec2 TileMap::getMapSize()
+{
+	return mapSize;
 }
 
 

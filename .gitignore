@@ -28,3 +28,5 @@
 *.exe
 *.out
 *.app
+/Goonies/Goonies/Debug
+/Goonies/Goonies/Release

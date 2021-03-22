@@ -13,6 +13,10 @@
 class Player
 {
 
+	enum PlayerStatus {
+		GROUNDED = 0, JUMPING, FALLING
+	};
+
 public:
 	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
@@ -22,7 +26,7 @@ public:
 	void setPosition(const glm::vec2 &pos);
 	
 private:
-	bool bJumping;
+	PlayerStatus status;
 	glm::ivec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;

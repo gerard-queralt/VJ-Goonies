@@ -9,7 +9,7 @@
 #define JUMP_ANGLE_STEP 4
 #define JUMP_HEIGHT 16
 #define FALL_STEP 1
-#define SPEED 1
+#define SPEED 0.5
 
 
 enum PlayerAnims
@@ -48,7 +48,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 	sprite->changeAnimation(STAND_RIGHT);
 	tileMapDispl = tileMapPos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite->setPosition(glm::vec2(float(tileMapDispl.x) + posPlayer.x, float(tileMapDispl.y) + posPlayer.y));
 	
 }
 

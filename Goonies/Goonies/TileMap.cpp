@@ -146,14 +146,14 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 
 bool TileMap::notWalkable(int tile) const
 {
-	return (tile == 111 || tile == 112 || (80<tile && tile<86));
+	return (tile == 111 || tile == 112 || (80<tile && tile<87) || (12<tile && tile<16) || tile == 68);
 }
 
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is
 // already intersecting a tile below.
 
-bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const
+bool TileMap::collisionMoveLeft(const glm::vec2 &pos, const glm::ivec2 &size) const
 {
 	int x, y0, y1;
 	
@@ -169,7 +169,7 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	return false;
 }
 
-bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const
+bool TileMap::collisionMoveRight(const glm::vec2 &pos, const glm::ivec2 &size) const
 {
 	int x, y0, y1;
 	
@@ -185,7 +185,7 @@ bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) 
 	return false;
 }
 
-bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const
+bool TileMap::collisionMoveDown(const glm::vec2 &pos, const glm::ivec2 &size, float *posY) const
 {
 	int x0, x1, y;
 	

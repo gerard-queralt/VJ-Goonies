@@ -27,7 +27,8 @@ public:
 	
 private:
 	PlayerStatus status;
-	glm::ivec2 tileMapDispl, posPlayer;
+	glm::ivec2 tileMapDispl;
+	glm::vec2 posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;
 	Sprite *sprite;

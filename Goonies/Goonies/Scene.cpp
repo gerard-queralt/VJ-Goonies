@@ -48,12 +48,17 @@ void Scene::init()
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 	currentState = MENU;
+
+	skull = new Skull();
+	skull->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	skull->setPosition(glm::vec2(19.f * map->getTileSize(), 14.f * map->getTileSize()));
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+	skull->update(deltaTime);
 }
 
 void Scene::render()
@@ -70,6 +75,9 @@ void Scene::render()
 		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f, 0.f);
 		map->render();
 		player->render();
+
+		skull->render();
+
 		break;
 	}
 

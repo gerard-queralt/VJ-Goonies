@@ -55,7 +55,9 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Player::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	if(Game::instance().getSpecialKey(GLUT_KEY_LEFT) && status==GROUNDED)
+	if (sprite->animation() == MOVE_LEFT || sprite->animation() == MOVE_RIGHT)
+		keepMovingInAir = true;
+	if(Game::instance().getSpecialKey(GLUT_KEY_LEFT) && (status==GROUNDED || (sprite->animation() == JUMP_LEFT && keepMovingInAir)))
 	{
 		if(sprite->animation() != MOVE_LEFT)
 			sprite->changeAnimation(MOVE_LEFT);
@@ -63,10 +65,11 @@ void Player::update(int deltaTime)
 		if(map->collisionMoveLeft(posPlayer, glm::ivec2(16, 16)))
 		{
 			posPlayer.x += SPEED;
+			keepMovingInAir = false;
 			sprite->changeAnimation(STAND_LEFT);
 		}
 	}
-	else if(Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && status == GROUNDED)
+	else if(Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && (status == GROUNDED || (sprite->animation() == JUMP_RIGHT && keepMovingInAir)))
 	{
 		if(sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
@@ -74,6 +77,7 @@ void Player::update(int deltaTime)
 		if(map->collisionMoveRight(posPlayer, glm::ivec2(16, 16)))
 		{
 			posPlayer.x -= SPEED;
+			keepMovingInAir = false;
 			sprite->changeAnimation(STAND_RIGHT);
 		}
 	}
@@ -117,6 +121,7 @@ void Player::update(int deltaTime)
 			else if (sprite->animation() == JUMP_RIGHT)
 				sprite->changeAnimation(STAND_RIGHT);
 			status = GROUNDED;
+			keepMovingInAir = false;
 			if(Game::instance().getSpecialKey(GLUT_KEY_UP))
 			{
 				status = JUMPING;

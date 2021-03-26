@@ -27,6 +27,7 @@ public:
 	
 private:
 	PlayerStatus status;
+	bool keepMovingInAir;
 	glm::ivec2 tileMapDispl;
 	glm::vec2 posPlayer;
 	int jumpAngle, startY;

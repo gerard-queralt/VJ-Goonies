@@ -6,11 +6,11 @@
 
 class Entity
 {
-	enum EntityStatus{
+public:
+	enum EntityStatus {
 		ALIVE = 0, DEAD, SPAWNING, DYING
 	};
 
-public:
 	virtual void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
 	virtual void update(int deltaTime);
 	void render();

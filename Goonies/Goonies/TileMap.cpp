@@ -46,7 +46,7 @@ void TileMap::render() const
 	glEnableVertexAttribArray(texCoordLocation);
 	glDrawArrays(GL_TRIANGLES, 0, 6 * mapSize.x * mapSize.y);
 	glDisable(GL_TEXTURE_2D);
-	for (auto e : entities) {
+	for (Entity* e : entities) {
 		e->render();
 	}
 }

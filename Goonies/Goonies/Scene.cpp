@@ -11,7 +11,7 @@
 #define SCREEN_Y 0
 
 #define INIT_PLAYER_X_TILES 12.5
-#define INIT_PLAYER_Y_TILES 5
+#define INIT_PLAYER_Y_TILES 8
 
 enum GameStates
 {
@@ -37,11 +37,6 @@ Scene::~Scene()
 void Scene::init()
 {
 	initShaders();
-	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
-	player = new Player();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-	player->setTileMap(map);
 	titleimage.loadFromFile("images/title.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	title = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f, 1.f), &titleimage, &texProgram);
 	title->setPosition(glm::vec2(0.f, 0.f));
@@ -53,8 +48,10 @@ void Scene::init()
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	map->update(deltaTime);
-	player->update(deltaTime);
+	if (currentState != MENU) {
+		map->update(deltaTime);
+		player->update(deltaTime);
+	}
 }
 
 void Scene::render()
@@ -88,8 +85,14 @@ void Scene::render()
 
 void Scene::changeState()
 {
-	if (currentState == MENU)
+	if (currentState == MENU) {
 		currentState = LEVEL1;
+		map = TileMap::createTileMap("levels/level01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+		player = new Player();
+		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+		player->setTileMap(map);
+	}
 }
 
 void Scene::initShaders()

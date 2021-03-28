@@ -23,27 +23,29 @@ void Skull::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgram)
 	sprite->changeAnimation(MOVE_LEFT);
 	movingLeft = true;
 
-	//status = ALIVE;
+	status = ALIVE;
 }
 
 void Skull::update(int deltaTime)
 {
-	sprite->update(deltaTime);
-	if (movingLeft) {
-		position.x -= 2;
-		if (position.x < 1*8) {
-			position.x += 2;
-			movingLeft = false;
-			sprite->changeAnimation(MOVE_RIGHT);
-		}
-	}
-	else {
-		position.x += 2;
-		if (position.x > 30 * 8) {
+	if (status == ALIVE) {
+		sprite->update(deltaTime);
+		if (movingLeft) {
 			position.x -= 2;
-			movingLeft = true;
-			sprite->changeAnimation(MOVE_LEFT);
+			if (position.x < 1 * 8) {
+				position.x += 2;
+				movingLeft = false;
+				sprite->changeAnimation(MOVE_RIGHT);
+			}
 		}
+		else {
+			position.x += 2;
+			if (position.x > 30 * 8) {
+				position.x -= 2;
+				movingLeft = true;
+				sprite->changeAnimation(MOVE_LEFT);
+			}
+		}
+		sprite->setPosition(position);
 	}
-	sprite->setPosition(position);
 }

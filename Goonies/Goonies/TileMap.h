@@ -28,7 +28,7 @@ public:
 	void update(int deltaTime);
 	void render() const;
 	void free();
-	
+		
 	int getTileSize() const { return tileSize; }
 
 	bool collisionMoveLeft(const glm::vec2 &pos, const glm::ivec2 &size) const;

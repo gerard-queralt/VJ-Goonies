@@ -14,7 +14,11 @@ class Player
 {
 
 	enum PlayerStatus {
-		GROUNDED = 0, JUMPING, FALLING
+		GROUNDED = 0, JUMPING, FALLING, PUNCHING
+	};
+
+	enum SpaceKeyStatus {
+		PRESSED = 0, RELEASED, HOLD
 	};
 
 public:
@@ -27,6 +31,9 @@ public:
 	
 private:
 	PlayerStatus status;
+	SpaceKeyStatus spaceKeyStatus;
+	int startTime;
+	int punchingTime;
 	bool keepMovingInAir;
 	glm::ivec2 tileMapDispl;
 	glm::vec2 posPlayer;

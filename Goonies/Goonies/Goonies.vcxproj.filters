@@ -44,6 +44,9 @@
     <ClInclude Include="Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StartDoor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -79,5 +82,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="StartDoor.cpp" />
   </ItemGroup>
 </Project>

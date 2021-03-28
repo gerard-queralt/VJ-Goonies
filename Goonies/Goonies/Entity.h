@@ -2,7 +2,7 @@
 #define _ENTITY_INCLUDE
 
 #include "Sprite.h"
-#include "TileMap.h"
+//#include "TileMap.h"
 
 class Entity
 {

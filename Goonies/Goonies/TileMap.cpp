@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Scene.h"
 #include "Skull.h"
+#include "StartDoor.h"
 
 
 using namespace std;
@@ -152,6 +153,14 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					skull->init(glm::ivec2(0, 0), program);
 					skull->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
 					entities.push_back(skull);
+					break;
+				}
+				case -6: //start door
+				{
+					StartDoor *startDoor = new StartDoor();
+					startDoor->init(glm::ivec2(0, 0), program);
+					startDoor->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
+					entities.push_back(startDoor);
 					break;
 				}
 				default:

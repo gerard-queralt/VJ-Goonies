@@ -15,7 +15,8 @@ void Entity::update(int deltaTime)
 
 void Entity::render()
 {
-	sprite->render();
+	if(status != DEAD)
+		sprite->render();
 }
 
 void Entity::setPosition(const glm::vec2 & pos)
@@ -23,3 +24,4 @@ void Entity::setPosition(const glm::vec2 & pos)
 	position = pos;
 	sprite->setPosition(position);
 }
+

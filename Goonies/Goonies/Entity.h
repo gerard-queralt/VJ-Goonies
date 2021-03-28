@@ -7,16 +7,16 @@
 class Entity
 {
 public:
-	enum EntityStatus {
-		ALIVE = 0, DEAD, SPAWNING, DYING
-	};
-
 	virtual void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
 	virtual void update(int deltaTime);
 	void render();
 	void setPosition(const glm::vec2 &pos);
 
 protected:
+	enum EntityStatus {
+		ALIVE = 0, DEAD, SPAWNING, DYING
+	};
+
 	EntityStatus status;
 	glm::vec2 position;
 	Texture spritesheet;

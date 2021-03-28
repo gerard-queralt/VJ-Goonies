@@ -12,6 +12,7 @@ public:
 
 private:
 	bool movingLeft;
+	int spawnTime;
 };
 
 #endif // _SKULL_INCLUDE

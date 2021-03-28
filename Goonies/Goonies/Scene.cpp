@@ -66,7 +66,7 @@ void Scene::render()
 	case LEVEL1:
 	{
 		glm::vec2 mapSize = map->getMapSize();
-		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f, 0.f);
+		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f + 16.f, -16.f);
 		map->render();
 		player->render();
 		break;

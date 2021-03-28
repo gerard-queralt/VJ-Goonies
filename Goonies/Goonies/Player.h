@@ -30,6 +30,10 @@ public:
 	void setPosition(const glm::vec2 &pos);
 	
 private:
+	int health;
+	int level;
+	int exp;
+
 	PlayerStatus status;
 	SpaceKeyStatus spaceKeyStatus;
 	int startTime;

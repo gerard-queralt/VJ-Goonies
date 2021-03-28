@@ -14,11 +14,15 @@
 
 enum PlayerAnims
 {
-	STAND_LEFT=0, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, PUNCH_LEFT, PUNCH_RIGHT, NUM_ANIM
+	STAND_LEFT=0, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, PUNCH_LEFT, PUNCH_RIGHT, CLIMBING, NUM_ANIM
 };
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
+	health = 100;
+	level = 1;
+	exp = 0;
+
 	status = GROUNDED;
 	startTime = 60;
 	punchingTime = 10;
@@ -54,6 +58,10 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 		sprite->setAnimationSpeed(PUNCH_LEFT, 8);
 		sprite->addKeyframe(PUNCH_LEFT, glm::vec2(0.75f, 0.5f));
+
+		sprite->setAnimationSpeed(CLIMBING, 8);
+		sprite->addKeyframe(CLIMBING, glm::vec2(0.f, 0.5f));
+		sprite->addKeyframe(CLIMBING, glm::vec2(0.25f, 0.5f));
 
 	sprite->changeAnimation(STAND_RIGHT);
 	tileMapDispl = tileMapPos;

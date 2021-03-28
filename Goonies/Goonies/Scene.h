@@ -6,7 +6,6 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "Player.h"
-#include "Skull.h"
 
 
 // Scene contains all the entities of our game.
@@ -32,7 +31,6 @@ private:
 private:
 	TileMap *map;
 	Player *player;
-	Skull *skull;
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;

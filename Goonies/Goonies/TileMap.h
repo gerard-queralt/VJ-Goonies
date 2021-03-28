@@ -3,8 +3,10 @@
 
 
 #include <glm/glm.hpp>
+#include <vector>
 #include "Texture.h"
 #include "ShaderProgram.h"
+#include "Entity.h"
 
 
 // Class Tilemap is capable of loading a tile map from a text file in a very
@@ -12,7 +14,7 @@
 // it builds a single VBO that contains all tiles. As a result the render
 // method draws the whole map independently of what is visible.
 
-
+class Entity;
 class TileMap
 {
 
@@ -23,6 +25,7 @@ public:
 	TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program);
 	~TileMap();
 
+	void update(int deltaTime);
 	void render() const;
 	void free();
 	
@@ -50,6 +53,7 @@ private:
 	glm::vec2 tileTexSize;
 	int *map;
 
+	std::vector<Entity*> entities;
 };
 
 

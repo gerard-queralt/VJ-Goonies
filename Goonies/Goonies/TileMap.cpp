@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
 #include "TileMap.h"
+#include "Scene.h"
+#include "Skull.h"
 
 
 using namespace std;
@@ -29,6 +30,13 @@ TileMap::~TileMap()
 }
 
 
+void TileMap::update(int deltaTime)
+{
+	for (Entity* e : entities) {
+		e->update(deltaTime);
+	}
+}
+
 void TileMap::render() const
 {
 	glEnable(GL_TEXTURE_2D);
@@ -38,6 +46,9 @@ void TileMap::render() const
 	glEnableVertexAttribArray(texCoordLocation);
 	glDrawArrays(GL_TRIANGLES, 0, 6 * mapSize.x * mapSize.y);
 	glDisable(GL_TEXTURE_2D);
+	for (auto e : entities) {
+		e->render();
+	}
 }
 
 void TileMap::free()
@@ -108,7 +119,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 		for(int i=0; i<mapSize.x; i++)
 		{
 			tile = map[j * mapSize.x + i];
-			if(tile != 0)
+			if(tile > 0)
 			{
 				// Non-empty tile
 				nTiles++;
@@ -131,6 +142,21 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				vertices.push_back(texCoordTile[1].x); vertices.push_back(texCoordTile[1].y);
 				vertices.push_back(posTile.x); vertices.push_back(posTile.y + blockSize);
 				vertices.push_back(texCoordTile[0].x); vertices.push_back(texCoordTile[1].y);
+			}
+			else if (tile < 0) {
+				switch (tile)
+				{
+				case -1: //calavera
+				{
+					Skull *skull = new Skull();
+					skull->init(glm::ivec2(0, 0), program);
+					skull->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
+					entities.push_back(skull);
+					break;
+				}
+				default:
+					break;
+				}
 			}
 		}
 	}

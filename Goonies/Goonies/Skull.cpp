@@ -1,9 +1,5 @@
-#include <cmath>
 #include <iostream>
-#include <GL/glew.h>
-#include <GL/glut.h>
 #include "Skull.h"
-#include "Game.h"
 
 enum SkullAnims
 {
@@ -26,37 +22,28 @@ void Skull::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgram)
 
 	sprite->changeAnimation(MOVE_LEFT);
 	movingLeft = true;
+
+	//status = ALIVE;
 }
 
 void Skull::update(int deltaTime)
 {
 	sprite->update(deltaTime);
 	if (movingLeft) {
-		posSkull.x -= 2;
-		if (posSkull.x < 1*8) {
-			posSkull.x += 2;
+		position.x -= 2;
+		if (position.x < 1*8) {
+			position.x += 2;
 			movingLeft = false;
 			sprite->changeAnimation(MOVE_RIGHT);
 		}
 	}
 	else {
-		posSkull.x += 2;
-		if (posSkull.x > 30 * 8) {
-			posSkull.x -= 2;
+		position.x += 2;
+		if (position.x > 30 * 8) {
+			position.x -= 2;
 			movingLeft = true;
 			sprite->changeAnimation(MOVE_LEFT);
 		}
 	}
-	sprite->setPosition(posSkull);
-}
-
-void Skull::render()
-{
-	sprite->render();
-}
-
-void Skull::setPosition(const glm::vec2 & pos)
-{
-	posSkull = pos;
-	sprite->setPosition(posSkull);
+	sprite->setPosition(position);
 }

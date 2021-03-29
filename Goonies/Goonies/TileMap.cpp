@@ -4,6 +4,8 @@
 #include "TileMap.h"
 #include "Scene.h"
 #include "Skull.h"
+#include "BadGuy.h"
+#include "Stalactite.h"
 #include "StartDoor.h"
 
 
@@ -153,6 +155,18 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					skull->init(glm::ivec2(0, 0), program);
 					skull->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
 					entities.push_back(skull);
+					break;
+				}
+				case -2: //malo
+				{
+					break;
+				}
+				case -3: //estalactita
+				{
+					Stalactite *stal = new Stalactite();
+					stal->init(glm::ivec2(0, 0), program);
+					stal->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
+					entities.push_back(stal);
 					break;
 				}
 				case -6: //start door

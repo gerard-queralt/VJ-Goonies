@@ -50,6 +50,9 @@
     <ClInclude Include="BadGuy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Stalactite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -91,5 +94,6 @@
     <ClCompile Include="BadGuy.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="Stalactite.cpp" />
   </ItemGroup>
 </Project>

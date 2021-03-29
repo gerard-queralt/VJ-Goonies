@@ -1,15 +1,17 @@
 #include <iostream>
 #include "Skull.h"
 
+#define SPEED 1
+
 enum SkullAnims
 {
-	MOVE_LEFT = 0, MOVE_RIGHT, SPAWNING, NUM_ANIM
+	MOVE_LEFT = 0, MOVE_RIGHT, SPAWNING, DYING, NUM_ANIM
 };
 
 void Skull::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
 	spritesheet.loadFromFile("images/skull.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(12, 12), glm::vec2(0.25f, 0.5f), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.25f, 0.5f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(NUM_ANIM);
 
 	sprite->setAnimationSpeed(MOVE_RIGHT, 7);
@@ -38,18 +40,18 @@ void Skull::update(int deltaTime)
 		if (movingLeft) {
 			if (sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
-			position.x -= 2;
+			position.x -= SPEED;
 			if (position.x < 1 * 8) {
-				position.x += 2;
+				position.x += SPEED;
 				movingLeft = false;
 			}
 		}
 		else {
 			if (sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
-			position.x += 2;
+			position.x += SPEED;
 			if (position.x > 30 * 8) {
-				position.x -= 2;
+				position.x -= SPEED;
 				movingLeft = true;
 			}
 		}

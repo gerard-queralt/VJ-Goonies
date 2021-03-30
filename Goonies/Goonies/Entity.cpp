@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "Entity.h"
 
-void Entity::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgram)
+void Entity::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
 }
 
@@ -17,11 +17,5 @@ void Entity::render()
 {
 	if(status != DEAD)
 		sprite->render();
-}
-
-void Entity::setPosition(const glm::vec2 & pos)
-{
-	position = pos;
-	sprite->setPosition(position);
 }
 

@@ -6,6 +6,7 @@
 #include "Skull.h"
 #include "BadGuy.h"
 #include "Stalactite.h"
+#include "WaterDrop.h"
 #include "StartDoor.h"
 
 
@@ -152,8 +153,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				case -1: //calavera
 				{
 					Skull *skull = new Skull();
-					skull->init(glm::ivec2(0, 0), program);
-					skull->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
+					skull->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(skull);
 					break;
 				}
@@ -164,16 +164,21 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				case -3: //estalactita
 				{
 					Stalactite *stal = new Stalactite();
-					stal->init(glm::ivec2(0, 0), program);
-					stal->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
+					stal->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(stal);
+					break;
+				}
+				case -4: //gota
+				{
+					WaterDrop *wd = new WaterDrop();
+					wd->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(wd);
 					break;
 				}
 				case -6: //start door
 				{
 					StartDoor *startDoor = new StartDoor();
-					startDoor->init(glm::ivec2(0, 0), program);
-					startDoor->setPosition(glm::vec2(float(i)*tileSize, float(j)*tileSize));
+					startDoor->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(startDoor);
 					break;
 				}
@@ -224,7 +229,7 @@ bool TileMap::collisionMoveRight(const glm::vec2 &pos, const glm::ivec2 &size) c
 	
 	x = (pos.x + size.x - 1) / tileSize;
 	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize;
+	y1 = (pos.y + size.y - 1) / tileSize; //potser fem la suma de 2 aqui per a ajustar posicio?
 	for(int y=y0; y<=y1; y++)
 	{
 		if(notWalkable(map[y*mapSize.x+x]))

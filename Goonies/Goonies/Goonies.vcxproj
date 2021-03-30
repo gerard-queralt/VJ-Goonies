@@ -162,6 +162,7 @@
     <ClInclude Include="StartDoor.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="WaterDrop.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BadGuy.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="StartDoor.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="WaterDrop.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

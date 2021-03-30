@@ -8,7 +8,7 @@ enum SkullAnims
 	MOVE_LEFT = 0, MOVE_RIGHT, SPAWNING, DYING, NUM_ANIM
 };
 
-void Skull::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgram)
+void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
 	spritesheet.loadFromFile("images/skull.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.25f, 0.5f), &spritesheet, &shaderProgram);
@@ -29,8 +29,11 @@ void Skull::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgram)
 	sprite->changeAnimation(SPAWNING);
 	movingLeft = true;
 
-	status = SPAWNING;
+	status = DEAD;
 	spawnTime = 60;
+
+	position = tileMapPos;
+	sprite->setPosition(position);
 }
 
 void Skull::update(int deltaTime)
@@ -62,5 +65,13 @@ void Skull::update(int deltaTime)
 		--spawnTime;
 		if (spawnTime == 0)
 			status = ALIVE;
+	}
+	else if (status == DEAD) {
+		sprite->update(deltaTime);
+		--spawnTime;
+		if (spawnTime == 0) {
+			status = SPAWNING;
+			spawnTime = 60;
+		}
 	}
 }

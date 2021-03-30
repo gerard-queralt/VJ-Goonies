@@ -2,15 +2,13 @@
 #define _ENTITY_INCLUDE
 
 #include "Sprite.h"
-//#include "TileMap.h"
 
 class Entity
 {
 public:
-	virtual void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
+	virtual void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
 	virtual void update(int deltaTime);
 	void render();
-	void setPosition(const glm::vec2 &pos);
 
 protected:
 	enum EntityStatus {

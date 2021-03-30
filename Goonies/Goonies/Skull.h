@@ -7,7 +7,7 @@ class Skull : public Entity
 {
 
 public:
-	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
+	void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
 
 private:

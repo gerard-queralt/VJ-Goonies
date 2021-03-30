@@ -23,7 +23,7 @@ void Stalactite::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgr
 	sprite->changeAnimation(ALIVE);
 
 	status = ALIVE;
-	startTime = 60;
+	startTime = 60; //temporal
 	dyingTime = 16;
 }
 

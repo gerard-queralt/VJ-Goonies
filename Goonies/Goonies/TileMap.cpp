@@ -245,7 +245,7 @@ bool TileMap::collisionMoveDown(const glm::vec2 &pos, const glm::ivec2 &size, fl
 	{
 		if(notWalkable(map[y*mapSize.x+x]))
 		{
-			if(*posY - tileSize * y + size.y <= 4)
+			if(*posY - tileSize * y + size.y <= 1)
 			{
 				*posY = tileSize * y - size.y;
 				return true;

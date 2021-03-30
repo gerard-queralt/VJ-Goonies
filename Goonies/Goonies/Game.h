@@ -29,6 +29,8 @@ public:
 	void init();
 	bool update(int deltaTime);
 	void render();
+
+	void changeScene(int code);
 	
 	// Input callback methods
 	void keyPressed(int key);

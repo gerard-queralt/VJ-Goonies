@@ -15,7 +15,7 @@
 
 enum GameStates
 {
-	MENU, LEVEL1
+	MENU, PLAYING
 };
 
 
@@ -63,14 +63,10 @@ void Scene::render()
 	case MENU:
 		title->render();
 		break;
-	case LEVEL1:
-	{
-		glm::vec2 mapSize = map->getMapSize();
-		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f + 16.f, -16.f);
+	case PLAYING:
 		map->render();
 		player->render();
 		break;
-	}
 	default:
 		break;
 	}
@@ -83,16 +79,33 @@ void Scene::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 }
 
-void Scene::changeState()
+void Scene::startGame()
 {
 	if (currentState == MENU) {
-		currentState = LEVEL1;
-		map = TileMap::createTileMap("levels/level01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+		currentState = PLAYING;
+		map = TileMap::createTileMap("levels/level01/scene01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 		player = new Player();
 		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 		player->setTileMap(map);
+		glm::vec2 mapSize = map->getMapSize();
+		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f + 16.f, -16.f);
 	}
+}
+
+//Code es un numero de 6 xifres ABXXYY, on A es el nivell, B es l'escena
+//i XX i YY la posicio de la tile on es coloca el personatge
+void Scene::changeScene(int code)
+{
+	int lvl = code / 100000;
+	int scene = (code / 10000) % 10;
+	string path = std::string("levels/level0") + std::to_string(lvl) + std::string("/scene0") + std::to_string(scene) + std::string(".txt");
+	map = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	float x = (code % 10000) / 100;
+	float y = (code % 100);
+	y += 0.5; //per que no quedi elevat
+	player->setPosition(glm::vec2(x * map->getTileSize(), y * map->getTileSize()));
+	player->setTileMap(map);
 }
 
 void Scene::initShaders()

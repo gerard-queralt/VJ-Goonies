@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include "TileMap.h"
-#include "Scene.h"
+#include "Game.h"
 #include "Skull.h"
 #include "BadGuy.h"
 #include "Stalactite.h"
@@ -36,9 +36,9 @@ TileMap::~TileMap()
 
 void TileMap::update(int deltaTime)
 {
-	for (Entity* e : entities) {
-		e->update(deltaTime);
-	}
+	if (entities.size() > 0)
+		for (Entity* e : entities)
+			e->update(deltaTime);
 }
 
 void TileMap::render() const
@@ -50,9 +50,9 @@ void TileMap::render() const
 	glEnableVertexAttribArray(texCoordLocation);
 	glDrawArrays(GL_TRIANGLES, 0, 6 * mapSize.x * mapSize.y);
 	glDisable(GL_TEXTURE_2D);
-	for (Entity* e : entities) {
-		e->render();
-	}
+	if (entities.size() > 0)
+		for (Entity* e : entities)
+			e->render();
 }
 
 void TileMap::free()
@@ -200,7 +200,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 
 bool TileMap::notWalkable(int tile) const
 {
-	return (tile == 111 || tile == 112 || (80<tile && tile<87) || (12<tile && tile<16) || tile == 68);
+	return (tile == 111 || tile == 112 || (80<tile && tile<87) || (12<tile && tile<17) || tile == 68 || tile == 69 || tile == 97);
 }
 
 // Collision tests for axis aligned bounding boxes.
@@ -216,6 +216,10 @@ bool TileMap::collisionMoveLeft(const glm::vec2 &pos, const glm::ivec2 &size) co
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
 	{
+		if (map[y*mapSize.x + x] < -100000) {
+			Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+			return false;
+		}
 		if(notWalkable(map[y*mapSize.x+x]))
 			return true;
 	}
@@ -229,9 +233,13 @@ bool TileMap::collisionMoveRight(const glm::vec2 &pos, const glm::ivec2 &size) c
 	
 	x = (pos.x + size.x - 1) / tileSize;
 	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize; //potser fem la suma de 2 aqui per a ajustar posicio?
+	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
 	{
+		if (map[y*mapSize.x + x] < -100000) {
+			Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+			return false;
+		}
 		if(notWalkable(map[y*mapSize.x+x]))
 			return true;
 	}
@@ -245,7 +253,7 @@ bool TileMap::collisionMoveDown(const glm::vec2 &pos, const glm::ivec2 &size, fl
 	
 	x0 = pos.x / tileSize;
 	x1 = (pos.x + size.x - 1) / tileSize;
-	y = (pos.y + size.y - 1) / tileSize;
+	y = (pos.y + size.y - 1) / tileSize; //potser fem la suma de 2 aqui per a ajustar posicio?
 	for(int x=x0; x<=x1; x++)
 	{
 		if(notWalkable(map[y*mapSize.x+x]))

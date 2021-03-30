@@ -23,7 +23,8 @@ public:
 	void update(int deltaTime);
 	void render();
 
-	void changeState();
+	void startGame();
+	void changeScene(int code);
 
 private:
 	void initShaders();

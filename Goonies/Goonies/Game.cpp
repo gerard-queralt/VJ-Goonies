@@ -2,7 +2,6 @@
 #include <GL/glut.h>
 #include "Game.h"
 
-
 void Game::init()
 {
 	bPlay = true;
@@ -23,12 +22,17 @@ void Game::render()
 	scene.render();
 }
 
+void Game::changeScene(int code)
+{
+	scene.changeScene(code);
+}
+
 void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code
 		bPlay = false;
 	keys[key] = true;
-	scene.changeState();
+	scene.startGame();
 }
 
 void Game::keyReleased(int key)

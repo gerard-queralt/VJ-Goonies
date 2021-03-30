@@ -7,4 +7,4 @@
 -7 closeddoor
 -8 lock
 
--1XY tp to level X scene Y
+-ABXY tp to level A scene B at pos X Y

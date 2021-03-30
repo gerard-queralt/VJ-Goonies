@@ -33,6 +33,7 @@ private:
 	int health;
 	int level;
 	int exp;
+	bool powerUps;
 
 	PlayerStatus status;
 	SpaceKeyStatus spaceKeyStatus;

@@ -11,7 +11,7 @@
 #define SCREEN_Y 0
 
 #define INIT_PLAYER_X_TILES 12.5
-#define INIT_PLAYER_Y_TILES 8
+#define INIT_PLAYER_Y_TILES 7.5
 
 enum GameStates
 {

@@ -17,11 +17,18 @@ enum PlayerAnims
 	STAND_LEFT=0, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, PUNCH_LEFT, PUNCH_RIGHT, CLIMBING, NUM_ANIM
 };
 
+enum PowerUps
+{
+	HELMET = 0, HYPER_SHOES, WATERCOAT, NUM_POWER_UPS
+};
+
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	health = 100;
 	level = 1;
 	exp = 0;
+	bool tmp[NUM_POWER_UPS] = { false };
+	powerUps = tmp;
 
 	status = GROUNDED;
 	startTime = 60;
@@ -111,7 +118,7 @@ void Player::update(int deltaTime)
 		}
 		else if ((Game::instance().getSpecialKey(GLUT_KEY_LEFT) && status == GROUNDED) || (sprite->animation() == JUMP_LEFT && keepMovingInAir))
 		{
-			if (sprite->animation() != MOVE_LEFT && !keepMovingInAir)
+			if (sprite->animation() != MOVE_LEFT && status == GROUNDED)
 				sprite->changeAnimation(MOVE_LEFT);
 			posPlayer.x -= SPEED;
 			if (map->collisionMoveLeft(posPlayer, glm::ivec2(16, 16)))
@@ -123,7 +130,7 @@ void Player::update(int deltaTime)
 		}
 		else if ((Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && status == GROUNDED) || (sprite->animation() == JUMP_RIGHT && keepMovingInAir))
 		{
-			if (sprite->animation() != MOVE_RIGHT && !keepMovingInAir)
+			if (sprite->animation() != MOVE_RIGHT && status == GROUNDED)
 				sprite->changeAnimation(MOVE_RIGHT);
 			posPlayer.x += SPEED;
 			if (map->collisionMoveRight(posPlayer, glm::ivec2(16, 16)))
@@ -157,7 +164,7 @@ void Player::update(int deltaTime)
 			{
 				posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
 				if (jumpAngle > 90)
-					if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 16), &posPlayer.y))
+					if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 18), &posPlayer.y))
 						status = GROUNDED;
 					else
 						status = FALLING;
@@ -166,7 +173,7 @@ void Player::update(int deltaTime)
 		else
 		{
 			posPlayer.y += FALL_STEP;
-			if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 16), &posPlayer.y))
+			if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 18), &posPlayer.y))
 			{
 				if (sprite->animation() == JUMP_LEFT)
 					sprite->changeAnimation(STAND_LEFT);

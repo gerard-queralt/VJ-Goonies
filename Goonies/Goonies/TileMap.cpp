@@ -36,9 +36,8 @@ TileMap::~TileMap()
 
 void TileMap::update(int deltaTime)
 {
-	if (entities.size() > 0)
-		for (Entity* e : entities)
-			e->update(deltaTime);
+	for (Entity* e : entities)
+		e->update(deltaTime);
 }
 
 void TileMap::render() const
@@ -50,9 +49,8 @@ void TileMap::render() const
 	glEnableVertexAttribArray(texCoordLocation);
 	glDrawArrays(GL_TRIANGLES, 0, 6 * mapSize.x * mapSize.y);
 	glDisable(GL_TEXTURE_2D);
-	if (entities.size() > 0)
-		for (Entity* e : entities)
-			e->render();
+	for (Entity* e : entities)
+		e->render();
 }
 
 void TileMap::free()

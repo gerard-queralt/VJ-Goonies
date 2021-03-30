@@ -29,8 +29,11 @@ public:
 private:
 	void initShaders();
 
+	void createLevel(int lvl);
+
 private:
-	TileMap *map;
+	TileMap *map[3];
+	int currentScene;
 	Player *player;
 	ShaderProgram texProgram;
 	float currentTime;

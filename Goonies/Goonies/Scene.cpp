@@ -15,20 +15,23 @@
 
 enum GameStates
 {
-	MENU, PLAYING
+	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5
 };
 
 
 Scene::Scene()
 {
-	map = NULL;
+	map[0] = map[1] = map[2] = NULL;
 	player = NULL;
 }
 
 Scene::~Scene()
 {
-	if(map != NULL)
-		delete map;
+	if (map != NULL){
+		delete map[0];
+		delete map[1];
+		delete map[2];
+	}
 	if(player != NULL)
 		delete player;
 }
@@ -49,7 +52,7 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	if (currentState != MENU) {
-		map->update(deltaTime);
+		map[currentScene-1]->update(deltaTime);
 		player->update(deltaTime);
 	}
 }
@@ -63,8 +66,12 @@ void Scene::render()
 	case MENU:
 		title->render();
 		break;
-	case PLAYING:
-		map->render();
+	case LEVEL1:
+	case LEVEL2:
+	case LEVEL3:
+	case LEVEL4:
+	case LEVEL5:
+		map[currentScene-1]->render();
 		player->render();
 		break;
 	default:
@@ -82,13 +89,14 @@ void Scene::render()
 void Scene::startGame()
 {
 	if (currentState == MENU) {
-		currentState = PLAYING;
-		map = TileMap::createTileMap("levels/level01/scene01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+		currentState = LEVEL1;
+		currentScene = 1;
+		createLevel(1);
 		player = new Player();
 		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-		player->setTileMap(map);
-		glm::vec2 mapSize = map->getMapSize();
+		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0]->getTileSize()));
+		player->setTileMap(map[0]);
+		glm::vec2 mapSize = map[0]->getMapSize();
 		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f + 16.f, -16.f);
 	}
 }
@@ -98,14 +106,14 @@ void Scene::startGame()
 void Scene::changeScene(int code)
 {
 	int lvl = code / 100000;
-	int scene = (code / 10000) % 10;
-	string path = std::string("levels/level0") + std::to_string(lvl) + std::string("/scene0") + std::to_string(scene) + std::string(".txt");
-	map = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	if (currentState != lvl)
+		createLevel(lvl);
+	currentScene = (code / 10000) % 10;
 	float x = (code % 10000) / 100;
 	float y = (code % 100);
 	y += 0.5; //per que no quedi elevat
-	player->setPosition(glm::vec2(x * map->getTileSize(), y * map->getTileSize()));
-	player->setTileMap(map);
+	player->setPosition(glm::vec2(x * map[currentScene-1]->getTileSize(), y * map[currentScene - 1]->getTileSize()));
+	player->setTileMap(map[currentScene - 1]);
 }
 
 void Scene::initShaders()
@@ -136,6 +144,15 @@ void Scene::initShaders()
 	texProgram.bindFragmentOutput("outColor");
 	vShader.free();
 	fShader.free();
+}
+
+void Scene::createLevel(int lvl)
+{
+	for (int i = 0; i < 2/*hauria de ser 3*/; ++i) {
+		string path = std::string("levels/level0") + std::to_string(lvl) + std::string("/scene0") + std::to_string(i+1) + std::string(".txt");
+		map[i] = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	}
+	currentState = lvl;
 }
 
 

@@ -7,14 +7,15 @@
 
 
 #define JUMP_ANGLE_STEP 4
-#define JUMP_HEIGHT 16*3
+#define JUMP_HEIGHT 16
 #define FALL_STEP 1
 #define SPEED 0.5
+#define CLIMB_SPEED 1
 
 
 enum PlayerAnims
 {
-	STAND_LEFT=0, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, PUNCH_LEFT, PUNCH_RIGHT, CLIMBING, NUM_ANIM
+	STAND_LEFT=0, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, PUNCH_LEFT, PUNCH_RIGHT, IDLE_CLIMBING, CLIMBING_ANIM, NUM_ANIM
 };
 
 enum PowerUps
@@ -66,11 +67,15 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 		sprite->setAnimationSpeed(PUNCH_LEFT, 8);
 		sprite->addKeyframe(PUNCH_LEFT, glm::vec2(0.75f, 0.5f));
 
-		sprite->setAnimationSpeed(CLIMBING, 8);
-		sprite->addKeyframe(CLIMBING, glm::vec2(0.f, 0.5f));
-		sprite->addKeyframe(CLIMBING, glm::vec2(0.25f, 0.5f));
+		sprite->setAnimationSpeed(IDLE_CLIMBING, 8);
+		sprite->addKeyframe(IDLE_CLIMBING, glm::vec2(0.f, 0.5f));
+
+		sprite->setAnimationSpeed(CLIMBING_ANIM, 8);
+		sprite->addKeyframe(CLIMBING_ANIM, glm::vec2(0.f, 0.5f));
+		sprite->addKeyframe(CLIMBING_ANIM, glm::vec2(0.25f, 0.5f));
 
 	sprite->changeAnimation(STAND_RIGHT);
+	lookingLeft = false;
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x) + posPlayer.x, float(tileMapDispl.y) + posPlayer.y));
 	
@@ -127,6 +132,7 @@ void Player::update(int deltaTime)
 				keepMovingInAir = false;
 				sprite->changeAnimation(STAND_LEFT);
 			}
+			lookingLeft = true;
 		}
 		else if ((Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && status == GROUNDED) || (sprite->animation() == JUMP_RIGHT && keepMovingInAir))
 		{
@@ -139,6 +145,7 @@ void Player::update(int deltaTime)
 				keepMovingInAir = false;
 				sprite->changeAnimation(STAND_RIGHT);
 			}
+			lookingLeft = false;
 		}
 		else if(status == GROUNDED)
 		{
@@ -170,6 +177,39 @@ void Player::update(int deltaTime)
 						status = FALLING;
 			}
 		}
+		else if (status == CLIMBING) {
+			if (Game::instance().getSpecialKey(GLUT_KEY_UP)) 
+			{
+				if(sprite->animation()!=CLIMBING_ANIM)
+					sprite->changeAnimation(CLIMBING_ANIM);
+				posPlayer.y -= CLIMB_SPEED;
+				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 16), &posPlayer.y))
+				{
+					posPlayer.y -= 4; //segurament se pot fer millor en una deteccio de col·lisions diferent
+					status = GROUNDED;
+					if (lookingLeft)
+						sprite->changeAnimation(STAND_LEFT);
+					else
+						sprite->changeAnimation(STAND_RIGHT);
+				}
+			}
+			else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN)) 
+			{
+				if (sprite->animation() != CLIMBING_ANIM)
+					sprite->changeAnimation(CLIMBING_ANIM);
+				posPlayer.y += CLIMB_SPEED;
+				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 18), &posPlayer.y))
+				{
+					status = GROUNDED;
+					if(lookingLeft)
+						sprite->changeAnimation(STAND_LEFT);
+					else
+						sprite->changeAnimation(STAND_RIGHT);
+				}
+			}
+			else
+				sprite->changeAnimation(IDLE_CLIMBING);
+		}
 		else
 		{
 			posPlayer.y += FALL_STEP;
@@ -184,9 +224,15 @@ void Player::update(int deltaTime)
 				keepMovingInAir = false;
 				if (Game::instance().getSpecialKey(GLUT_KEY_UP))
 				{
-					status = JUMPING;
-					jumpAngle = 0;
-					startY = posPlayer.y;
+					if (status == GROUNDED && map->climb(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft)) {
+						sprite->changeAnimation(IDLE_CLIMBING);
+						status = CLIMBING;
+					}
+					else {
+						status = JUMPING;
+						jumpAngle = 0;
+						startY = posPlayer.y;
+					}
 				}
 			}
 		}

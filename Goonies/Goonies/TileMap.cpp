@@ -272,6 +272,56 @@ bool TileMap::collisionMoveDown(const glm::vec2 &pos, const glm::ivec2 &size, fl
 	return false;
 }
 
+//WIP
+bool TileMap::collisionMoveUp(const glm::vec2 &pos, const glm::ivec2 &size, float *posY) const
+{
+	int x0, x1, y;
+
+	x0 = pos.x / tileSize;
+	x1 = (pos.x + size.x - 1) / tileSize;
+	y = (pos.y /*+ size.y - 1*/) / tileSize;
+	for (int x = x0; x <= x1; x++)
+	{
+		if (notWalkable(map[y*mapSize.x + x]))
+		{
+			if (*posY - tileSize * y + size.y <= 1)
+			{
+				*posY = tileSize * y - size.y;
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool TileMap::climb(const glm::vec2 & pos, const glm::ivec2 & size, float * posX, bool lookingLeft) const
+{
+	int x0, x1, y;
+	
+	if (lookingLeft) { //no va quan astem damunt de la liana
+		x0 = (pos.x - (size.x - 1)/4) / tileSize; //el /4 no el tinc clar, pero mes o menys se sent be, si no s'agafa de massa lluny
+		x1 = (pos.x) / tileSize;
+	}
+	else {
+		x0 = (pos.x) / tileSize;
+		x1 = (pos.x + (size.x - 1)) / tileSize;
+	}
+	y = pos.y / tileSize;
+	for (int x = x0; x <= x1; x++)
+	{
+		if ((map[y*mapSize.x + x]) == 101 /*tile liana*/)
+		{
+			if (*posX != (y*mapSize.x + x) % mapSize.x) //crec que es aixi ``'
+			{
+				*posX = (y*mapSize.x + x) % mapSize.x * tileSize - 3;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 glm::vec2 TileMap::getMapSize()
 {
 	return mapSize;

@@ -14,7 +14,7 @@ class Player
 {
 
 	enum PlayerStatus {
-		GROUNDED = 0, JUMPING, FALLING, PUNCHING
+		GROUNDED = 0, JUMPING, FALLING, PUNCHING, CLIMBING
 	};
 
 	enum SpaceKeyStatus {
@@ -34,6 +34,8 @@ private:
 	int level;
 	int exp;
 	bool powerUps;
+
+	bool lookingLeft; //Boolea per recuperar l'orientacio despres d'escalar
 
 	PlayerStatus status;
 	SpaceKeyStatus spaceKeyStatus;

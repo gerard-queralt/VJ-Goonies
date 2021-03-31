@@ -183,7 +183,7 @@ void Player::update(int deltaTime)
 				if(sprite->animation()!=CLIMBING_ANIM)
 					sprite->changeAnimation(CLIMBING_ANIM);
 				posPlayer.y -= CLIMB_SPEED;
-				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 10), &posPlayer.y))
+				if (map->stopClimbing(posPlayer, glm::ivec2(10, 16), true))
 				{
 					posPlayer.y -= 12; //segurament se pot fer millor en una deteccio de col·lisions diferent
 					status = GROUNDED;
@@ -198,7 +198,7 @@ void Player::update(int deltaTime)
 				if (sprite->animation() != CLIMBING_ANIM)
 					sprite->changeAnimation(CLIMBING_ANIM);
 				posPlayer.y += CLIMB_SPEED;
-				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 10), &posPlayer.y))
+				if (map->stopClimbing(posPlayer, glm::ivec2(10, 16), false))
 				{
 					status = GROUNDED;
 					if(lookingLeft)

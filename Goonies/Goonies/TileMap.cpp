@@ -311,7 +311,7 @@ bool TileMap::climbUp(const glm::vec2 & pos, const glm::ivec2 & size, float * po
 	y = (pos.y + size.y - 1) / tileSize;
 	for (int x = x0; x <= x1; x++)
 	{
-		if ((map[y*mapSize.x + x]) == 2 /*tile liana al terra*/ || map[y*mapSize.x + x] == 101 /*tile liana*/)
+		if (map[y*mapSize.x + x] == 2 /*tile liana al terra*/)
 		{
 			if (*posX != (y*mapSize.x + x) % mapSize.x) //crec que es aixi ``'
 			{
@@ -333,7 +333,7 @@ bool TileMap::climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *pos
 	y += 1; //mirem la tile de sota
 	for (int x = x0; x <= x1; x++)
 	{
-		if (map[y*mapSize.x + x] == 100 /*tile liana al sostre*/ || map[y*mapSize.x + x] == 101 /*tile liana*/)
+		if (map[y*mapSize.x + x] == 100 /*tile liana al sostre*/)
 		{
 			if (*posX != (y*mapSize.x + x) % mapSize.x) //crec que es aixi ``'
 			{
@@ -344,6 +344,44 @@ bool TileMap::climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *pos
 	}
 
 	return false;
+}
+
+bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool up) const
+{
+	//int x, y0, y1;
+
+	//x = (pos.x + size.x - 1) / tileSize;
+	//y0 = (pos.y - 1) / tileSize;
+	//y1 = (pos.y + size.y + 1) / tileSize;
+	//for (int y = y0; y <= y1; y++)
+	//{
+		//if (map[y*mapSize.x + x] != 101 /*tile liana*/ || 
+			//map[y*mapSize.x + x] != 2 /*tile liana al terra*/ || 
+			//map[y*mapSize.x + x] != 100 /*tile liana al sostre*/) {
+			//return true;
+		//}
+	//}
+
+	//return false;
+
+	int x, y;
+	x = (pos.x + size.x) / tileSize;
+	if (up) {
+		y = (pos.y - 1) / tileSize;
+		++y; //la següent tile
+		if (map[y*mapSize.x + x] != 101 /*tile liana*/ &&
+			map[y*mapSize.x + x] != 100 /*tile liana al sostre*/)
+			return true;
+		return false;
+	}
+	else {
+		y = (pos.y + size.y + 1) / tileSize;
+		++y; //la següent tile
+		if (map[y*mapSize.x + x] != 101 /*tile liana*/ &&
+			map[y*mapSize.x + x] != 2 /*tile liana al terra*/)
+			return true;
+		return false;
+	}
 }
 
 glm::vec2 TileMap::getMapSize()

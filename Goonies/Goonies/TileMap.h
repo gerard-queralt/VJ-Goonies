@@ -35,7 +35,9 @@ public:
 	bool collisionMoveDown(const glm::vec2 &pos, const glm::ivec2 &size, float *posY) const;
 	bool collisionMoveUp(const glm::vec2 &pos, const glm::ivec2 &size, float *posY) const;
 
-	bool climb(const glm::vec2 &pos, const glm::ivec2 &size, float *posX, bool lookingLeft) const;
+	bool climbUp(const glm::vec2 &pos, const glm::ivec2 &size, float *posX, bool lookingLeft) const;
+	bool climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *posX, bool lookingLeft) const;
+	bool stopClimbing(const glm::vec2 &pos, const glm::ivec2 &size, bool up) const;
 
 	glm::vec2 getMapSize();
 	

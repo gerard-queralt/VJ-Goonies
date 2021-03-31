@@ -36,7 +36,7 @@ void Stalactite::update(int deltaTime)
 		sprite->update(deltaTime);
 		if (status == ALIVE) {
 			position.y += FALL_SPEED;
-			if (map->collisionMoveDown(position, glm::ivec2(16, 8), &position.y)) {
+			if (map->collisionMoveDown(position, glm::ivec2(16, 1), &position.y)) {
 				//position.y -= FALL_SPEED;
 				sprite->changeAnimation(CRASHED);
 				status = DYING;

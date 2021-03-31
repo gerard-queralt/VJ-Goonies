@@ -62,6 +62,9 @@
     <ClInclude Include="WaterDrop.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Key.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -107,6 +110,9 @@
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="WaterDrop.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>

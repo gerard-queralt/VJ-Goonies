@@ -6,5 +6,6 @@
 -6 startdoor
 -7 closeddoor
 -8 lock
+-9 key
 
 -ABXY tp to level A scene B at pos X Y

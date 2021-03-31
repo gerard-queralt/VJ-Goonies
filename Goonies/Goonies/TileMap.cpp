@@ -9,6 +9,7 @@
 #include "Stalactite.h"
 #include "WaterDrop.h"
 #include "StartDoor.h"
+#include "Key.h"
 
 
 using namespace std;
@@ -189,12 +190,28 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					entities.push_back(wd);
 					break;
 				}
-				case -6: //start door
+				case -6: //porta inici
 				{
 					StartDoor *startDoor = new StartDoor();
 					startDoor->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					startDoor->setTileMap(this);
 					entities.push_back(startDoor);
+					break;
+				}
+				case -7: //porta tancada
+				{
+
+				}
+				case -8: //candau
+				{
+
+				}
+				case -9: //clau
+				{
+					Key *key = new Key();
+					key->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					key->setTileMap(this);
+					entities.push_back(key);
 					break;
 				}
 				default:

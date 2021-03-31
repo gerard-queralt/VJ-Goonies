@@ -13,7 +13,7 @@ enum WaterDropAnim
 void WaterDrop::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
 	spritesheet.loadFromFile("images/waterdrop.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.5f, 0.5f), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(8, 8), glm::vec2(0.5f, 0.5f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(NUM_ANIM);
 
 	sprite->setAnimationSpeed(ROOF, 8);
@@ -63,7 +63,7 @@ void WaterDrop::update(int deltaTime)
 		}
 		else if (sprite->animation() == FALLING) {
 			position.y += FALL_SPEED;
-			if (map->collisionMoveDown(position, glm::ivec2(4, 10), &position.y)) {
+			if (map->collisionMoveDown(position, glm::ivec2(4, 2), &position.y)) {
 				sprite->changeAnimation(SPLASHED);
 			}
 		}

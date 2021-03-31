@@ -203,7 +203,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 
 bool TileMap::notWalkable(int tile) const
 {
-	return (tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) ||
+	return (tile == 1 || /* == 2 ||*/ tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) ||
 			(12<tile && tile<16) || tile == 68 || tile == 158 || tile == 176);
 }
 
@@ -311,7 +311,7 @@ bool TileMap::climbUp(const glm::vec2 & pos, const glm::ivec2 & size, float * po
 	y = (pos.y + size.y - 1) / tileSize;
 	for (int x = x0; x <= x1; x++)
 	{
-		if ((map[y*mapSize.x + x]) == 2 /*tile liana al terra*/)
+		if ((map[y*mapSize.x + x]) == 2 /*tile liana al terra*/ || map[y*mapSize.x + x] == 101 /*tile liana*/)
 		{
 			if (*posX != (y*mapSize.x + x) % mapSize.x) //crec que es aixi ``'
 			{
@@ -320,6 +320,29 @@ bool TileMap::climbUp(const glm::vec2 & pos, const glm::ivec2 & size, float * po
 			}
 		}
 	}
+	return false;
+}
+
+bool TileMap::climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *posX, bool lookingLeft) const
+{
+	int x0, x1, y;
+
+	x0 = pos.x / tileSize;
+	x1 = (pos.x + size.x - 1) / tileSize;
+	y = (pos.y + size.y - 1) / tileSize;
+	y += 1; //mirem la tile de sota
+	for (int x = x0; x <= x1; x++)
+	{
+		if (map[y*mapSize.x + x] == 100 /*tile liana al sostre*/ || map[y*mapSize.x + x] == 101 /*tile liana*/)
+		{
+			if (*posX != (y*mapSize.x + x) % mapSize.x) //crec que es aixi ``'
+			{
+				*posX = (y*mapSize.x + x) % mapSize.x * tileSize - 3;
+				return true;
+			}
+		}
+	}
+
 	return false;
 }
 

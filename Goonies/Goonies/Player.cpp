@@ -234,6 +234,13 @@ void Player::update(int deltaTime)
 						startY = posPlayer.y;
 					}
 				}
+				else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN))
+				{
+					if (status == GROUNDED && map->climbDown(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft)) {
+						sprite->changeAnimation(IDLE_CLIMBING);
+						status = CLIMBING;
+					}
+				}
 			}
 		}
 	}

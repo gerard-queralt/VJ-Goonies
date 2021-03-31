@@ -185,7 +185,7 @@ void Player::update(int deltaTime)
 				posPlayer.y -= CLIMB_SPEED;
 				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 10), &posPlayer.y))
 				{
-					posPlayer.y -= 4; //segurament se pot fer millor en una deteccio de col·lisions diferent
+					posPlayer.y -= 12; //segurament se pot fer millor en una deteccio de col·lisions diferent
 					status = GROUNDED;
 					if (lookingLeft)
 						sprite->changeAnimation(STAND_LEFT);

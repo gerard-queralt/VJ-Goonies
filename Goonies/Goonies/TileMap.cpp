@@ -203,8 +203,8 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 
 bool TileMap::notWalkable(int tile) const
 {
-	return (tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) || (12<tile && tile<16) ||
-			tile == 68 || tile == 158 || tile == 176);
+	return (tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) ||
+			(12<tile && tile<16) || tile == 68 || tile == 158 || tile == 176);
 }
 
 // Collision tests for axis aligned bounding boxes.
@@ -308,10 +308,10 @@ bool TileMap::climbUp(const glm::vec2 & pos, const glm::ivec2 & size, float * po
 		x0 = (pos.x) / tileSize;
 		x1 = (pos.x + (size.x - 1)) / tileSize;
 	}
-	y = pos.y / tileSize;
+	y = (pos.y + size.y - 1) / tileSize;
 	for (int x = x0; x <= x1; x++)
 	{
-		if ((map[y*mapSize.x + x]) == 101 /*tile liana*/)
+		if ((map[y*mapSize.x + x]) == 2 /*tile liana al terra*/)
 		{
 			if (*posX != (y*mapSize.x + x) % mapSize.x) //crec que es aixi ``'
 			{

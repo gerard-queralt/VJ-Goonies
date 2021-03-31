@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include "Game.h"
 #include "Entity.h"
+#include "TileMap.h"
 
 void Entity::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
@@ -17,5 +18,10 @@ void Entity::render()
 {
 	if(status != DEAD)
 		sprite->render();
+}
+
+void Entity::setTileMap(TileMap * tileMap)
+{
+	map = tileMap;
 }
 

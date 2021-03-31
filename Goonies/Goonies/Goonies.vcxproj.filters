@@ -9,6 +9,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{22e7e25f-b162-42f3-8cd0-4ccb3d2d2d91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Entities">
+      <UniqueIdentifier>{7f0549cc-5374-4f5f-8617-47c1329f063e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h">
@@ -38,23 +44,23 @@
     <ClInclude Include="TileMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Skull.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StartDoor.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="BadGuy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Skull.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Stalactite.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="StartDoor.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="WaterDrop.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,23 +91,23 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Skull.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="BadGuy.cpp">
+      <Filter>Resource Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="StartDoor.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BadGuy.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="Skull.cpp">
+      <Filter>Resource Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Stalactite.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="StartDoor.cpp">
+      <Filter>Resource Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="WaterDrop.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

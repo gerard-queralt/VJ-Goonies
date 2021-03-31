@@ -44,7 +44,7 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
 			position.x -= SPEED;
-			if (position.x < 1 * 8) {
+			if (map->collisionMoveLeft(position, glm::ivec2(16, 16))) {
 				position.x += SPEED;
 				movingLeft = false;
 			}
@@ -53,7 +53,7 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
 			position.x += SPEED;
-			if (position.x > 30 * 8) {
+			if (map->collisionMoveRight(position, glm::ivec2(16, 16))) {
 				position.x -= SPEED;
 				movingLeft = true;
 			}

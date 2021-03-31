@@ -6,8 +6,8 @@
 #include <vector>
 #include "Texture.h"
 #include "ShaderProgram.h"
-#include "Entity.h"
 
+class Entity; //forward declaration
 
 // Class Tilemap is capable of loading a tile map from a text file in a very
 // simple format (see level01.txt for an example). With this information

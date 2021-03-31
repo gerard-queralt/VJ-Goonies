@@ -62,8 +62,8 @@ void WaterDrop::update(int deltaTime)
 		}
 		else if (sprite->animation() == FALLING) {
 			position.y += FALL_SPEED;
-			if (position.y >= 5 * 8 + 9 * 8 - 2) { //aixo s'ha de canviar per deteccio de col·lisions
-				position.y = 5 * 8 + 9 * 8 - 2;
+			if (map->collisionMoveDown(position, glm::ivec2(4, 18), &position.y)) {
+				//position.y -= FALL_SPEED;
 				sprite->changeAnimation(SPLASHED);
 			}
 		}

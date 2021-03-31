@@ -3,6 +3,7 @@
 #include <sstream>
 #include "TileMap.h"
 #include "Game.h"
+#include "Entity.h"
 #include "Skull.h"
 #include "BadGuy.h"
 #include "Stalactite.h"
@@ -152,6 +153,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				{
 					Skull *skull = new Skull();
 					skull->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					skull->setTileMap(this);
 					entities.push_back(skull);
 					break;
 				}
@@ -163,6 +165,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				{
 					Stalactite *stal = new Stalactite();
 					stal->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					stal->setTileMap(this);
 					entities.push_back(stal);
 					break;
 				}
@@ -170,6 +173,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				{
 					WaterDrop *wd = new WaterDrop();
 					wd->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					wd->setTileMap(this);
 					entities.push_back(wd);
 					break;
 				}
@@ -177,6 +181,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				{
 					StartDoor *startDoor = new StartDoor();
 					startDoor->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					startDoor->setTileMap(this);
 					entities.push_back(startDoor);
 					break;
 				}

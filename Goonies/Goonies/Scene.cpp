@@ -148,7 +148,7 @@ void Scene::initShaders()
 
 void Scene::createLevel(int lvl)
 {
-	for (int i = 0; i < 2/*hauria de ser 3*/; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		string path = std::string("levels/level0") + std::to_string(lvl) + std::string("/scene0") + std::to_string(i+1) + std::string(".txt");
 		map[i] = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	}

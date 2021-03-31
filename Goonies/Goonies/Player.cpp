@@ -126,7 +126,7 @@ void Player::update(int deltaTime)
 			if (sprite->animation() != MOVE_LEFT && status == GROUNDED)
 				sprite->changeAnimation(MOVE_LEFT);
 			posPlayer.x -= SPEED;
-			if (map->collisionMoveLeft(posPlayer, glm::ivec2(16, 16)))
+			if (map->collisionMoveLeft(posPlayer, glm::ivec2(16, 10)))
 			{
 				posPlayer.x += SPEED;
 				keepMovingInAir = false;
@@ -139,7 +139,7 @@ void Player::update(int deltaTime)
 			if (sprite->animation() != MOVE_RIGHT && status == GROUNDED)
 				sprite->changeAnimation(MOVE_RIGHT);
 			posPlayer.x += SPEED;
-			if (map->collisionMoveRight(posPlayer, glm::ivec2(16, 16)))
+			if (map->collisionMoveRight(posPlayer, glm::ivec2(16, 10)))
 			{
 				posPlayer.x -= SPEED;
 				keepMovingInAir = false;
@@ -171,7 +171,7 @@ void Player::update(int deltaTime)
 			{
 				posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
 				if (jumpAngle > 90)
-					if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 18), &posPlayer.y))
+					if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 10), &posPlayer.y))
 						status = GROUNDED;
 					else
 						status = FALLING;
@@ -183,7 +183,7 @@ void Player::update(int deltaTime)
 				if(sprite->animation()!=CLIMBING_ANIM)
 					sprite->changeAnimation(CLIMBING_ANIM);
 				posPlayer.y -= CLIMB_SPEED;
-				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 16), &posPlayer.y))
+				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 10), &posPlayer.y))
 				{
 					posPlayer.y -= 4; //segurament se pot fer millor en una deteccio de col·lisions diferent
 					status = GROUNDED;
@@ -198,7 +198,7 @@ void Player::update(int deltaTime)
 				if (sprite->animation() != CLIMBING_ANIM)
 					sprite->changeAnimation(CLIMBING_ANIM);
 				posPlayer.y += CLIMB_SPEED;
-				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 18), &posPlayer.y))
+				if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 10), &posPlayer.y))
 				{
 					status = GROUNDED;
 					if(lookingLeft)
@@ -213,7 +213,7 @@ void Player::update(int deltaTime)
 		else
 		{
 			posPlayer.y += FALL_STEP;
-			if (map->collisionMoveDown(posPlayer, glm::ivec2(16, 18), &posPlayer.y))
+			if (map->collisionMoveDown(posPlayer, glm::ivec2(12, 10), &posPlayer.y))
 			{
 				if (sprite->animation() == JUMP_LEFT)
 					sprite->changeAnimation(STAND_LEFT);
@@ -224,7 +224,7 @@ void Player::update(int deltaTime)
 				keepMovingInAir = false;
 				if (Game::instance().getSpecialKey(GLUT_KEY_UP))
 				{
-					if (status == GROUNDED && map->climb(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft)) {
+					if (status == GROUNDED && map->climbUp(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft)) {
 						sprite->changeAnimation(IDLE_CLIMBING);
 						status = CLIMBING;
 					}

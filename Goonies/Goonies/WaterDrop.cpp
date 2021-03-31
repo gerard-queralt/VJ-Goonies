@@ -62,7 +62,7 @@ void WaterDrop::update(int deltaTime)
 		}
 		else if (sprite->animation() == FALLING) {
 			position.y += FALL_SPEED;
-			if (map->collisionMoveDown(position, glm::ivec2(4, 18), &position.y)) {
+			if (map->collisionMoveDown(position, glm::ivec2(4, 10), &position.y)) {
 				//position.y -= FALL_SPEED;
 				sprite->changeAnimation(SPLASHED);
 			}

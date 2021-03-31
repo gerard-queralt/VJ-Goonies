@@ -203,7 +203,8 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 
 bool TileMap::notWalkable(int tile) const
 {
-	return (tile == 111 || tile == 112 || (80<tile && tile<87) || (12<tile && tile<17) || tile == 68 || tile == 69 || tile == 97);
+	return (tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) || (12<tile && tile<16) ||
+			tile == 68 || tile == 158 || tile == 176);
 }
 
 // Collision tests for axis aligned bounding boxes.
@@ -256,7 +257,7 @@ bool TileMap::collisionMoveDown(const glm::vec2 &pos, const glm::ivec2 &size, fl
 	
 	x0 = pos.x / tileSize;
 	x1 = (pos.x + size.x - 1) / tileSize;
-	y = (pos.y + size.y - 1) / tileSize; //potser fem la suma de 2 aqui per a ajustar posicio?
+	y = (pos.y + size.y - 1) / tileSize;
 	for(int x=x0; x<=x1; x++)
 	{
 		if(notWalkable(map[y*mapSize.x+x]))
@@ -295,7 +296,7 @@ bool TileMap::collisionMoveUp(const glm::vec2 &pos, const glm::ivec2 &size, floa
 	return false;
 }
 
-bool TileMap::climb(const glm::vec2 & pos, const glm::ivec2 & size, float * posX, bool lookingLeft) const
+bool TileMap::climbUp(const glm::vec2 & pos, const glm::ivec2 & size, float * posX, bool lookingLeft) const
 {
 	int x0, x1, y;
 	

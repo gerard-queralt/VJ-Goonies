@@ -59,6 +59,18 @@ void TileMap::free()
 	glDeleteBuffers(1, &vbo);
 }
 
+void TileMap::setEntitiesIdle()
+{
+	for (Entity* e : entities)
+		e->setIdle();
+}
+
+void TileMap::setEntitiesActive()
+{
+	for (Entity* e : entities)
+		e->setActive();
+}
+
 bool TileMap::loadLevel(const string &levelFile)
 {
 	ifstream fin;
@@ -348,22 +360,6 @@ bool TileMap::climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *pos
 
 bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool up) const
 {
-	//int x, y0, y1;
-
-	//x = (pos.x + size.x - 1) / tileSize;
-	//y0 = (pos.y - 1) / tileSize;
-	//y1 = (pos.y + size.y + 1) / tileSize;
-	//for (int y = y0; y <= y1; y++)
-	//{
-		//if (map[y*mapSize.x + x] != 101 /*tile liana*/ || 
-			//map[y*mapSize.x + x] != 2 /*tile liana al terra*/ || 
-			//map[y*mapSize.x + x] != 100 /*tile liana al sostre*/) {
-			//return true;
-		//}
-	//}
-
-	//return false;
-
 	int x, y;
 	x = (pos.x + size.x) / tileSize;
 	if (up) {
@@ -382,6 +378,38 @@ bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool 
 			return true;
 		return false;
 	}
+}
+
+bool TileMap::collisionMoveLeftEntity(const glm::vec2 &pos, const glm::ivec2 &size) const
+{
+	int x, y0, y1;
+
+	x = pos.x / tileSize;
+	y0 = pos.y / tileSize;
+	y1 = (pos.y + size.y - 1) / tileSize;
+	for (int y = y0; y <= y1; y++)
+	{
+		if (notWalkable(map[y*mapSize.x + x]))
+			return true;
+	}
+
+	return false;
+}
+
+bool TileMap::collisionMoveRightEntity(const glm::vec2 &pos, const glm::ivec2 &size) const
+{
+	int x, y0, y1;
+
+	x = (pos.x + size.x - 1) / tileSize;
+	y0 = pos.y / tileSize;
+	y1 = (pos.y + size.y - 1) / tileSize;
+	for (int y = y0; y <= y1; y++)
+	{
+		if (notWalkable(map[y*mapSize.x + x]))
+			return true;
+	}
+
+	return false;
 }
 
 glm::vec2 TileMap::getMapSize()

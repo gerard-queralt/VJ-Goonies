@@ -13,6 +13,8 @@
 #define INIT_PLAYER_X_TILES 12.5
 #define INIT_PLAYER_Y_TILES 7.5
 
+#define START_LEVEL_TIME 60
+
 enum GameStates
 {
 	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5
@@ -52,6 +54,10 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	if (currentState != MENU) {
+		if (startLevelTime == 0) {
+			map[currentScene - 1]->setEntitiesActive();
+		}
+		--startLevelTime;
 		map[currentScene-1]->update(deltaTime);
 		player->update(deltaTime);
 	}
@@ -92,12 +98,14 @@ void Scene::startGame()
 		currentState = LEVEL1;
 		currentScene = 1;
 		createLevel(1);
+		map[currentScene - 1]->setEntitiesIdle();
 		player = new Player();
 		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0]->getTileSize()));
 		player->setTileMap(map[0]);
 		glm::vec2 mapSize = map[0]->getMapSize();
 		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f + 16.f, -16.f);
+		startLevelTime = START_LEVEL_TIME;
 	}
 }
 
@@ -105,10 +113,12 @@ void Scene::startGame()
 //i XX i YY la posicio de la tile on es coloca el personatge
 void Scene::changeScene(int code)
 {
+	map[currentScene-1]->setEntitiesIdle();
 	int lvl = code / 100000;
 	if (currentState != lvl)
 		createLevel(lvl);
 	currentScene = (code / 10000) % 10;
+	map[currentScene-1]->setEntitiesActive();
 	float x = (code % 10000) / 100;
 	float y = (code % 100);
 	y += 0.5; //per que no quedi elevat
@@ -153,6 +163,7 @@ void Scene::createLevel(int lvl)
 		map[i] = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	}
 	currentState = lvl;
+	startLevelTime = START_LEVEL_TIME;
 }
 
 

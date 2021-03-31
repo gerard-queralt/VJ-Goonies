@@ -33,6 +33,7 @@ void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 	spawnTime = 60;
 
 	position = tileMapPos;
+	startPosition = position;
 	sprite->setPosition(position);
 }
 
@@ -44,7 +45,8 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
 			position.x -= SPEED;
-			if (map->collisionMoveLeft(position, glm::ivec2(16, 8))) {
+			if (map->collisionMoveLeftEntity(position, glm::ivec2(16, 8)) ||
+				position.x < 0) {
 				position.x += SPEED;
 				movingLeft = false;
 			}
@@ -53,7 +55,8 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
 			position.x += SPEED;
-			if (map->collisionMoveRight(position, glm::ivec2(16, 8))) {
+			if (map->collisionMoveRightEntity(position, glm::ivec2(16, 8)) ||
+				position.x > (map->getMapSize().x - 2) * map->getTileSize()) {
 				position.x -= SPEED;
 				movingLeft = true;
 			}
@@ -66,12 +69,20 @@ void Skull::update(int deltaTime)
 		if (spawnTime == 0)
 			status = ALIVE;
 	}
-	else if (status == DEAD) {
-		sprite->update(deltaTime);
-		--spawnTime;
-		if (spawnTime == 0) {
-			status = SPAWNING;
-			spawnTime = 60;
-		}
-	}
 }
+
+void Skull::setIdle() {
+	status = DEAD;
+	spawnTime = 60;
+}
+
+void Skull::setActive()
+{
+	status = SPAWNING;
+	position = startPosition;
+	sprite->setPosition(position);
+	sprite->changeAnimation(SPAWNING);
+	movingLeft = true;
+	spawnTime = 60;
+}
+

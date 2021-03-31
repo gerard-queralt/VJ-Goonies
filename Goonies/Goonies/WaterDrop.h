@@ -8,11 +8,12 @@ class WaterDrop : public Entity
 public:
 	void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
+	void setIdle();
+	void setActive();
 
 private:
-	int startTime; //temporal
+	int cycleTime;
 	int changeStateTime;
-	glm::vec2 startPos;
 };
 
 #endif // _WATERDROP_INCLUDE

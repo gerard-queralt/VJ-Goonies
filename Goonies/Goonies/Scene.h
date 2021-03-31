@@ -42,6 +42,7 @@ private:
 	int currentState;
 	Texture titleimage;
 	Sprite *title;
+	int startLevelTime;
 };
 
 

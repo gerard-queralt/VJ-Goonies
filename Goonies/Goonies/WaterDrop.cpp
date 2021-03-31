@@ -3,6 +3,7 @@
 
 #define FALL_SPEED 1
 #define CHANGE_STATE_TIME 16
+#define CYCLE_TIME 60
 
 enum WaterDropAnim
 {
@@ -29,18 +30,18 @@ void WaterDrop::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram
 
 	sprite->changeAnimation(ROOF);
 
-	status = DEAD;
+	status = SPAWNING;
 	changeStateTime = CHANGE_STATE_TIME;
-	startTime = 60; //temporal
+	cycleTime = 0; 
 
 	position = tileMapPos;
+	startPosition = position;
 	sprite->setPosition(position);
-	startPos = position;
 }
 
 void WaterDrop::update(int deltaTime)
 {
-	if (startTime == 0) {
+	if (cycleTime == CYCLE_TIME) {
 		if (status == DEAD)
 			status = ALIVE;
 		sprite->update(deltaTime);
@@ -63,17 +64,16 @@ void WaterDrop::update(int deltaTime)
 		else if (sprite->animation() == FALLING) {
 			position.y += FALL_SPEED;
 			if (map->collisionMoveDown(position, glm::ivec2(4, 10), &position.y)) {
-				//position.y -= FALL_SPEED;
 				sprite->changeAnimation(SPLASHED);
 			}
 		}
 		else {
 			if (changeStateTime == 0) {
 				status = DEAD;
-				startTime = 60;
+				cycleTime = 0;
 				changeStateTime = CHANGE_STATE_TIME;
 				sprite->changeAnimation(ROOF);
-				position = startPos;
+				position = startPosition;
 			}
 			else
 				--changeStateTime;
@@ -81,5 +81,19 @@ void WaterDrop::update(int deltaTime)
 		sprite->setPosition(position);
 	}
 	else
-		--startTime;
+		++cycleTime;
+}
+
+void WaterDrop::setIdle()
+{
+	status = DEAD;
+}
+
+void WaterDrop::setActive()
+{
+	status = DEAD;
+	cycleTime = 0;
+	position = startPosition;
+	sprite->setPosition(position);
+	sprite->changeAnimation(ROOF);
 }

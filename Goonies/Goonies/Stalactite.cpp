@@ -22,34 +22,46 @@ void Stalactite::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgra
 
 	sprite->changeAnimation(ALIVE);
 
-	status = ALIVE;
-	startTime = 60; //temporal
+	status = DEAD;
 	dyingTime = 16;
+	alreadyDead = false;
 
 	position = tileMapPos;
+	startPosition = position;
 	sprite->setPosition(position);
 }
 
 void Stalactite::update(int deltaTime)
 {
-	if (startTime == 0) {
-		sprite->update(deltaTime);
-		if (status == ALIVE) {
-			position.y += FALL_SPEED;
-			if (map->collisionMoveDown(position, glm::ivec2(16, 1), &position.y)) {
-				//position.y -= FALL_SPEED;
-				sprite->changeAnimation(CRASHED);
-				status = DYING;
-			}
+	sprite->update(deltaTime);
+	if (status == ALIVE) {
+		position.y += FALL_SPEED;
+		if (map->collisionMoveDown(position, glm::ivec2(16, 1), &position.y)) {
+			//position.y -= FALL_SPEED;
+			sprite->changeAnimation(CRASHED);
+			status = DYING;
 		}
-		else if (status == DYING) {
-			if (dyingTime == 0)
-				status = DEAD;
-			else
-				--dyingTime;
-		}
-		sprite->setPosition(position);
 	}
-	else
-		--startTime;
+	else if (status == DYING) {
+		if (dyingTime == 0) {
+			status = DEAD;
+			alreadyDead = true;
+		}
+		else
+			--dyingTime;
+	}
+	sprite->setPosition(position);
+}
+
+void Stalactite::setIdle()
+{
+	status = DEAD;
+}
+
+void Stalactite::setActive()
+{
+	if (!alreadyDead) {
+		status = ALIVE;
+		position = startPosition;
+	}
 }

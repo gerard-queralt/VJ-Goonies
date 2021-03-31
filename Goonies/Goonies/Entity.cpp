@@ -25,3 +25,11 @@ void Entity::setTileMap(TileMap * tileMap)
 	map = tileMap;
 }
 
+void Entity::setIdle()
+{
+}
+
+void Entity::setActive()
+{
+}
+

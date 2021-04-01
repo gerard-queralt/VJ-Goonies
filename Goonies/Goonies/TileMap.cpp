@@ -9,6 +9,8 @@
 #include "Stalactite.h"
 #include "WaterDrop.h"
 #include "StartDoor.h"
+#include "LockedDoor.h"
+#include "Lock.h"
 #include "Key.h"
 
 
@@ -200,11 +202,19 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				}
 				case -7: //porta tancada
 				{
-
+					LockedDoor *ld = new LockedDoor();
+					ld->setTileMap(this); //utilitzem el tilemap al init;
+					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(ld);
+					break;
 				}
 				case -8: //candau
 				{
-
+					Lock *lock = new Lock();
+					lock->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					lock->setTileMap(this);
+					entities.push_back(lock);
+					break;
 				}
 				case -9: //clau
 				{

@@ -62,8 +62,14 @@
     <ClInclude Include="WaterDrop.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Lock.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
     <ClInclude Include="Key.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="LockedDoor.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +119,12 @@
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Key.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Lock.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="LockedDoor.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>

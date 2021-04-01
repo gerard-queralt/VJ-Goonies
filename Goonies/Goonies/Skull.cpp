@@ -8,6 +8,10 @@ enum SkullAnims
 	MOVE_LEFT = 0, MOVE_RIGHT, SPAWNING, DYING, NUM_ANIM
 };
 
+enum PlayerStatus {
+	GROUNDED = 0, JUMPING, FALLING, PUNCHING, CLIMBING
+};
+
 void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
 	spritesheet.loadFromFile("images/skull.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -34,6 +38,7 @@ void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 
 	status = DEAD;
 	spawnTime = 60;
+	deathTime = 10;
 
 	position = tileMapPos;
 	startPosition = position;
@@ -48,7 +53,15 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
 			position.x -= SPEED;
-			if (map->collisionMoveLeftEntity(position, glm::ivec2(16, 8)) ||
+			if (inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
+				if (player->getStatus() == PUNCHING) {
+					status = DYING;
+					sprite->changeAnimation(DYING);
+				}
+				else
+					player->hurt(5); //nombre random
+			}
+			else if (map->collisionMoveLeftEntity(position, glm::ivec2(16, 8)) ||
 				position.x < 0) {
 				position.x += SPEED;
 				movingLeft = false;
@@ -58,7 +71,15 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
 			position.x += SPEED;
-			if (map->collisionMoveRightEntity(position, glm::ivec2(16, 8)) ||
+			if(inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
+				if (player->getStatus() == PUNCHING) { 
+					status = DYING;
+					sprite->changeAnimation(DYING);
+				}
+				else
+					player->hurt(5); //nombre random
+			}
+			else if (map->collisionMoveRightEntity(position, glm::ivec2(16, 8)) ||
 				position.x > (map->getMapSize().x - 2) * map->getTileSize()) {
 				position.x -= SPEED;
 				movingLeft = true;
@@ -72,11 +93,18 @@ void Skull::update(int deltaTime)
 		if (spawnTime == 0)
 			status = ALIVE;
 	}
+	else if (status == DYING) {
+		sprite->update(deltaTime);
+		--deathTime;
+		if (deathTime == 0)
+			status = DEAD;
+	}
 }
 
 void Skull::setIdle() {
 	status = DEAD;
 	spawnTime = 60;
+	deathTime = 10;
 }
 
 void Skull::setActive()
@@ -87,5 +115,6 @@ void Skull::setActive()
 	sprite->changeAnimation(SPAWNING);
 	movingLeft = true;
 	spawnTime = 60;
+	deathTime = 10;
 }
 

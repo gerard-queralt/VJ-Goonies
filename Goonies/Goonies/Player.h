@@ -29,6 +29,7 @@ public:
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
 
+	int getStatus();
 	glm::vec2 getPosition();
 
 	void heal(int heal);

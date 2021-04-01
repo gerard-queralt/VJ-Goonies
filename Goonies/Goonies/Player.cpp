@@ -266,6 +266,11 @@ void Player::setPosition(const glm::vec2 &pos)
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 
+int Player::getStatus()
+{
+	return status;
+}
+
 glm::vec2 Player::getPosition()
 {
 	return posPlayer;
@@ -273,6 +278,7 @@ glm::vec2 Player::getPosition()
 
 void Player::hurt(int dmg)
 {
+	//falta que el personatge se pose blanc
 	health -= dmg;
 }
 

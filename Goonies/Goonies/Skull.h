@@ -16,6 +16,7 @@ public:
 private:
 	bool movingLeft;
 	int spawnTime;
+	int deathTime;
 };
 
 #endif // _SKULL_INCLUDE

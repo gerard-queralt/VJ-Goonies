@@ -154,6 +154,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="LockedDoor.h" />
+    <ClInclude Include="Number.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Potion.h" />
     <ClInclude Include="Scene.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="LockedDoor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Number.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Potion.cpp" />
     <ClCompile Include="Scene.cpp" />

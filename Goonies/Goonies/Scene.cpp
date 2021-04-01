@@ -81,6 +81,8 @@ void Scene::render()
 		map[currentScene-1]->render();
 		player->render();
 		prerenderedUI->render();
+		lvlNumber->render();
+		scenenNumber->render();
 		break;
 	default:
 		break;
@@ -100,8 +102,17 @@ void Scene::startGame()
 		currentState = LEVEL1;
 		player = new Player();
 		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+
+		lvlNumber = new Number();
+		lvlNumber->init(glm::vec2(27 * 8.f, 1 * 8.f), texProgram);
+
 		currentScene = 1;
 		createLevel(1);
+
+		scenenNumber = new Number();
+		scenenNumber->init(glm::vec2(30 * map[0]->getTileSize(), 1 * map[0]->getTileSize()), texProgram);
+		scenenNumber->changeNumber(1);
+
 		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0]->getTileSize()));
 		player->setTileMap(map[0]);
 		glm::vec2 mapSize = map[0]->getMapSize();
@@ -111,6 +122,7 @@ void Scene::startGame()
 		UIimage.loadFromFile("images/prerenderedui.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		prerenderedUI = Sprite::createSprite(glm::ivec2(mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &UIimage, &texProgram);
 		prerenderedUI->setPosition(glm::vec2(0.f, 0.f));
+
 	}
 }
 
@@ -129,6 +141,7 @@ void Scene::changeScene(int code)
 	y += 0.5; //per que no quedi elevat
 	player->setPosition(glm::vec2(x * map[currentScene-1]->getTileSize(), y * map[currentScene - 1]->getTileSize()));
 	player->setTileMap(map[currentScene - 1]);
+	scenenNumber->changeNumber(currentScene);
 }
 
 void Scene::initShaders()
@@ -171,6 +184,7 @@ void Scene::createLevel(int lvl)
 
 	}
 	currentState = lvl;
+	lvlNumber->changeNumber(currentState);
 	startLevelTime = START_LEVEL_TIME;
 }
 

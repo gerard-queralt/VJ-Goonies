@@ -7,6 +7,8 @@
 #include "TileMap.h"
 #include "Player.h"
 
+#include "Number.h"
+
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -43,8 +45,11 @@ private:
 	Texture titleimage;
 	Sprite *title;
 	int startLevelTime;
+
 	Texture UIimage;
 	Sprite *prerenderedUI;
+	Number *lvlNumber;
+	Number *scenenNumber;
 };
 
 

@@ -63,7 +63,10 @@ void Stalactite::update(int deltaTime)
 
 void Stalactite::setIdle()
 {
-	status = SPAWNING;
+	if (!alreadyDead)
+		status = SPAWNING;
+	else
+		status = DEAD;
 }
 
 void Stalactite::setActive()
@@ -81,8 +84,8 @@ bool Stalactite::playerClose()
 	int x0, y0, x1, y1;
 
 	y0 = position.y;
-	y1 = position.y + 4 * map->getTileSize(); //aproximat, segurament millorable
-	x0 = position.x; //- 1 * map->getTileSize(); //una tile abans
+	y1 = position.y + 7 * map->getTileSize(); //aproximat, segurament millorable
+	x0 = position.x;
 	x1 = position.x + 2 * map->getTileSize(); //una tile despres
 
 	for (int y = y0; y <= y1; ++y) {

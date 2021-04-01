@@ -61,6 +61,8 @@ void Scene::update(int deltaTime)
 		--startLevelTime;
 		map[currentScene-1]->update(deltaTime);
 		player->update(deltaTime);
+		hpBar->update();
+		expBar->update();
 	}
 }
 
@@ -83,6 +85,8 @@ void Scene::render()
 		prerenderedUI->render();
 		lvlNumber->render();
 		scenenNumber->render();
+		hpBar->render();
+		expBar->render();
 		break;
 	default:
 		break;
@@ -122,7 +126,14 @@ void Scene::startGame()
 		UIimage.loadFromFile("images/prerenderedui.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		prerenderedUI = Sprite::createSprite(glm::ivec2(mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &UIimage, &texProgram);
 		prerenderedUI->setPosition(glm::vec2(0.f, 0.f));
-
+		hpBar = new Bar();
+		hpBar->init(glm::vec2(0, 0), texProgram); //la funcio init() de Bar no fa us d'aquests valors
+		hpBar->setType(0, texProgram);
+		hpBar->setPlayer(player);
+		expBar = new Bar();
+		expBar->init(glm::vec2(0, 0), texProgram);
+		expBar->setType(1, texProgram);
+		expBar->setPlayer(player);
 	}
 }
 

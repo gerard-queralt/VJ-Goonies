@@ -25,7 +25,7 @@ enum PowerUps
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
-	health = 100;
+	health = 80;
 	level = 1;
 	exp = 0;
 	bool tmp[NUM_POWER_UPS] = { false };
@@ -284,7 +284,29 @@ void Player::heal(int heal)
 void Player::hurt(int dmg)
 {
 	//falta que el personatge se pose blanc
-	health -= dmg;
+	if (health - dmg >= 0)
+		health -= dmg;
+	else
+		health = 0; //aqui hauria d'acabar la partida
+}
+
+void Player::gainXP(int exp)
+{
+	this->exp += exp;
+	if (this->exp >= 80) {
+		++level;
+		this->exp -= 80;
+	}
+}
+
+int Player::getHealth()
+{
+	return health;
+}
+
+int Player::getExp()
+{
+	return exp;
 }
 
 bool Player::getKey()

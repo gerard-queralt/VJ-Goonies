@@ -35,6 +35,11 @@ public:
 	void heal(int heal);
 	void hurt(int dmg);
 
+	void gainXP(int exp);
+
+	int getHealth();
+	int getExp();
+
 	bool getKey();
 	bool useKey();
 	

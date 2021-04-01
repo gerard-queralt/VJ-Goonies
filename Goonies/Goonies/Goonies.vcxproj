@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="BadGuy.h" />
+    <ClInclude Include="Bar.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Key.h" />
@@ -164,12 +165,14 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stalactite.h" />
     <ClInclude Include="StartDoor.h" />
+    <ClInclude Include="SubBar.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="WaterDrop.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BadGuy.cpp" />
+    <ClCompile Include="Bar.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Key.cpp" />
@@ -185,6 +188,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stalactite.cpp" />
     <ClCompile Include="StartDoor.cpp" />
+    <ClCompile Include="SubBar.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="WaterDrop.cpp" />

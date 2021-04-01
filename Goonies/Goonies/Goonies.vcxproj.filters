@@ -74,6 +74,12 @@
     <ClInclude Include="Number.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SubBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -130,6 +136,10 @@
     <ClCompile Include="Potion.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Number.cpp" />
+    <ClCompile Include="Number.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Bar.cpp" />
+    <ClCompile Include="SubBar.cpp" />
   </ItemGroup>
 </Project>

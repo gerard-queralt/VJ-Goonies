@@ -8,6 +8,7 @@
 #include "Player.h"
 
 #include "Number.h"
+#include "Bar.h"
 
 
 // Scene contains all the entities of our game.
@@ -50,6 +51,8 @@ private:
 	Sprite *prerenderedUI;
 	Number *lvlNumber;
 	Number *scenenNumber;
+	Bar *hpBar;
+	Bar *expBar;
 };
 
 

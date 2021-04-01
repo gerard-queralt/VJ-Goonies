@@ -13,8 +13,6 @@ void main()
 	vec4 texColor = texture(tex, texCoordFrag);
 	if(texColor.a < 0.5f)
 		discard;
-	if(texColor.r == (153.f/255.f) && texColor.g == (217.f/255.f) && texColor.b == (234.f/255.f))
-		discard;
 	outColor = color * texColor;
 }
 

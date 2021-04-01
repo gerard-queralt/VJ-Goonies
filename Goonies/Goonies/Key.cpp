@@ -48,7 +48,7 @@ void Key::setActive()
 
 void Key::interact()
 {
-	if (inContactWithPlayer(position, glm::vec2(8,8))) {
+	if (inContactWithPlayer(position, glm::ivec2(8,8))) {
 		if (player->getKey()) {
 			status = DEAD;
 			pickedUp = true;

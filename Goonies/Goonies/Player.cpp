@@ -271,6 +271,11 @@ glm::vec2 Player::getPosition()
 	return posPlayer;
 }
 
+void Player::hurt(int dmg)
+{
+	health -= dmg;
+}
+
 bool Player::getKey()
 {
 	if (!hasKey) {

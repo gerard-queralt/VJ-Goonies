@@ -47,7 +47,7 @@ void Entity::interact()
 {
 }
 
-bool Entity::inContactWithPlayer(const glm::vec2 &entityPosition, const glm::vec2 &entitySize)
+bool Entity::inContactWithPlayer(const glm::vec2 &entityPosition, const glm::ivec2 &entitySize)
 {
 	glm::vec2 playerPos = player->getPosition();
 

@@ -63,7 +63,11 @@ void WaterDrop::update(int deltaTime)
 		}
 		else if (sprite->animation() == FALLING) {
 			position.y += FALL_SPEED;
-			if (map->collisionMoveDown(position, glm::ivec2(4, 2), &position.y)) {
+			if (inContactWithPlayer(position, glm::ivec2(4, 2))) {
+				sprite->changeAnimation(SPLASHED);
+				player->hurt(5); //numero random, investigar
+			}
+			else if (map->collisionMoveDown(position, glm::ivec2(4, 2), &position.y)) {
 				sprite->changeAnimation(SPLASHED);
 			}
 		}
@@ -96,4 +100,9 @@ void WaterDrop::setActive()
 	position = startPosition;
 	sprite->setPosition(position);
 	sprite->changeAnimation(ROOF);
+}
+
+bool WaterDrop::hitPlayer()
+{
+	return false;
 }

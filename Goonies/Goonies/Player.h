@@ -31,6 +31,9 @@ public:
 
 	glm::vec2 getPosition();
 
+	void heal(int heal);
+	void hurt(int dmg);
+
 	bool getKey();
 	bool useKey();
 	

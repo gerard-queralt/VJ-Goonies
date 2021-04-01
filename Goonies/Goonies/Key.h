@@ -16,6 +16,7 @@ public:
 private:
 	int flashTime;
 	bool started;
+	bool pickedUp;
 };
 
 #endif // _KEY_INCLUDE

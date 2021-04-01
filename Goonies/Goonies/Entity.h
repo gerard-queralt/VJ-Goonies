@@ -22,6 +22,8 @@ public:
 	virtual void interact();
 
 protected:
+	bool inContactWithPlayer(glm::vec2 entitySize);
+
 	enum EntityStatus {
 		ALIVE = 0, DEAD, SPAWNING, DYING
 	};

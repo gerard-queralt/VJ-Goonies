@@ -11,6 +11,7 @@ void Key::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 	status = DEAD;
 	flashTime = 0;
 	started = false;
+	pickedUp = false;
 
 	position = tileMapPos;
 	sprite->setPosition(position);
@@ -18,7 +19,7 @@ void Key::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 
 void Key::update(int deltaTime)
 {
-	if (started) {
+	if (started && !pickedUp) {
 		if (flashTime == FLASH_TIME) {
 			if (status == DEAD)
 				status = ALIVE;
@@ -46,9 +47,10 @@ void Key::setActive()
 
 void Key::interact()
 {
-	glm::vec2 playerPos = player->getPosition();
-	
-	int x0, y0, x1, y1;
-	
-	y0 = playerPos.y - 6; //offset per ajustar la posicio, perque caminem atravessant una tile
+	if (inContactWithPlayer(glm::vec2(8,8))) {
+		if (player->getKey()) {
+			status = DEAD;
+			pickedUp = true;
+		}
+	}
 }

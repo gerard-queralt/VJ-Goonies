@@ -1,4 +1,9 @@
 #include "LockedDoor.h"
+#include "Potion.h"
+
+enum Contents {
+	POTION = 0, FRIEND
+};
 
 void LockedDoor::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
@@ -11,6 +16,20 @@ void LockedDoor::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgra
 	position = tileMapPos;
 	startPosition = position;
 	sprite->setPosition(position);
+
+	glm::vec2 contentPosition = glm::vec2(position.x + 2 * map->getTileSize(), position.y + 2 * map->getTileSize());
+
+	if (content == POTION) {
+		contentEntity = new Potion();
+		contentEntity->init(contentPosition, shaderProgram);
+		contentEntity->setTileMap(map);
+	}
+	else if(content == FRIEND){}
+}
+
+void LockedDoor::setContent(int content)
+{
+	this->content = content;
 }
 
 void LockedDoor::update(int deltaTime)
@@ -18,12 +37,26 @@ void LockedDoor::update(int deltaTime)
 	sprite->update(deltaTime);
 }
 
+void LockedDoor::render()
+{
+	if (status == ALIVE)
+		sprite->render();
+	else
+		contentEntity->render();
+}
+
 void LockedDoor::interact()
 {
 	glm::vec2 lockPosition = glm::vec2(position.x, position.y + 2 * map->getTileSize()); //el candau esta 2 tile per sota
 	if (inContactWithPlayer(lockPosition, glm::vec2(8, 8))) {
 		if (player->useKey()) {
-			status = DEAD; //temporal
+			open();
 		}
 	}
+}
+
+void LockedDoor::open()
+{
+	status = DEAD;
+	contentEntity->setActive();
 }

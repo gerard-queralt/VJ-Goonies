@@ -10,7 +10,7 @@ class Entity
 public:
 	virtual void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
 	virtual void update(int deltaTime);
-	void render();
+	virtual void render();
 	void setTileMap(TileMap *tileMap);
 
 	virtual void setIdle();

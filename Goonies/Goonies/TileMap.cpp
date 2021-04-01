@@ -207,15 +207,29 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					entities.push_back(startDoor);
 					break;
 				}
-				case -7: //porta tancada
+				case -7: //porta amb un candau i pocio
 				{
 					LockedDoor *ld = new LockedDoor();
-					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					ld->setContent(0);
 					ld->setTileMap(this);
+					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(ld);
 					break;
 				}
-				case -8: //clau
+				case -8: //porta amb un candau i amic
+				{
+					LockedDoor *ld = new LockedDoor();
+					ld->setContent(1);
+					ld->setTileMap(this);
+					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(ld);
+					break;
+				}
+				case -9: //porta amb dos candaus
+				{
+					break;
+				}
+				case -10: //clau
 				{
 					Key *key = new Key();
 					key->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);

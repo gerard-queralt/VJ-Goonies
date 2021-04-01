@@ -28,4 +28,8 @@ void Potion::setActive()
 
 void Potion::interact()
 {
+	if (status == ALIVE && inContactWithPlayer(position, glm::ivec2(8, 8))) {
+		player->heal(5); //numero random
+		status = DEAD;
+	}
 }

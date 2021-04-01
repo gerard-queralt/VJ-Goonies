@@ -276,6 +276,11 @@ glm::vec2 Player::getPosition()
 	return posPlayer;
 }
 
+void Player::heal(int heal)
+{
+	health += heal;
+}
+
 void Player::hurt(int dmg)
 {
 	//falta que el personatge se pose blanc

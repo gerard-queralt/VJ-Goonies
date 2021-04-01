@@ -21,10 +21,10 @@ void LockedDoor::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgra
 
 	if (content == POTION) {
 		contentEntity = new Potion();
-		contentEntity->init(contentPosition, shaderProgram);
-		contentEntity->setTileMap(map);
 	}
 	else if(content == FRIEND){}
+	contentEntity->init(contentPosition, shaderProgram);
+	contentEntity->setTileMap(map);
 }
 
 void LockedDoor::setContent(int content)
@@ -47,16 +47,21 @@ void LockedDoor::render()
 
 void LockedDoor::interact()
 {
-	glm::vec2 lockPosition = glm::vec2(position.x, position.y + 2 * map->getTileSize()); //el candau esta 2 tile per sota
-	if (inContactWithPlayer(lockPosition, glm::ivec2(8, 8))) {
-		if (player->useKey()) {
-			open();
+	if (status == ALIVE) {
+		glm::vec2 lockPosition = glm::vec2(position.x, position.y + 2 * map->getTileSize()); //el candau esta 2 tile per sota
+		if (inContactWithPlayer(lockPosition, glm::ivec2(8, 8))) {
+			if (player->useKey()) {
+				open();
+			}
 		}
 	}
+	else
+		contentEntity->interact();
 }
 
 void LockedDoor::open()
 {
 	status = DEAD;
+	contentEntity->setPlayer(player);
 	contentEntity->setActive();
 }

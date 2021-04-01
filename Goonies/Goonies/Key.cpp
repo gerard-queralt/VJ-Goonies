@@ -41,9 +41,11 @@ void Key::setIdle()
 
 void Key::setActive()
 {
-	status = ALIVE;
-	flashTime = 0;
-	started = true;
+	if (!pickedUp) {
+		status = ALIVE;
+		flashTime = 0;
+		started = true;
+	}
 }
 
 void Key::interact()

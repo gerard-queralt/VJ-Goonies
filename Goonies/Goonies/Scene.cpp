@@ -6,12 +6,13 @@
 
 #include "Sprite.h"
 
+
 //Vores negres de la pantalla
 #define SCREEN_X 0
 #define SCREEN_Y 0
 
 #define INIT_PLAYER_X_TILES 12.5
-#define INIT_PLAYER_Y_TILES 7.5
+#define INIT_PLAYER_Y_TILES 9.5
 
 #define START_LEVEL_TIME 60
 
@@ -79,6 +80,7 @@ void Scene::render()
 	case LEVEL5:
 		map[currentScene-1]->render();
 		player->render();
+		prerenderedUI->render();
 		break;
 	default:
 		break;
@@ -86,7 +88,7 @@ void Scene::render()
 
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
-	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f); //modificar per diferents escenes
+	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
@@ -103,8 +105,12 @@ void Scene::startGame()
 		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0]->getTileSize()));
 		player->setTileMap(map[0]);
 		glm::vec2 mapSize = map[0]->getMapSize();
-		projection = glm::ortho(0.f, mapSize.x * 8.f, mapSize.y * 8.f + 16.f, -16.f);
+		projection = glm::ortho(0.f, mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize(), 0.f);
 		startLevelTime = START_LEVEL_TIME;
+
+		UIimage.loadFromFile("images/prerenderedui.png", TEXTURE_PIXEL_FORMAT_RGBA);
+		prerenderedUI = Sprite::createSprite(glm::ivec2(mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &UIimage, &texProgram);
+		prerenderedUI->setPosition(glm::vec2(0.f, 0.f));
 	}
 }
 

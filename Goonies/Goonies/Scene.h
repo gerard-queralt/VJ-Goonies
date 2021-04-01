@@ -43,6 +43,8 @@ private:
 	Texture titleimage;
 	Sprite *title;
 	int startLevelTime;
+	Texture UIimage;
+	Sprite *prerenderedUI;
 };
 
 

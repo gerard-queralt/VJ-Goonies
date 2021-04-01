@@ -4,8 +4,7 @@
 -4 waterdrop
 -5 waterfall
 -6 startdoor
--7 closeddoor
--8 lock
--9 key
+-7 lock & closeddoor
+-8 key
 
 -ABXY tp to level A scene B at pos X Y

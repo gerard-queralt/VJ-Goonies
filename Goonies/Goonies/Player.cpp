@@ -30,6 +30,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	exp = 0;
 	bool tmp[NUM_POWER_UPS] = { false };
 	powerUps = tmp;
+	hasKey = false;
 
 	status = GROUNDED;
 	startTime = 60;
@@ -274,6 +275,15 @@ bool Player::getKey()
 {
 	if (!hasKey) {
 		hasKey = true;
+		return true;
+	}
+	return false;
+}
+
+bool Player::useKey()
+{
+	if (hasKey) {
+		hasKey = false;
 		return true;
 	}
 	return false;

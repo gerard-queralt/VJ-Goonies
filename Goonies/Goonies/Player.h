@@ -32,6 +32,7 @@ public:
 	glm::vec2 getPosition();
 
 	bool getKey();
+	bool useKey();
 	
 private:
 	int health;

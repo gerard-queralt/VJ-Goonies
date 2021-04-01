@@ -22,7 +22,7 @@ void Stalactite::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgra
 
 	sprite->changeAnimation(ALIVE);
 
-	status = DEAD;
+	status = SPAWNING;
 	dyingTime = 16;
 	alreadyDead = false;
 
@@ -36,8 +36,12 @@ void Stalactite::update(int deltaTime)
 	sprite->update(deltaTime);
 	if (status == ALIVE) {
 		position.y += FALL_SPEED;
-		if (map->collisionMoveDown(position, glm::ivec2(16, 1), &position.y)) {
-			//position.y -= FALL_SPEED;
+		if (inContactWithPlayer(position, glm::ivec2(16, 8))) {
+			player->hurt(5); //numero random
+			status = DEAD;
+			alreadyDead = true;
+		}
+		else if (map->collisionMoveDown(position, glm::ivec2(16, 1), &position.y)) {
 			sprite->changeAnimation(CRASHED);
 			status = DYING;
 		}
@@ -50,18 +54,43 @@ void Stalactite::update(int deltaTime)
 		else
 			--dyingTime;
 	}
+	else if (status == SPAWNING) {
+		if (playerClose())
+			status = ALIVE;
+	}
 	sprite->setPosition(position);
 }
 
 void Stalactite::setIdle()
 {
-	status = DEAD;
+	status = SPAWNING;
 }
 
 void Stalactite::setActive()
 {
 	if (!alreadyDead) {
-		status = ALIVE;
+		status = SPAWNING;
 		position = startPosition;
 	}
+}
+
+bool Stalactite::playerClose()
+{
+	glm::vec2 playerPos = player->getPosition();
+
+	int x0, y0, x1, y1;
+
+	y0 = position.y;
+	y1 = position.y + 4 * map->getTileSize(); //aproximat, segurament millorable
+	x0 = position.x; //- 1 * map->getTileSize(); //una tile abans
+	x1 = position.x + 2 * map->getTileSize(); //una tile despres
+
+	for (int y = y0; y <= y1; ++y) {
+		for (int x = x0; x <= x1; ++x) {
+			if (playerPos.x <= x && x <= playerPos.x + 16 /*player size*/
+				&& playerPos.y <= y && y <= playerPos.y + 16 /*player height*/)
+				return true;
+		}
+	}
+	return false;
 }

@@ -8,13 +8,16 @@ class Stalactite : public Entity
 public:
 	void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
+	
 	void setIdle();
 	void setActive();
-	//caldra afegir deteccio de personatge. potser un estat WAITING?
 
 private:
+	bool playerClose();
+
 	int dyingTime;
 	bool alreadyDead; //les estalactites no respawnegen
+
 };
 
 #endif // _STALACTITE_INCLUDE

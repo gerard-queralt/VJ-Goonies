@@ -43,3 +43,12 @@ void Key::setActive()
 	flashTime = 0;
 	started = true;
 }
+
+void Key::interact()
+{
+	glm::vec2 playerPos = player->getPosition();
+	
+	int x0, y0, x1, y1;
+	
+	y0 = playerPos.y - 6; //offset per ajustar la posicio, perque caminem atravessant una tile
+}

@@ -40,8 +40,10 @@ TileMap::~TileMap()
 
 void TileMap::update(int deltaTime)
 {
-	for (Entity* e : entities)
+	for (Entity* e : entities) {
+		e->interact();
 		e->update(deltaTime);
+	}
 }
 
 void TileMap::render() const
@@ -72,6 +74,12 @@ void TileMap::setEntitiesActive()
 {
 	for (Entity* e : entities)
 		e->setActive();
+}
+
+void TileMap::setEntitiesPlayer(Player * player)
+{
+	for (Entity* e : entities)
+		e->setPlayer(player);
 }
 
 bool TileMap::loadLevel(const string &levelFile)

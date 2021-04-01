@@ -33,3 +33,17 @@ void Entity::setActive()
 {
 }
 
+glm::vec2 Entity::getPosition()
+{
+	return position;
+}
+
+void Entity::setPlayer(Player * player)
+{
+	this->player = player;
+}
+
+void Entity::interact()
+{
+}
+

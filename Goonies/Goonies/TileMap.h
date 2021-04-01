@@ -7,7 +7,9 @@
 #include "Texture.h"
 #include "ShaderProgram.h"
 
-class Entity; //forward declaration
+//forward declarations
+class Entity;
+class Player;
 
 // Class Tilemap is capable of loading a tile map from a text file in a very
 // simple format (see level01.txt for an example). With this information
@@ -30,6 +32,7 @@ public:
 		
 	void setEntitiesIdle();
 	void setEntitiesActive();
+	void setEntitiesPlayer(Player *player);
 
 	int getTileSize() const { return tileSize; }
 

@@ -11,6 +11,8 @@ public:
 	void setIdle();
 	void setActive();
 
+	void interact();
+
 private:
 	int flashTime;
 	bool started;

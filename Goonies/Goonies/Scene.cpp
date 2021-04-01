@@ -96,11 +96,10 @@ void Scene::startGame()
 {
 	if (currentState == MENU) {
 		currentState = LEVEL1;
-		currentScene = 1;
-		createLevel(1);
-		map[currentScene - 1]->setEntitiesIdle();
 		player = new Player();
 		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+		currentScene = 1;
+		createLevel(1);
 		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0]->getTileSize()));
 		player->setTileMap(map[0]);
 		glm::vec2 mapSize = map[0]->getMapSize();
@@ -161,6 +160,9 @@ void Scene::createLevel(int lvl)
 	for (int i = 0; i < 3; ++i) {
 		string path = std::string("levels/level0") + std::to_string(lvl) + std::string("/scene0") + std::to_string(i+1) + std::string(".txt");
 		map[i] = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+		map[i]->setEntitiesIdle();
+		map[i]->setEntitiesPlayer(player);
+
 	}
 	currentState = lvl;
 	startLevelTime = START_LEVEL_TIME;

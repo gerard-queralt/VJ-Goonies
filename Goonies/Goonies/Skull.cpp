@@ -26,6 +26,9 @@ void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 	sprite->addKeyframe(SPAWNING, glm::vec2(0.5f, 0.f));
 	sprite->addKeyframe(SPAWNING, glm::vec2(0.5f, 0.5f));
 
+	sprite->setAnimationSpeed(DYING, 7);
+	sprite->addKeyframe(DYING, glm::vec2(0.75f, 0.f));
+
 	sprite->changeAnimation(SPAWNING);
 	movingLeft = true;
 

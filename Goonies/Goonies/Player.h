@@ -28,12 +28,17 @@ public:
 	
 	void setTileMap(TileMap *tileMap);
 	void setPosition(const glm::vec2 &pos);
+
+	glm::vec2 getPosition();
+
+	bool getKey();
 	
 private:
 	int health;
 	int level;
 	int exp;
 	bool powerUps;
+	bool hasKey;
 
 	bool lookingLeft; //Boolea per recuperar l'orientacio despres d'escalar
 

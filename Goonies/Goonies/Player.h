@@ -51,6 +51,8 @@ public:
 	void rescueFriend();
 	int getNumFriends();
 
+	void resetStartTime(int time);
+
 private:
 	int health;
 	int level;

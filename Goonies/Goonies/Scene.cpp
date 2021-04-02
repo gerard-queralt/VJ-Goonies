@@ -220,6 +220,7 @@ void Scene::createLevel(int lvl)
 	currentState = lvl;
 	lvlNumber->changeNumber(currentState);
 	startLevelTime = START_LEVEL_TIME;
+	player->resetStartTime(startLevelTime);
 }
 
 void Scene::setUpUISprites()

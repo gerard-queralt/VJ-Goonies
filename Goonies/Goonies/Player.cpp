@@ -35,7 +35,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	numFriends = 0;
 
 	status = GROUNDED;
-	startTime = 60;
+	startTime = 0;
 	punchingTime = 8;
 	spaceKeyStatus = HOLD;
 	spritesheet.loadFromFile("images/playersprites.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -376,6 +376,12 @@ void Player::rescueFriend()
 int Player::getNumFriends()
 {
 	return numFriends;
+}
+
+void Player::resetStartTime(int time)
+{
+	startTime = time;
+	sprite->changeAnimation(STAND_RIGHT);
 }
 
 

@@ -20,7 +20,7 @@ void Bar::render()
 	}
 }
 
-void Bar::update()
+void Bar::update(int deltaTime)
 {
 	int var;
 	if (type == HEALTH) {

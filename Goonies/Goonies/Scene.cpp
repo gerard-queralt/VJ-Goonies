@@ -61,8 +61,17 @@ void Scene::update(int deltaTime)
 		--startLevelTime;
 		map[currentScene-1]->update(deltaTime);
 		player->update(deltaTime);
-		hpBar->update();
-		expBar->update();
+		hpBar->update(deltaTime);
+		expBar->update(deltaTime);
+		if (currentKeyState != player->getHasKey()) {
+			if (player->getHasKey()) {
+				keyUI->setActive();
+			}
+			else
+				keyUI->setIdle();
+			currentKeyState = player->getHasKey();
+		}
+		keyUI->update(deltaTime);
 	}
 }
 
@@ -87,6 +96,7 @@ void Scene::render()
 		scenenNumber->render();
 		hpBar->render();
 		expBar->render();
+		keyUI->render();
 		break;
 	default:
 		break;
@@ -134,6 +144,13 @@ void Scene::startGame()
 		expBar->init(glm::vec2(0, 0), texProgram);
 		expBar->setType(1, texProgram);
 		expBar->setPlayer(player);
+		keyUI = new Key();
+		keyUI->init(glm::vec2(25 * map[0]->getTileSize(), 23 * map[0]->getTileSize()), texProgram);
+		//aquests parametres no els fara servir aquesta clau, pero per simplificar reutilitzarem la classe Key que apareix al mapa
+		keyUI->setTileMap(map[0]);
+		keyUI->setPlayer(player);
+		keyUI->setIdle();
+		currentKeyState = false;
 	}
 }
 

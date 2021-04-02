@@ -39,6 +39,7 @@ public:
 
 	int getHealth();
 	int getExp();
+	bool getHasKey();
 
 	bool getKey();
 	bool useKey();

@@ -278,7 +278,8 @@ glm::vec2 Player::getPosition()
 
 void Player::heal(int heal)
 {
-	health += heal;
+	if(health+heal <= 80)
+		health += heal;
 }
 
 void Player::hurt(int dmg)
@@ -307,6 +308,11 @@ int Player::getHealth()
 int Player::getExp()
 {
 	return exp;
+}
+
+bool Player::getHasKey()
+{
+	return hasKey;
 }
 
 bool Player::getKey()

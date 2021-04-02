@@ -1,6 +1,6 @@
 #include "Key.h"
 
-#define FLASH_TIME 4
+#define FLASH_TIME 3
 
 void Key::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {

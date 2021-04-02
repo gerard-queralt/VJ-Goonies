@@ -44,11 +44,15 @@ public:
 	bool getKey();
 	bool useKey();
 	
+	void givePowerUp(int pwup);
+
+	std::vector<bool> getPowerUps();
+
 private:
 	int health;
 	int level;
 	int exp;
-	bool powerUps;
+	std::vector<bool> powerUps;
 	bool hasKey;
 
 	bool lookingLeft; //Boolea per recuperar l'orientacio despres d'escalar

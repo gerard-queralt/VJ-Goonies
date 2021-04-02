@@ -72,6 +72,8 @@ void Scene::update(int deltaTime)
 			currentKeyState = player->getHasKey();
 		}
 		keyUI->update(deltaTime);
+		if (player->getPowerUps()[0])
+			helmetUI->setActive();
 	}
 }
 
@@ -97,6 +99,7 @@ void Scene::render()
 		hpBar->render();
 		expBar->render();
 		keyUI->render();
+		helmetUI->render();
 		break;
 	default:
 		break;
@@ -133,9 +136,11 @@ void Scene::startGame()
 		projection = glm::ortho(0.f, mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize(), 0.f);
 		startLevelTime = START_LEVEL_TIME;
 
+
 		UIimage.loadFromFile("images/prerenderedui.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		prerenderedUI = Sprite::createSprite(glm::ivec2(mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &UIimage, &texProgram);
 		prerenderedUI->setPosition(glm::vec2(0.f, 0.f));
+		
 		hpBar = new Bar();
 		hpBar->init(glm::vec2(0, 0), texProgram); //la funcio init() de Bar no fa us d'aquests valors
 		hpBar->setType(0, texProgram);
@@ -144,13 +149,15 @@ void Scene::startGame()
 		expBar->init(glm::vec2(0, 0), texProgram);
 		expBar->setType(1, texProgram);
 		expBar->setPlayer(player);
+		
 		keyUI = new Key();
 		keyUI->init(glm::vec2(25 * map[0]->getTileSize(), 23 * map[0]->getTileSize()), texProgram);
-		//aquests parametres no els fara servir aquesta clau, pero per simplificar reutilitzarem la classe Key que apareix al mapa
-		keyUI->setTileMap(map[0]);
-		keyUI->setPlayer(player);
 		keyUI->setIdle();
 		currentKeyState = false;
+
+		helmetUI = new Helmet();
+		helmetUI->init(glm::vec2(1 * map[0]->getTileSize(), 22 * map[0]->getTileSize()), texProgram);
+		helmetUI->setIdle();
 	}
 }
 

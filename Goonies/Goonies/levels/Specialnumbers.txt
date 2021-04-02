@@ -4,8 +4,15 @@
 -4 waterdrop
 -5 waterfall
 -6 startdoor
--7 lock & closeddoor
--8 double lock & closeddoor
--9 key
+-7 lock & closeddoor w potion
+-8 lock & closeddoor w friend
+-9 double lock & closeddoor w friend
+-10 key
+-11 sac en casc
+-12 sac en sabates
+-13 sac en xubasquero
+-14 sac en PENDENT
+-15 sac en PENDENT
+-16 sac en pocio
 
 -ABXY tp to level A scene B at pos X Y

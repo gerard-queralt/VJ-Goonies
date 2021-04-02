@@ -80,6 +80,12 @@
     <ClInclude Include="SubBar.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Pouch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helmet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -145,5 +151,9 @@
     <ClCompile Include="SubBar.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Pouch.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Helmet.cpp" />
   </ItemGroup>
 </Project>

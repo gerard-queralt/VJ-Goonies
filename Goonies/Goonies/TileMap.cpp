@@ -270,7 +270,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
 
-bool TileMap::notWalkable(int tile) const
+bool TileMap::notWalkable(int tile) const //solid
 {
 	return (tile == 1 || /* == 2 ||*/ tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) ||
 			(12<tile && tile<16) || tile == 68 || tile == 158 || tile == 176);

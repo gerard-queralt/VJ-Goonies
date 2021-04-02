@@ -1,7 +1,7 @@
 TILEMAP
 32 24 							-- Size of tile map in tiles
 8 8 							-- Tile size & block size
-images/tiles.png 	-- Tilesheet
+images/tiles_blue.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

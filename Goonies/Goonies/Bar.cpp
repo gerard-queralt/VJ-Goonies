@@ -37,12 +37,12 @@ void Bar::update(int deltaTime)
 		}
 		else
 			bars[n]->setAnimation(8);
-		for (int i = n + 1; i < bars.size(); ++i) {
-			bars[i]->setAnimation(0);
-		}
 	}
 	else
 		bars[n]->setAnimation(var % 8);
+	for (int i = n + 1; i < bars.size(); ++i) {
+		bars[i]->setAnimation(0);
+	}
 	for (int i = 0; i < n; ++i) {
 		bars[i]->setAnimation(8);
 	}

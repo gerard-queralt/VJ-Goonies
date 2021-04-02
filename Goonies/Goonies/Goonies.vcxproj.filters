@@ -163,11 +163,9 @@
     <ClCompile Include="Pouch.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Helmet.cpp" />
     <ClCompile Include="SoundBuffer.cpp" />
     <ClCompile Include="SoundDevice.cpp" />
     <ClCompile Include="SoundSource.cpp" />
-    <ClCompile Include="Helmet.cpp">
-      <Filter>Resource Files\Entities</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

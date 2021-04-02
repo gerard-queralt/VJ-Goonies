@@ -48,12 +48,16 @@ public:
 
 	std::vector<bool> getPowerUps();
 
+	void rescueFriend();
+	int getNumFriends();
+
 private:
 	int health;
 	int level;
 	int exp;
 	std::vector<bool> powerUps;
 	bool hasKey;
+	int numFriends;
 
 	bool lookingLeft; //Boolea per recuperar l'orientacio despres d'escalar
 

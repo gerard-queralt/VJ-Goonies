@@ -71,9 +71,6 @@
     <ClInclude Include="Potion.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Number.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Bar.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
@@ -81,9 +78,6 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Pouch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helmet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SoundBuffer.h">
@@ -94,6 +88,15 @@
     </ClInclude>
     <ClInclude Include="SoundSource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Number.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Friend.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleLockedDoor.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -163,9 +166,12 @@
     <ClCompile Include="Pouch.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Helmet.cpp" />
     <ClCompile Include="SoundBuffer.cpp" />
     <ClCompile Include="SoundDevice.cpp" />
     <ClCompile Include="SoundSource.cpp" />
+    <ClCompile Include="Friend.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubleLockedDoor.cpp" />
   </ItemGroup>
 </Project>

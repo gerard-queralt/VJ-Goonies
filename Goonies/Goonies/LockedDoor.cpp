@@ -1,5 +1,6 @@
 #include "LockedDoor.h"
 #include "Potion.h"
+#include "Friend.h"
 
 enum Contents {
 	POTION = 0, FRIEND
@@ -22,7 +23,9 @@ void LockedDoor::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgra
 	if (content == POTION) {
 		contentEntity = new Potion();
 	}
-	else if(content == FRIEND){}
+	else if(content == FRIEND){
+		contentEntity = new Friend();
+	}
 	contentEntity->init(contentPosition, shaderProgram);
 	contentEntity->setTileMap(map);
 }

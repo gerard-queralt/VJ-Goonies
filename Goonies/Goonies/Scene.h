@@ -10,7 +10,6 @@
 #include "Number.h"
 #include "Bar.h"
 #include "Key.h"
-#include "Helmet.h"
 
 
 // Scene contains all the entities of our game.
@@ -37,6 +36,8 @@ private:
 	void createLevel(int lvl);
 
 private:
+	void setUpUISprites();
+
 	TileMap *map[3];
 	int currentScene;
 	Player *player;
@@ -57,7 +58,11 @@ private:
 	Bar *expBar;
 	Key *keyUI;
 	bool currentKeyState; //perque volem que el setIdle i setActive nomes s'execute quan canvi l'estat de la clau del personatge
-	Helmet *helmetUI;
+	//sprites UI
+	Sprite *helmet;
+	Texture helmetSpritesheet;
+	std::vector<Sprite *> friends;
+	Texture friendSpritesheet;
 };
 
 

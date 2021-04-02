@@ -10,6 +10,7 @@
 #include "WaterDrop.h"
 #include "StartDoor.h"
 #include "LockedDoor.h"
+#include "DoubleLockedDoor.h"
 #include "Key.h"
 #include "Pouch.h"
 
@@ -228,6 +229,10 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				}
 				case -9: //porta amb dos candaus
 				{
+					DoubleLockedDoor *dld = new DoubleLockedDoor();
+					dld->setTileMap(this);
+					dld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(dld);
 					break;
 				}
 				case -10: //clau

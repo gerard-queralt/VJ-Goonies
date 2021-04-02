@@ -32,6 +32,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	powerUps.resize(NUM_POWER_UPS);
 	powerUps = tmp;
 	hasKey = false;
+	numFriends = 0;
 
 	status = GROUNDED;
 	startTime = 60;
@@ -342,6 +343,17 @@ void Player::givePowerUp(int pwup)
 std::vector<bool> Player::getPowerUps()
 {
 	return powerUps;
+}
+
+void Player::rescueFriend()
+{
+	if (numFriends < 5)
+		++numFriends;
+}
+
+int Player::getNumFriends()
+{
+	return numFriends;
 }
 
 

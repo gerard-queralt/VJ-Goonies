@@ -72,8 +72,6 @@ void Scene::update(int deltaTime)
 			currentKeyState = player->getHasKey();
 		}
 		keyUI->update(deltaTime);
-		if (player->getPowerUps()[0])
-			helmetUI->setActive();
 	}
 }
 
@@ -99,7 +97,10 @@ void Scene::render()
 		hpBar->render();
 		expBar->render();
 		keyUI->render();
-		helmetUI->render();
+		if (player->getPowerUps()[0])
+			helmet->render();
+		for (int i = 0; i < player->getNumFriends(); ++i)
+			friends[i]->render();
 		break;
 	default:
 		break;
@@ -155,9 +156,7 @@ void Scene::startGame()
 		keyUI->setIdle();
 		currentKeyState = false;
 
-		helmetUI = new Helmet();
-		helmetUI->init(glm::vec2(1 * map[0]->getTileSize(), 22 * map[0]->getTileSize()), texProgram);
-		helmetUI->setIdle();
+		setUpUISprites();
 	}
 }
 
@@ -221,6 +220,28 @@ void Scene::createLevel(int lvl)
 	currentState = lvl;
 	lvlNumber->changeNumber(currentState);
 	startLevelTime = START_LEVEL_TIME;
+}
+
+void Scene::setUpUISprites()
+{
+	//Helmet
+	helmetSpritesheet.loadFromFile("images/helmet.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	helmet = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f, 1.f), &helmetSpritesheet, &texProgram);
+	helmet->setNumberAnimations(0);
+	helmet->setPosition(glm::vec2(1 * map[0]->getTileSize(), 22 * map[0]->getTileSize()));
+	
+	//Friends
+	friendSpritesheet.loadFromFile("images/friendui.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	friends.resize(5);
+	for (int i = 0; i < friends.size(); ++i) {
+		friends[i] = Sprite::createSprite(glm::ivec2(8, 8), glm::vec2(1.f, 1.f), &friendSpritesheet, &texProgram);
+		friends[i]->setNumberAnimations(0);
+		if(i < 4){
+			friends[i]->setPosition(glm::vec2((27+i) * map[0]->getTileSize(), 22 * map[0]->getTileSize()));
+		}
+		else
+			friends[i]->setPosition(glm::vec2(27 * map[0]->getTileSize(), 23 * map[0]->getTileSize()));
+	}
 }
 
 

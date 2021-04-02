@@ -294,10 +294,6 @@ bool TileMap::collisionMoveLeft(const glm::vec2 &pos, const glm::ivec2 &size) co
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
 	{
-		if (map[y*mapSize.x + x] < -100000) {
-			Game::instance().changeScene(map[y*mapSize.x + x] * -1);
-			return false;
-		}
 		if(notWalkable(map[y*mapSize.x+x]))
 			return true;
 	}
@@ -314,10 +310,6 @@ bool TileMap::collisionMoveRight(const glm::vec2 &pos, const glm::ivec2 &size) c
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
 	{
-		if (map[y*mapSize.x + x] < -100000) {
-			Game::instance().changeScene(map[y*mapSize.x + x] * -1);
-			return false;
-		}
 		if(notWalkable(map[y*mapSize.x+x]))
 			return true;
 	}
@@ -442,36 +434,56 @@ bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool 
 	}
 }
 
-bool TileMap::collisionMoveLeftEntity(const glm::vec2 &pos, const glm::ivec2 &size) const
+//1 dreta, 2 esquerra, 0 resta
+void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, int state) const
 {
-	int x, y0, y1;
+	if (state == 0) {
+		//detectem tile de transcicio a baix
+		int x0, x1, y;
 
-	x = pos.x / tileSize;
-	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize;
-	for (int y = y0; y <= y1; y++)
-	{
-		if (notWalkable(map[y*mapSize.x + x]))
-			return true;
+		x0 = pos.x / tileSize;
+		x1 = (pos.x + size.x - 1) / tileSize;
+		y = (pos.y + size.y - 1) / tileSize;
+		for (int x = x0; x <= x1; x++)
+		{
+			if (map[y*mapSize.x + x] < -100000) {
+				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+				return;
+			}
+		}
 	}
 
-	return false;
-}
+	else if (state == 1) {
+		//detectem tile de transcicio a la dreta
+		int x, y0, y1;
 
-bool TileMap::collisionMoveRightEntity(const glm::vec2 &pos, const glm::ivec2 &size) const
-{
-	int x, y0, y1;
-
-	x = (pos.x + size.x - 1) / tileSize;
-	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize;
-	for (int y = y0; y <= y1; y++)
-	{
-		if (notWalkable(map[y*mapSize.x + x]))
-			return true;
+		x = (pos.x + size.x - 1) / tileSize;
+		y0 = pos.y / tileSize;
+		y1 = (pos.y + size.y - 1) / tileSize;
+		for (int y = y0; y <= y1; y++)
+		{
+			if (map[y*mapSize.x + x] < -100000) {
+				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+				return;
+			}
+		}
 	}
 
-	return false;
+	else if (state == 2) {
+		//detectem tile de transcicio a l'esquerra
+		int x, y0, y1;
+
+		x = (pos.x) / tileSize;
+		y0 = pos.y / tileSize;
+		y1 = (pos.y + size.y - 1) / tileSize;
+		for (int y = y0; y <= y1; y++)
+		{
+			if (map[y*mapSize.x + x] < -100000) {
+				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+				return;
+			}
+		}
+	}
 }
 
 glm::vec2 TileMap::getMapSize()

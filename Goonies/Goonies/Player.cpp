@@ -249,6 +249,28 @@ void Player::update(int deltaTime)
 	}
 	else
 		--startTime;
+	
+	int state;
+	switch (sprite->animation())
+	{
+	case STAND_RIGHT:
+	case MOVE_RIGHT:
+	case JUMP_RIGHT:
+	case PUNCH_RIGHT:
+		state = 1;
+		break;
+	case STAND_LEFT:
+	case MOVE_LEFT:
+	case JUMP_LEFT:
+	case PUNCH_LEFT:
+		state = 2;
+		break;
+	default:
+		state = 0;
+		break;
+	}
+	map->detectChangeScene(posPlayer, glm::ivec2(16, 16), state);
+	
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 

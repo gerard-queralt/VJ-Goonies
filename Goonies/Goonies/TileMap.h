@@ -45,8 +45,7 @@ public:
 	bool climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *posX, bool lookingLeft) const;
 	bool stopClimbing(const glm::vec2 &pos, const glm::ivec2 &size, bool up) const;
 
-	bool collisionMoveLeftEntity(const glm::vec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveRightEntity(const glm::vec2 &pos, const glm::ivec2 &size) const;
+	void detectChangeScene(const glm::vec2 &pos, const glm::ivec2 &size, int state) const;
 
 	glm::vec2 getMapSize();
 	

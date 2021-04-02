@@ -172,6 +172,8 @@
     <ClCompile Include="Friend.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="DoubleLockedDoor.cpp" />
+    <ClCompile Include="DoubleLockedDoor.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

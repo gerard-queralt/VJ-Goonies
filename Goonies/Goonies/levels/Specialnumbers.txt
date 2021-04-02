@@ -15,4 +15,4 @@
 -15 sac en PENDENT
 -16 sac en pocio
 
--ABXY tp to level A scene B at pos X Y
+-ABXXYY tp to level A scene B at pos XX YY

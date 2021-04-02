@@ -80,6 +80,15 @@
     <ClInclude Include="SubBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoundDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -141,5 +150,8 @@
     </ClCompile>
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="SubBar.cpp" />
+    <ClCompile Include="SoundDevice.cpp" />
+    <ClCompile Include="SoundBuffer.cpp" />
+    <ClCompile Include="SoundSource.cpp" />
   </ItemGroup>
 </Project>

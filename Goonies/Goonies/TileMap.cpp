@@ -370,7 +370,7 @@ bool TileMap::climbUp(const glm::vec2 & pos, const glm::ivec2 & size, float * po
 	int x0, x1, y;
 	
 	if (lookingLeft) { //no va quan astem damunt de la liana
-		x0 = (pos.x - (size.x - 1)/4) / tileSize; //el /4 no el tinc clar, pero mes o menys se sent be, si no s'agafa de massa lluny
+		x0 = (pos.x - (size.x - 1)) / tileSize;
 		x1 = (pos.x) / tileSize;
 	}
 	else {

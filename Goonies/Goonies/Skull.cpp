@@ -2,6 +2,7 @@
 #include "Skull.h"
 
 #define SPEED 1
+#define DMG_CD 40
 
 enum SkullAnims
 {
@@ -39,6 +40,7 @@ void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 	status = DEAD;
 	spawnTime = 60;
 	deathTime = 10;
+	dmgCD = DMG_CD;
 
 	position = tileMapPos;
 	startPosition = position;
@@ -58,8 +60,11 @@ void Skull::update(int deltaTime)
 					status = DYING;
 					sprite->changeAnimation(DYING);
 				}
-				else
+				else if (dmgCD == DMG_CD) {
 					player->hurt(5); //nombre random
+					dmgCD = 0;
+				}
+					
 			}
 			else if (map->collisionMoveLeftEntity(position, glm::ivec2(16, 8)) ||
 				position.x < 0) {
@@ -76,8 +81,10 @@ void Skull::update(int deltaTime)
 					status = DYING;
 					sprite->changeAnimation(DYING);
 				}
-				else
+				else if (dmgCD == DMG_CD) {
 					player->hurt(5); //nombre random
+					dmgCD = 0;
+				}
 			}
 			else if (map->collisionMoveRightEntity(position, glm::ivec2(16, 8)) ||
 				position.x > (map->getMapSize().x - 2) * map->getTileSize()) {
@@ -99,6 +106,8 @@ void Skull::update(int deltaTime)
 		if (deathTime == 0)
 			status = DEAD;
 	}
+	if (dmgCD < DMG_CD)
+		++dmgCD;
 }
 
 void Skull::setIdle() {

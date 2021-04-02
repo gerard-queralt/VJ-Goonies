@@ -9,6 +9,8 @@
 
 #include "Number.h"
 #include "Bar.h"
+#include "Key.h"
+#include "Helmet.h"
 
 
 // Scene contains all the entities of our game.
@@ -53,6 +55,9 @@ private:
 	Number *scenenNumber;
 	Bar *hpBar;
 	Bar *expBar;
+	Key *keyUI;
+	bool currentKeyState; //perque volem que el setIdle i setActive nomes s'execute quan canvi l'estat de la clau del personatge
+	Helmet *helmetUI;
 };
 
 

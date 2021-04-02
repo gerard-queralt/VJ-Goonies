@@ -20,7 +20,7 @@ enum PlayerAnims
 
 enum PowerUps
 {
-	HELMET = 0, HYPER_SHOES, WATERCOAT, NUM_POWER_UPS
+	HELMET = 0, HYPER_SHOES, WATERCOAT, PENDINGPOWERUP1, PENDINGPOWERUP2, NUM_POWER_UPS
 };
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
@@ -28,7 +28,8 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	health = 80;
 	level = 1;
 	exp = 0;
-	bool tmp[NUM_POWER_UPS] = { false };
+	std::vector<bool> tmp(NUM_POWER_UPS, false);
+	powerUps.resize(NUM_POWER_UPS);
 	powerUps = tmp;
 	hasKey = false;
 
@@ -278,7 +279,8 @@ glm::vec2 Player::getPosition()
 
 void Player::heal(int heal)
 {
-	health += heal;
+	if(health+heal <= 80)
+		health += heal;
 }
 
 void Player::hurt(int dmg)
@@ -309,6 +311,11 @@ int Player::getExp()
 	return exp;
 }
 
+bool Player::getHasKey()
+{
+	return hasKey;
+}
+
 bool Player::getKey()
 {
 	if (!hasKey) {
@@ -325,6 +332,16 @@ bool Player::useKey()
 		return true;
 	}
 	return false;
+}
+
+void Player::givePowerUp(int pwup)
+{
+	powerUps[pwup] = true;
+}
+
+std::vector<bool> Player::getPowerUps()
+{
+	return powerUps;
 }
 
 

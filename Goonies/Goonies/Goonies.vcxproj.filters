@@ -75,18 +75,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bar.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="SubBar.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Pouch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundSource.h">
+    <ClInclude Include="Helmet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -148,10 +145,15 @@
     <ClCompile Include="Number.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Bar.cpp" />
-    <ClCompile Include="SubBar.cpp" />
-    <ClCompile Include="SoundDevice.cpp" />
-    <ClCompile Include="SoundBuffer.cpp" />
-    <ClCompile Include="SoundSource.cpp" />
+    <ClCompile Include="Bar.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SubBar.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Pouch.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Helmet.cpp" />
   </ItemGroup>
 </Project>

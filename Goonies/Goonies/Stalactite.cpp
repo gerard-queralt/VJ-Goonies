@@ -36,8 +36,9 @@ void Stalactite::update(int deltaTime)
 	sprite->update(deltaTime);
 	if (status == ALIVE) {
 		position.y += FALL_SPEED;
-		if (inContactWithPlayer(position, glm::ivec2(16, 8))) {
-			player->hurt(5); //numero random
+		if (inContactWithPlayer(glm::vec2(position.x + 6, position.y), glm::ivec2(4, 1))) {
+			if(!player->getPowerUps()[0] /*helmet*/)
+				player->hurt(5); //numero random
 			status = DEAD;
 			alreadyDead = true;
 		}

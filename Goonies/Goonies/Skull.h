@@ -17,6 +17,7 @@ private:
 	bool movingLeft;
 	int spawnTime;
 	int deathTime;
+	int dmgCD;
 };
 
 #endif // _SKULL_INCLUDE

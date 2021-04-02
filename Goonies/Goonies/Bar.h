@@ -9,7 +9,7 @@ class Bar : public Entity
 public:
 	void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
 	void render();
-	void update();
+	void update(int deltaTime);
 
 	void setType(int type, ShaderProgram &shaderProgram);
 

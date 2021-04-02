@@ -11,6 +11,7 @@
 #include "StartDoor.h"
 #include "LockedDoor.h"
 #include "Key.h"
+#include "Pouch.h"
 
 
 using namespace std;
@@ -235,6 +236,22 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					key->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					key->setTileMap(this);
 					entities.push_back(key);
+					break;
+				}
+				//sac
+				case -11:
+				case -12:
+				case -13:
+				case -14:
+				case -15:
+				case -16:
+				{
+					Pouch *p = new Pouch();
+					p->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					p->setTileMap(this);
+					int content = ((tile * -1) % 10) - 1;
+					p->setContent(content);
+					entities.push_back(p);
 					break;
 				}
 				default:

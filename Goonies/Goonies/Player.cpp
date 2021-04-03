@@ -10,6 +10,7 @@
 #define JUMP_HEIGHT 16
 #define FALL_STEP 1
 #define SPEED 0.5
+#define SHOES_SPEED_UP 0.5
 #define CLIMB_SPEED 1
 
 
@@ -20,7 +21,7 @@ enum PlayerAnims
 
 enum PowerUps
 {
-	HELMET = 0, HYPER_SHOES, WATERCOAT, PENDINGPOWERUP1, PENDINGPOWERUP2, NUM_POWER_UPS
+	HELMET = 0, HYPER_SHOES, WATERCOAT_GREY, WATERCOAT_BLUE, SPELLBOOK, NUM_POWER_UPS
 };
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
@@ -129,9 +130,13 @@ void Player::update(int deltaTime)
 			if (sprite->animation() != MOVE_LEFT && status == GROUNDED)
 				sprite->changeAnimation(MOVE_LEFT);
 			posPlayer.x -= SPEED;
+			if (powerUps[HYPER_SHOES])
+				posPlayer.x -= SHOES_SPEED_UP;
 			if (map->collisionMoveLeft(posPlayer, glm::ivec2(16, 10)))
 			{
 				posPlayer.x += SPEED;
+				if (powerUps[HYPER_SHOES])
+					posPlayer.x += SHOES_SPEED_UP;
 				keepMovingInAir = false;
 				sprite->changeAnimation(STAND_LEFT);
 			}
@@ -142,9 +147,13 @@ void Player::update(int deltaTime)
 			if (sprite->animation() != MOVE_RIGHT && status == GROUNDED)
 				sprite->changeAnimation(MOVE_RIGHT);
 			posPlayer.x += SPEED;
+			if (powerUps[HYPER_SHOES])
+				posPlayer.x += SHOES_SPEED_UP;
 			if (map->collisionMoveRight(posPlayer, glm::ivec2(16, 10)))
 			{
 				posPlayer.x -= SPEED;
+				if (powerUps[HYPER_SHOES])
+					posPlayer.x -= SHOES_SPEED_UP;
 				keepMovingInAir = false;
 				sprite->changeAnimation(STAND_RIGHT);
 			}

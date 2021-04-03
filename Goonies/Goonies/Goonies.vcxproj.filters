@@ -178,6 +178,8 @@
     <ClCompile Include="DoubleLockedDoor.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Waterfall.cpp" />
+    <ClCompile Include="Waterfall.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

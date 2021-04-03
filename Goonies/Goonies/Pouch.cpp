@@ -4,7 +4,7 @@
 
 enum Content
 {
-	HELMET = 0, HYPER_SHOES, WATERCOAT, PENDINGPOWERUP1, PENDINGPOWERUP2, POTION
+	HELMET = 0, HYPER_SHOES, WATERCOAT_GREY, WATERCOAT_BLUE, SPELLBOOK, POTION
 };
 
 void Pouch::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
@@ -58,9 +58,9 @@ void Pouch::interact()
 		{
 		case HELMET:
 		case HYPER_SHOES:
-		case WATERCOAT:
-		case PENDINGPOWERUP1:
-		case PENDINGPOWERUP2:
+		case WATERCOAT_GREY:
+		case WATERCOAT_BLUE:
+		case SPELLBOOK:
 			player->givePowerUp(content);
 			break;
 		case POTION:

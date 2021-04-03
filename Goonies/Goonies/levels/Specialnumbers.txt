@@ -8,11 +8,17 @@
 -8 lock & closeddoor w friend
 -9 double lock & closeddoor w friend
 -10 key
--11 sac en casc
+-11 sac en casc groc
 -12 sac en sabates
--13 sac en xubasquero
--14 sac en PENDENT
--15 sac en PENDENT
+-13 sac en xubasquero gris
+-14 sac en xubasquero blau
+-15 sac en llibre verd
 -16 sac en pocio
+-17 blue stalactite
+-18 lock & blue closeddoor w potion
+-19 lock & blue closeddoor w friend
+-20 green stalactite
+-21 lock & green closeddoor w potion
+-22 lock & green closeddoor w friend
 
 -ABXXYY tp to level A scene B at pos XX YY

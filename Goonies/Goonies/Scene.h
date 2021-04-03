@@ -59,8 +59,8 @@ private:
 	Key *keyUI;
 	bool currentKeyState; //perque volem que el setIdle i setActive nomes s'execute quan canvi l'estat de la clau del personatge
 	//sprites UI
-	Sprite *helmet;
-	Texture helmetSpritesheet;
+	std::vector<Sprite*> powerUpsUI;
+	Texture powerUpsSpritesheet;
 	std::vector<Sprite *> friends;
 	Texture friendSpritesheet;
 };

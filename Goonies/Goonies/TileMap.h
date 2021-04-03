@@ -48,6 +48,8 @@ public:
 
 	void detectChangeScene(const glm::vec2 &pos, const glm::ivec2 &size, int state) const;
 
+	bool waterfallCollision(const glm::vec2 &pos, const glm::ivec2 &size) const;
+
 	glm::vec2 getMapSize();
 	
 private:

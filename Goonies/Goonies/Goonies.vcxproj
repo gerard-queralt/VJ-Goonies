@@ -175,6 +175,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="WaterDrop.h" />
+    <ClInclude Include="Waterfall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BadGuy.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="WaterDrop.cpp" />
+    <ClCompile Include="Waterfall.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

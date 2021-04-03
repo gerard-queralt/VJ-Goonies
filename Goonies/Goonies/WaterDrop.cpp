@@ -101,8 +101,3 @@ void WaterDrop::setActive()
 	sprite->setPosition(position);
 	sprite->changeAnimation(ROOF);
 }
-
-bool WaterDrop::hitPlayer()
-{
-	return false;
-}

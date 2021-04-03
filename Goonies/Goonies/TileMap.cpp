@@ -427,7 +427,6 @@ bool TileMap::collisionMoveDownEntities(const glm::vec2 &pos, const glm::ivec2 &
 	return false;
 }
 
-//WIP
 bool TileMap::collisionMoveUp(const glm::vec2 &pos, const glm::ivec2 &size) const
 {
 	int x0, x1, y;
@@ -524,7 +523,7 @@ bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool 
 	}
 }
 
-//1 dreta, 2 esquerra, 0 resta
+//0 baix, 1 dreta, 2 esquerra, 3 dalt
 void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, int state) const
 {
 	if (state == 0) {
@@ -567,6 +566,21 @@ void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, 
 		y0 = pos.y / tileSize;
 		y1 = (pos.y + size.y - 1) / tileSize;
 		for (int y = y0; y <= y1; y++)
+		{
+			if (map[y*mapSize.x + x] < -100000) {
+				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+				return;
+			}
+		}
+	}
+	else if (state == 3) {
+		//detectem la transcicio a dalt
+		int x0, x1, y;
+
+		x0 = pos.x / tileSize;
+		x1 = (pos.x + size.x - 1) / tileSize;
+		y = (pos.y - 1) / tileSize;
+		for (int x = x0; x <= x1; x++)
 		{
 			if (map[y*mapSize.x + x] < -100000) {
 				Game::instance().changeScene(map[y*mapSize.x + x] * -1);

@@ -212,8 +212,8 @@ void Player::update(int deltaTime)
 				posPlayer.y += CLIMB_SPEED;
 				if (map->stopClimbing(posPlayer, glm::ivec2(10, 16), false))
 				{
-					status = GROUNDED;
 					posPlayer.y -= map->getTileSize();
+					status = GROUNDED;
 					if(lookingLeft)
 						sprite->changeAnimation(STAND_LEFT);
 					else
@@ -281,6 +281,9 @@ void Player::update(int deltaTime)
 		break;
 	}
 	map->detectChangeScene(posPlayer, glm::ivec2(16, 16), state);
+	if (state == 0) { //mirem a dalt i a baix
+		map->detectChangeScene(posPlayer, glm::ivec2(16, 16), 3);
+	}
 	
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }

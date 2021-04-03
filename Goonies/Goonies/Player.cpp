@@ -174,7 +174,7 @@ void Player::update(int deltaTime)
 			else if (sprite->animation() == MOVE_RIGHT || sprite->animation() == STAND_RIGHT)
 				sprite->changeAnimation(JUMP_RIGHT);
 			jumpAngle += JUMP_ANGLE_STEP;
-			if (jumpAngle == 180)
+			if (jumpAngle == 180 || map->collisionMoveUp(posPlayer, glm::vec2(16.f, 16.f)))
 			{
 				status = FALLING;
 				posPlayer.y = startY;
@@ -320,8 +320,10 @@ void Player::hurt(int dmg)
 	//falta que el personatge se pose blanc
 	if (health - dmg >= 0)
 		health -= dmg;
-	else
-		health = 0; //aqui hauria d'acabar la partida
+	else {
+		health = 0;
+		Game::instance().gameOver();
+	}
 }
 
 void Player::gainXP(int exp)
@@ -330,6 +332,7 @@ void Player::gainXP(int exp)
 	if (this->exp >= 80) {
 		++level;
 		this->exp -= 80;
+		heal(5);
 	}
 }
 

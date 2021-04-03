@@ -12,12 +12,15 @@ public:
 	void setIdle();
 	void setActive();
 
+	void setColor(int color);
+
 private:
 	bool playerClose();
 
 	int dyingTime;
 	bool alreadyDead; //les estalactites no respawnegen
 
+	string color;
 };
 
 #endif // _STALACTITE_INCLUDE

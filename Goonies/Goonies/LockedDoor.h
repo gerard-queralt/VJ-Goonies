@@ -13,11 +13,13 @@ public:
 	void interact();
 
 	void setContent(int content);
+	void setColor(int color);
 
 private:
 	void open();
 
 	int content;
+	string color;
 
 	Entity *contentEntity;
 };

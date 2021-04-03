@@ -1,8 +1,9 @@
 #include "Waterfall.h"
 
-#define FALL_TIME 10
-#define STAY_TIME 100
-#define ANIM_TIME 5
+#define FALL_TIME 3
+#define STAY_TIME 70
+#define CYCLE_TIME 100
+#define DMG_CD 8
 
 void Waterfall::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
@@ -30,10 +31,12 @@ void Waterfall::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram
 	top->changeAnimation(0);
 
 	status = DEAD;
+	started = false;
 	fallTime = 0;
 	secondFallTime = 0;
 	stayTime = STAY_TIME;
-	stayAnimationTime = 0;
+	cycleTime = 0;
+	dmgCD = DMG_CD;
 	this->shaderProgram = shaderProgram;
 
 	position = tileMapPos;
@@ -44,7 +47,7 @@ void Waterfall::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram
 
 void Waterfall::render()
 {
-	if (status == ALIVE) {
+	if (status == ALIVE && started) {
 		if (fallTime == FALL_TIME) {
 			if (!map->waterfallCollision(position, glm::vec2(24, 8))) {
 				position.y += map->getTileSize();
@@ -68,8 +71,11 @@ void Waterfall::render()
 				else
 					++secondFallTime;
 			}
-			else
+			else {
 				status = DEAD;
+				position = startPosition;
+				return;
+			}
 		}
 		for (int i = 0; i < middle.size(); ++i) {
 			glm::vec2 newPos = position;
@@ -88,7 +94,7 @@ void Waterfall::render()
 			tmp->setPosition(startPosition);
 			middle.push_back(tmp);
 		}
-		//intent d'aconseguir l'efecte de cascada
+		//intent d'aconseguir l'efecte de cascada, hauriem de incrementar la y en 1 en lloc de tilesize
 		/*
 		if (stayTime < STAY_TIME && stayTime > 0) {
 			if (stayAnimationTime == 0) {
@@ -105,33 +111,47 @@ void Waterfall::render()
 			top->setPosition(glm::vec2(position.x, position.y - middle.size() * map->getTileSize()));
 			top->render();
 		}
+		if (dmgCD < DMG_CD)
+			++dmgCD;
+	}
+	else if (status == DEAD && started) {
+		if (cycleTime == CYCLE_TIME)
+			setActive();
+		else
+			++cycleTime;
 	}
 }
 
 void Waterfall::setIdle()
 {
 	status = DEAD;
+	started = false;
 }
 
 void Waterfall::setActive()
 {
 	status = ALIVE;
+	started = true;
 	fallTime = 0;
 	fallTime = 0;
 	secondFallTime = 0;
 	stayTime = STAY_TIME;
-	stayAnimationTime = 0;
+	cycleTime = 0;
 	position = startPosition;
+	sprite->setPosition(position);
+	top->setPosition(startPosition);
 	sprite->changeAnimation(0);
 	middle.clear();
 }
 
 void Waterfall::interact()
 {
-	for (int y = position.y; y >= startPosition.y && !player->getPowerUps()[3] /*blue watercoat*/; y -= map->getTileSize()) {
+	for (int y = position.y; y >= startPosition.y && y >= (position.y - middle.size() * map->getTileSize()) /*top position*/ && !player->getPowerUps()[3] /*blue watercoat*/; y -= map->getTileSize()) {
 		if (inContactWithPlayer(glm::vec2(position.x, float(y)), glm::ivec2(24, 8))) {
-			player->hurt(5); //random number
-			break;
+			if (dmgCD == DMG_CD) {
+				player->hurt(1); //nombre random
+				dmgCD = 0;
+			}
 		}
 	}
 }

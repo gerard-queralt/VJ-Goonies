@@ -8,9 +8,14 @@ enum StalAnims
 	ALIVE = 0, CRASHED, NUM_ANIMS
 };
 
+enum Colors {
+	RED = 0, BLUE, GREEN
+};
+
 void Stalactite::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
-	spritesheet.loadFromFile("images/stalactite.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	string path = "images/stalactite_" + color + ".png";
+	spritesheet.loadFromFile(path, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(16, 8), glm::vec2(1.f, 0.5f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(NUM_ANIMS);
 
@@ -75,6 +80,24 @@ void Stalactite::setActive()
 	if (!alreadyDead) {
 		status = SPAWNING;
 		position = startPosition;
+	}
+}
+
+void Stalactite::setColor(int color)
+{
+	switch (color)
+	{
+	case RED:
+		this->color = "red";
+		break;
+	case BLUE:
+		this->color = "blue";
+		break;
+	case GREEN:
+		this->color = "green";
+		break;
+	default:
+		break;
 	}
 }
 

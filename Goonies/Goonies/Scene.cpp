@@ -16,6 +16,8 @@
 
 #define START_LEVEL_TIME 60
 
+#define NUM_POWER_UPS 5
+
 enum GameStates
 {
 	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5
@@ -97,8 +99,10 @@ void Scene::render()
 		hpBar->render();
 		expBar->render();
 		keyUI->render();
-		if (player->getPowerUps()[0])
-			helmet->render();
+		for (int i = 0; i < NUM_POWER_UPS; ++i) {
+			if (player->getPowerUps()[i])
+				powerUpsUI[i]->render();
+		}
 		for (int i = 0; i < player->getNumFriends(); ++i)
 			friends[i]->render();
 		break;
@@ -225,11 +229,17 @@ void Scene::createLevel(int lvl)
 
 void Scene::setUpUISprites()
 {
-	//Helmet
-	helmetSpritesheet.loadFromFile("images/helmet.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	helmet = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f, 1.f), &helmetSpritesheet, &texProgram);
-	helmet->setNumberAnimations(0);
-	helmet->setPosition(glm::vec2(1 * map[0]->getTileSize(), 22 * map[0]->getTileSize()));
+	powerUpsSpritesheet.loadFromFile("images/powerups.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	powerUpsUI.resize(NUM_POWER_UPS);
+	for (int i = 0; i < powerUpsUI.size(); ++i) {
+		Sprite *pwup = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.2f, 1.f), &powerUpsSpritesheet, &texProgram);
+		pwup->setNumberAnimations(1);
+		pwup->setAnimationSpeed(0, 8);
+		pwup->addKeyframe(0, glm::vec2(0.2f * i, 0.f));
+		pwup->changeAnimation(0);
+		pwup->setPosition(glm::vec2((0.5f+i) * map[0]->getTileSize()*2, 22 * map[0]->getTileSize()));
+		powerUpsUI[i] = pwup;
+	}
 	
 	//Friends
 	friendSpritesheet.loadFromFile("images/friendui.png", TEXTURE_PIXEL_FORMAT_RGBA);

@@ -56,7 +56,7 @@ void Skull::update(int deltaTime)
 				sprite->changeAnimation(MOVE_LEFT);
 			position.x -= SPEED;
 			if (inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
-				if (player->getStatus() == PUNCHING && status == ALIVE) {
+				if ((player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) && status == ALIVE) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
 				}
@@ -78,7 +78,7 @@ void Skull::update(int deltaTime)
 				sprite->changeAnimation(MOVE_RIGHT);
 			position.x += SPEED;
 			if(inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
-				if (player->getStatus() == PUNCHING && status == ALIVE) {
+				if ((player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) && status == ALIVE) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
 				}

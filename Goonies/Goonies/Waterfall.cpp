@@ -128,7 +128,7 @@ void Waterfall::setActive()
 
 void Waterfall::interact()
 {
-	for (int y = position.y; y >= startPosition.y; y -= map->getTileSize()) {
+	for (int y = position.y; y >= startPosition.y && !player->getPowerUps()[3] /*blue watercoat*/; y -= map->getTileSize()) {
 		if (inContactWithPlayer(glm::vec2(position.x, float(y)), glm::ivec2(24, 8))) {
 			player->hurt(5); //random number
 			break;

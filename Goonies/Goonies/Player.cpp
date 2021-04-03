@@ -174,7 +174,7 @@ void Player::update(int deltaTime)
 			else if (sprite->animation() == MOVE_RIGHT || sprite->animation() == STAND_RIGHT)
 				sprite->changeAnimation(JUMP_RIGHT);
 			jumpAngle += JUMP_ANGLE_STEP;
-			if (jumpAngle == 180)
+			if (jumpAngle == 180 || map->collisionMoveUp(posPlayer, glm::vec2(16.f, 16.f)))
 			{
 				status = FALLING;
 				posPlayer.y = startY;

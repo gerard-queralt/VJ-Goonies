@@ -428,22 +428,18 @@ bool TileMap::collisionMoveDownEntities(const glm::vec2 &pos, const glm::ivec2 &
 }
 
 //WIP
-bool TileMap::collisionMoveUp(const glm::vec2 &pos, const glm::ivec2 &size, float *posY) const
+bool TileMap::collisionMoveUp(const glm::vec2 &pos, const glm::ivec2 &size) const
 {
 	int x0, x1, y;
 
 	x0 = pos.x / tileSize;
 	x1 = (pos.x + size.x - 1) / tileSize;
-	y = (pos.y +1) / tileSize;
+	y = (pos.y - 1) / tileSize;
 	for (int x = x0; x <= x1; x++)
 	{
 		if (notWalkable(map[y*mapSize.x + x]))
 		{
-			if (*posY - tileSize * y + size.y <= 1)
-			{
-				*posY = tileSize * y - size.y;
-				return true;
-			}
+			return true;
 		}
 	}
 

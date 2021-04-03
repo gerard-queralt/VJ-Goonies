@@ -246,7 +246,7 @@ void Scene::setUpUISprites()
 	
 	//Friends
 	friendSpritesheet.loadFromFile("images/friendui.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	friends.resize(5);
+	friends.resize(6);
 	for (int i = 0; i < friends.size(); ++i) {
 		friends[i] = Sprite::createSprite(glm::ivec2(8, 8), glm::vec2(1.f, 1.f), &friendSpritesheet, &texProgram);
 		friends[i]->setNumberAnimations(0);
@@ -254,7 +254,7 @@ void Scene::setUpUISprites()
 			friends[i]->setPosition(glm::vec2((27+i) * map[0]->getTileSize(), 22 * map[0]->getTileSize()));
 		}
 		else
-			friends[i]->setPosition(glm::vec2(27 * map[0]->getTileSize(), 23 * map[0]->getTileSize()));
+			friends[i]->setPosition(glm::vec2((27+i-4) * map[0]->getTileSize(), 23 * map[0]->getTileSize()));
 	}
 }
 

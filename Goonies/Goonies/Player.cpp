@@ -394,7 +394,7 @@ std::vector<bool> Player::getPowerUps()
 
 void Player::rescueFriend()
 {
-	if (numFriends < 5)
+	if (numFriends < 6)
 		++numFriends;
 	gainXP(200);
 }

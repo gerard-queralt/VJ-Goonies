@@ -186,9 +186,28 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				{
 					break;
 				}
-				case -3: //estalactita
+				case -3: //estalactita roja
 				{
 					Stalactite *stal = new Stalactite();
+					stal->setColor(0);
+					stal->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					stal->setTileMap(this);
+					entities.push_back(stal);
+					break;
+				}
+				case -17: //estalactita blava
+				{
+					Stalactite *stal = new Stalactite();
+					stal->setColor(1);
+					stal->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					stal->setTileMap(this);
+					entities.push_back(stal);
+					break;
+				}
+				case -20: //estalactita verda
+				{
+					Stalactite *stal = new Stalactite();
+					stal->setColor(2);
 					stal->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					stal->setTileMap(this);
 					entities.push_back(stal);
@@ -218,19 +237,61 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					entities.push_back(startDoor);
 					break;
 				}
-				case -7: //porta amb un candau i pocio
+				case -7: //porta roja amb un candau i pocio
 				{
 					LockedDoor *ld = new LockedDoor();
 					ld->setContent(0);
+					ld->setColor(0);
 					ld->setTileMap(this);
 					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(ld);
 					break;
 				}
-				case -8: //porta amb un candau i amic
+				case -8: //porta roja amb un candau i amic
 				{
 					LockedDoor *ld = new LockedDoor();
 					ld->setContent(1);
+					ld->setColor(0);
+					ld->setTileMap(this);
+					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(ld);
+					break;
+				}
+				case -18: //porta blava amb un candau i pocio
+				{
+					LockedDoor *ld = new LockedDoor();
+					ld->setContent(0);
+					ld->setColor(1);
+					ld->setTileMap(this);
+					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(ld);
+					break;
+				}
+				case -19: //porta blava amb un candau i amic
+				{
+					LockedDoor *ld = new LockedDoor();
+					ld->setContent(1);
+					ld->setColor(1);
+					ld->setTileMap(this);
+					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(ld);
+					break;
+				}
+				case -21: //porta verda amb un candau i pocio
+				{
+					LockedDoor *ld = new LockedDoor();
+					ld->setContent(0);
+					ld->setColor(2);
+					ld->setTileMap(this);
+					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(ld);
+					break;
+				}
+				case -22: //porta verda amb un candau i amic
+				{
+					LockedDoor *ld = new LockedDoor();
+					ld->setContent(1);
+					ld->setColor(2);
 					ld->setTileMap(this);
 					ld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(ld);

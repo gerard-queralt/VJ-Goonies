@@ -20,7 +20,7 @@
 
 enum GameStates
 {
-	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5
+	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, GAME_OVER
 };
 
 
@@ -46,9 +46,9 @@ void Scene::init()
 {
 	initShaders();
 	titleimage.loadFromFile("images/title.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	title = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f, 1.f), &titleimage, &texProgram);
+	title = Sprite::createSprite(glm::ivec2(32.f * 8.f, 24.f * 8.f), glm::vec2(1.f, 1.f), &titleimage, &texProgram);
 	title->setPosition(glm::vec2(0.f, 0.f));
-	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+	projection = glm::ortho(0.f, 32.f * 8.f, 24.f * 8.f, 0.f);
 	currentTime = 0.0f;
 	currentState = MENU;
 }
@@ -93,18 +93,11 @@ void Scene::render()
 	case LEVEL5:
 		map[currentScene-1]->render();
 		player->render();
-		prerenderedUI->render();
-		lvlNumber->render();
-		scenenNumber->render();
-		hpBar->render();
-		expBar->render();
-		keyUI->render();
-		for (int i = 0; i < NUM_POWER_UPS; ++i) {
-			if (player->getPowerUps()[i])
-				powerUpsUI[i]->render();
-		}
-		for (int i = 0; i < player->getNumFriends(); ++i)
-			friends[i]->render();
+		renderUI();
+		break;
+	case GAME_OVER:
+		gameover->render();
+		renderUI();
 		break;
 	default:
 		break;
@@ -138,9 +131,7 @@ void Scene::startGame()
 		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0]->getTileSize()));
 		player->setTileMap(map[0]);
 		glm::vec2 mapSize = map[0]->getMapSize();
-		projection = glm::ortho(0.f, mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize(), 0.f);
 		startLevelTime = START_LEVEL_TIME;
-
 
 		UIimage.loadFromFile("images/prerenderedui.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		prerenderedUI = Sprite::createSprite(glm::ivec2(mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &UIimage, &texProgram);
@@ -162,6 +153,9 @@ void Scene::startGame()
 
 		setUpUISprites();
 	}
+	else if (currentState == GAME_OVER) {
+		currentState = MENU;
+	}
 }
 
 //Code es un numero de 6 xifres ABXXYY, on A es el nivell, B es l'escena
@@ -180,6 +174,14 @@ void Scene::changeScene(int code)
 	player->setPosition(glm::vec2(x * map[currentScene-1]->getTileSize(), y * map[currentScene - 1]->getTileSize()));
 	player->setTileMap(map[currentScene - 1]);
 	scenenNumber->changeNumber(currentScene);
+}
+
+void Scene::gameOver()
+{
+	gameoverimage.loadFromFile("images/gameover.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	gameover = Sprite::createSprite(glm::ivec2(map[0]->getMapSize().x * map[0]->getTileSize(), map[0]->getMapSize().y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &gameoverimage, &texProgram);
+	gameover->setPosition(glm::vec2(0.f, 0.f));
+	currentState = GAME_OVER;
 }
 
 void Scene::initShaders()
@@ -253,6 +255,22 @@ void Scene::setUpUISprites()
 		else
 			friends[i]->setPosition(glm::vec2(27 * map[0]->getTileSize(), 23 * map[0]->getTileSize()));
 	}
+}
+
+void Scene::renderUI()
+{
+	prerenderedUI->render();
+	lvlNumber->render();
+	scenenNumber->render();
+	hpBar->render();
+	expBar->render();
+	keyUI->render();
+	for (int i = 0; i < NUM_POWER_UPS; ++i) {
+		if (player->getPowerUps()[i])
+			powerUpsUI[i]->render();
+	}
+	for (int i = 0; i < player->getNumFriends(); ++i)
+		friends[i]->render();
 }
 
 

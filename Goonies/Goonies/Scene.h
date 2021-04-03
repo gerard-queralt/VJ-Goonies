@@ -29,15 +29,17 @@ public:
 
 	void startGame();
 	void changeScene(int code);
+	void gameOver();
 
 private:
 	void initShaders();
 
 	void createLevel(int lvl);
 
-private:
 	void setUpUISprites();
+	void renderUI();
 
+private:
 	TileMap *map[3];
 	int currentScene;
 	Player *player;
@@ -49,6 +51,8 @@ private:
 	Texture titleimage;
 	Sprite *title;
 	int startLevelTime;
+	Texture gameoverimage;
+	Sprite *gameover;
 
 	Texture UIimage;
 	Sprite *prerenderedUI;

@@ -31,6 +31,7 @@ public:
 	void render();
 
 	void changeScene(int code);
+	void gameOver();
 	
 	// Input callback methods
 	void keyPressed(int key);

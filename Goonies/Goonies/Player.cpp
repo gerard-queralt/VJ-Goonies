@@ -320,8 +320,10 @@ void Player::hurt(int dmg)
 	//falta que el personatge se pose blanc
 	if (health - dmg >= 0)
 		health -= dmg;
-	else
-		health = 0; //aqui hauria d'acabar la partida
+	else {
+		health = 0;
+		Game::instance().gameOver();
+	}
 }
 
 void Player::gainXP(int exp)

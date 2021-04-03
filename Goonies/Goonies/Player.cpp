@@ -213,6 +213,7 @@ void Player::update(int deltaTime)
 				if (map->stopClimbing(posPlayer, glm::ivec2(10, 16), false))
 				{
 					status = GROUNDED;
+					posPlayer.y -= map->getTileSize();
 					if(lookingLeft)
 						sprite->changeAnimation(STAND_LEFT);
 					else

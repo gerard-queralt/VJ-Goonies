@@ -2,6 +2,7 @@
 #include "Skull.h"
 
 #define SPEED 1
+#define SPAWN_TIME 60
 #define DMG_CD 40
 
 enum SkullAnims
@@ -38,7 +39,7 @@ void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 	movingLeft = true;
 
 	status = DEAD;
-	spawnTime = 60;
+	spawnTime = SPAWN_TIME;
 	deathTime = 10;
 	dmgCD = DMG_CD;
 
@@ -56,7 +57,7 @@ void Skull::update(int deltaTime)
 				sprite->changeAnimation(MOVE_LEFT);
 			position.x -= SPEED;
 			if (inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
-				if ((player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) && status == ALIVE) {
+				if (player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
 					player->gainXP(5);
@@ -79,7 +80,7 @@ void Skull::update(int deltaTime)
 				sprite->changeAnimation(MOVE_RIGHT);
 			position.x += SPEED;
 			if(inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
-				if ((player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) && status == ALIVE) {
+				if (player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
 					player->gainXP(5);
@@ -116,7 +117,7 @@ void Skull::update(int deltaTime)
 
 void Skull::setIdle() {
 	status = DEAD;
-	spawnTime = 60;
+	spawnTime = SPAWN_TIME;
 	deathTime = 10;
 }
 
@@ -127,7 +128,7 @@ void Skull::setActive()
 	sprite->setPosition(position);
 	sprite->changeAnimation(SPAWNING);
 	movingLeft = true;
-	spawnTime = 60;
+	spawnTime = SPAWN_TIME;
 	deathTime = 10;
 }
 

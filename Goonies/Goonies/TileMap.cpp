@@ -516,7 +516,7 @@ bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool 
 	}
 	else {
 		y = (pos.y + size.y + 1) / tileSize;
-		++y; //la següent tile
+		//++y; //la següent tile
 		if (map[y*mapSize.x + x] != 101 /*tile liana*/ &&
 			map[y*mapSize.x + x] != 2 /*tile liana al terra*/)
 			return true;

@@ -13,11 +13,14 @@ public:
 
 	void interact();
 
+	void setColor(int color);
+
 private:
 	int locks;
 	void open();
 
 	Friend *content;
+	string color;
 
 	Texture blackSquareSpritesheet;
 	Sprite *blackSquare; //per tapar un candau

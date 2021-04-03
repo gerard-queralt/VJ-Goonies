@@ -212,7 +212,7 @@ void Player::update(int deltaTime)
 				posPlayer.y += CLIMB_SPEED;
 				if (map->stopClimbing(posPlayer, glm::ivec2(10, 16), false))
 				{
-					posPlayer.y -= map->getTileSize();
+					posPlayer.y -= map->getTileSize()/2;
 					status = GROUNDED;
 					if(lookingLeft)
 						sprite->changeAnimation(STAND_LEFT);
@@ -341,9 +341,10 @@ void Player::gainXP(int exp)
 {
 	this->exp += exp;
 	if (this->exp >= 80) {
-		++level;
-		this->exp -= 80;
-		heal(5);
+		int extra = this->exp / 80;
+		level += extra;
+		this->exp -= 80*extra;
+		heal(5*extra);
 	}
 }
 

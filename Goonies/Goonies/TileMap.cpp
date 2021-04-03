@@ -297,10 +297,20 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					entities.push_back(ld);
 					break;
 				}
-				case -9: //porta amb dos candaus
+				case -9: //porta roja amb dos candaus
 				{
 					DoubleLockedDoor *dld = new DoubleLockedDoor();
 					dld->setTileMap(this);
+					dld->setColor(0);
+					dld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(dld);
+					break;
+				}
+				case -23: //porta verda amb dos candaus
+				{
+					DoubleLockedDoor *dld = new DoubleLockedDoor();
+					dld->setTileMap(this);
+					dld->setColor(1);
 					dld->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(dld);
 					break;
@@ -347,7 +357,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 
 bool TileMap::notWalkable(int tile) const //solid
 {
-	return (tile == 1 || /* == 2 ||*/ tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) ||
+	return (tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 111 || tile == 112 || (80<tile && tile<87) ||
 			(12<tile && tile<16) || tile == 68 || tile == 158 || tile == 176);
 }
 

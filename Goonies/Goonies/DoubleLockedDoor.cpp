@@ -1,8 +1,13 @@
 #include "DoubleLockedDoor.h"
 
+enum Colors {
+	RED, GREEN
+};
+
 void DoubleLockedDoor::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {
-	spritesheet.loadFromFile("images/doublelockeddoor.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	string path = "images/doublelockeddoor_" + color + ".png";
+	spritesheet.loadFromFile(path, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(1.f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(0);
 
@@ -27,6 +32,7 @@ void DoubleLockedDoor::init(const glm::vec2 & tileMapPos, ShaderProgram & shader
 
 void DoubleLockedDoor::update(int deltaTime)
 {
+	sprite->update(deltaTime);
 }
 
 void DoubleLockedDoor::render()
@@ -54,6 +60,21 @@ void DoubleLockedDoor::interact()
 	}
 	else
 		content->interact();
+}
+
+void DoubleLockedDoor::setColor(int color)
+{
+	switch (color)
+	{
+	case RED:
+		this->color = "red";
+		break;
+	case GREEN:
+		this->color = "green";
+		break;
+	default:
+		break;
+	}
 }
 
 void DoubleLockedDoor::open()

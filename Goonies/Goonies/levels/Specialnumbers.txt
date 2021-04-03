@@ -6,7 +6,7 @@
 -6 startdoor
 -7 lock & closeddoor w potion
 -8 lock & closeddoor w friend
--9 double lock & closeddoor w friend
+-9 double lock & red closeddoor w friend
 -10 key
 -11 sac en casc groc
 -12 sac en sabates
@@ -20,5 +20,6 @@
 -20 green stalactite
 -21 lock & green closeddoor w potion
 -22 lock & green closeddoor w friend
+-23 double lock & green closeddoor w friend
 
 -ABXXYY tp to level A scene B at pos XX YY

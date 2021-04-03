@@ -10,9 +10,16 @@ SoundDevice* SoundDevice::get()
 
 SoundDevice::SoundDevice()
 {
-	p_ALCDevice = alcOpenDevice(nullptr); // nullptr = get default device
-	if (!p_ALCDevice)
+	const ALCchar* defaultDeviceString = alcGetString(/*device*/nullptr, ALC_DEFAULT_DEVICE_SPECIFIER);
+	ALCdevice* p_ALCdevice = alcOpenDevice(defaultDeviceString);
+	if (!p_ALCdevice)
+	{
 		throw("failed to get sound device");
+	}
+	
+	//p_ALCDevice = alcOpenDevice(nullptr); // nullptr = get default device
+	//if (!p_ALCDevice)
+		//throw("failed to get sound device");
 
 	p_ALCContext = alcCreateContext(p_ALCDevice, nullptr);  // create context
 	if (!p_ALCContext)

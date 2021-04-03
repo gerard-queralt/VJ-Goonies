@@ -21,11 +21,14 @@ private:
 	std::vector<Sprite*> middle;
 	Sprite *top;
 	
+	bool started;
+
 	int fallTime;
 	int secondFallTime;
 	int stayTime;
-	int stayAnimationTime;
+	//int stayAnimationTime;
 	int cycleTime;
+	int dmgCD;
 };
 
 #endif // _WATERWALL_INCLUDE

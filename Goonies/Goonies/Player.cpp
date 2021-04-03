@@ -330,6 +330,7 @@ void Player::gainXP(int exp)
 	if (this->exp >= 80) {
 		++level;
 		this->exp -= 80;
+		heal(5);
 	}
 }
 

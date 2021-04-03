@@ -66,8 +66,9 @@ void Skull::update(int deltaTime)
 				}
 					
 			}
-			else if (map->collisionMoveLeft(position, glm::ivec2(16, 8)) ||
-				position.x < 0) {
+			if (map->collisionMoveLeft(position, glm::ivec2(16, 8)) ||
+				position.x < 0 ||
+				!map->collisionMoveDownEntities(glm::vec2(position.x - 8, position.y), glm::ivec2(16,12))) {
 				position.x += SPEED;
 				movingLeft = false;
 			}
@@ -86,8 +87,9 @@ void Skull::update(int deltaTime)
 					dmgCD = 0;
 				}
 			}
-			else if (map->collisionMoveRight(position, glm::ivec2(16, 8)) ||
-				position.x > (map->getMapSize().x - 2) * map->getTileSize()) {
+			if (map->collisionMoveRight(position, glm::ivec2(16, 8)) ||
+				position.x > (map->getMapSize().x - 2) * map->getTileSize() ||
+				!map->collisionMoveDownEntities(glm::vec2(position.x+8,position.y), glm::ivec2(16, 12))) {
 				position.x -= SPEED;
 				movingLeft = true;
 			}

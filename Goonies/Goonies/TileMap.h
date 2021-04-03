@@ -46,9 +46,12 @@ public:
 	bool climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *posX, bool lookingLeft) const;
 	bool stopClimbing(const glm::vec2 &pos, const glm::ivec2 &size, bool up) const;
 
-	void detectChangeScene(const glm::vec2 &pos, const glm::ivec2 &size, int state) const;
+	void detectChangeScene(glm::vec2 &pos, const glm::ivec2 &size, int state) const;
+	void detectChangeLevel(glm::vec2 &pos, const glm::ivec2 &size) const;
 
 	bool waterfallCollision(const glm::vec2 &pos, const glm::ivec2 &size) const;
+
+	void setLvl(int lvl);
 
 	glm::vec2 getMapSize();
 	
@@ -69,6 +72,7 @@ private:
 	int *map;
 
 	std::vector<Entity*> entities;
+	int lvl;
 };
 
 

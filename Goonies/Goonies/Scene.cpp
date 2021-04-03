@@ -221,6 +221,7 @@ void Scene::createLevel(int lvl)
 		map[i] = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 		map[i]->setEntitiesIdle();
 		map[i]->setEntitiesPlayer(player);
+		map[i]->setLvl(lvl);
 
 	}
 	currentState = lvl;

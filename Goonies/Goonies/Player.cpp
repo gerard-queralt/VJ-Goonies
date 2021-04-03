@@ -237,6 +237,9 @@ void Player::update(int deltaTime)
 				keepMovingInAir = false;
 				if (Game::instance().getSpecialKey(GLUT_KEY_UP))
 				{
+					if (status == GROUNDED) {
+						map->detectChangeLevel(posPlayer, glm::ivec2(16, 16));
+					}
 					if (status == GROUNDED && map->climbUp(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft)) {
 						sprite->changeAnimation(IDLE_CLIMBING);
 						status = CLIMBING;
@@ -280,9 +283,12 @@ void Player::update(int deltaTime)
 		state = 0;
 		break;
 	}
-	map->detectChangeScene(posPlayer, glm::ivec2(16, 16), state);
+	map->detectChangeScene(posPlayer, glm::ivec2(16, 18), state);
 	if (state == 0) { //mirem a dalt i a baix
 		map->detectChangeScene(posPlayer, glm::ivec2(16, 16), 3);
+		//corregim posició
+		//map->climbUp(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft);
+		//map->climbDown(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft);
 	}
 	
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));

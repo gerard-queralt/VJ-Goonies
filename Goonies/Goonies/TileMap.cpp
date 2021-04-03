@@ -514,8 +514,7 @@ bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool 
 		return false;
 	}
 	else {
-		y = (pos.y + size.y + 1) / tileSize;
-		//++y; //la següent tile
+		y = (pos.y + size.y) / tileSize;
 		if (map[y*mapSize.x + x] != 101 /*tile liana*/ &&
 			map[y*mapSize.x + x] != 2 /*tile liana al terra*/)
 			return true;
@@ -524,7 +523,7 @@ bool TileMap::stopClimbing(const glm::vec2 & pos, const glm::ivec2 & size, bool 
 }
 
 //0 baix, 1 dreta, 2 esquerra, 3 dalt
-void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, int state) const
+void TileMap::detectChangeScene(glm::vec2 & pos, const glm::ivec2 & size, int state) const
 {
 	if (state == 0) {
 		//detectem tile de transcicio a baix
@@ -535,8 +534,9 @@ void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, 
 		y = (pos.y + size.y - 1) / tileSize;
 		for (int x = x0; x <= x1; x++)
 		{
-			if (map[y*mapSize.x + x] < -100000) {
+			if (map[y*mapSize.x + x] < -100000 && map[y*mapSize.x + x] / 100000 == lvl * -1) {
 				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+				pos.x += (tileSize/2) + 1; //corregim la posicio a la liana
 				return;
 			}
 		}
@@ -551,7 +551,7 @@ void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, 
 		y1 = (pos.y + size.y - 1) / tileSize;
 		for (int y = y0; y <= y1; y++)
 		{
-			if (map[y*mapSize.x + x] < -100000) {
+			if (map[y*mapSize.x + x] < -100000 && map[y*mapSize.x + x] / 100000 == lvl * -1) {
 				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
 				return;
 			}
@@ -567,7 +567,7 @@ void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, 
 		y1 = (pos.y + size.y - 1) / tileSize;
 		for (int y = y0; y <= y1; y++)
 		{
-			if (map[y*mapSize.x + x] < -100000) {
+			if (map[y*mapSize.x + x] < -100000 && map[y*mapSize.x + x] / 100000 == lvl * -1) {
 				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
 				return;
 			}
@@ -582,10 +582,29 @@ void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, 
 		y = (pos.y - 1) / tileSize;
 		for (int x = x0; x <= x1; x++)
 		{
-			if (map[y*mapSize.x + x] < -100000) {
+			if (map[y*mapSize.x + x] < -100000 && map[y*mapSize.x + x] / 100000 == lvl * -1) {
 				Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+				pos.x += (tileSize / 2) + 1; //corregim la posicio a la liana
 				return;
 			}
+		}
+	}
+}
+
+void TileMap::detectChangeLevel(glm::vec2 & pos, const glm::ivec2 & size) const
+{
+	int x0, x1, y;
+
+	x0 = pos.x / tileSize;
+	x1 = (pos.x + size.x - 1) / tileSize;
+	y = pos.y / tileSize;
+	++y; //mirem la de baix
+	for (int x = x0; x <= x1; x++)
+	{
+		if (map[y*mapSize.x + x] < -100000) {
+			Game::instance().changeScene(map[y*mapSize.x + x] * -1);
+			pos.x += (tileSize / 2); //corregim la posicio a la porta
+			return;
 		}
 	}
 }
@@ -606,6 +625,11 @@ bool TileMap::waterfallCollision(const glm::vec2 & pos, const glm::ivec2 & size)
 	}
 
 	return false;
+}
+
+void TileMap::setLvl(int lvl)
+{
+	this->lvl = lvl;
 }
 
 glm::vec2 TileMap::getMapSize()

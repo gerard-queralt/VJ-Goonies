@@ -12,8 +12,6 @@ public:
 	void setActive();
 
 private:
-	bool hitPlayer();
-
 	int cycleTime;
 	int changeStateTime;
 };

@@ -60,8 +60,8 @@ bool Entity::inContactWithPlayer(const glm::vec2 &entityPosition, const glm::ive
 
 	for (int y = y0; y <= y1; ++y) {
 		for (int x = x0; x <= x1; ++x) {
-			if (position.x <= x && x <= position.x + entitySize.x
-				&& position.y <= y && y <= position.y + entitySize.y)
+			if (entityPosition.x <= x && x <= entityPosition.x + entitySize.x
+				&& entityPosition.y <= y && y <= entityPosition.y + entitySize.y)
 				return true;
 		}
 	}

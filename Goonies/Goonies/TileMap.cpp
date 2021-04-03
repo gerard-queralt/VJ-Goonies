@@ -8,6 +8,7 @@
 #include "BadGuy.h"
 #include "Stalactite.h"
 #include "WaterDrop.h"
+#include "Waterfall.h"
 #include "StartDoor.h"
 #include "LockedDoor.h"
 #include "DoubleLockedDoor.h"
@@ -199,6 +200,14 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					wd->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					wd->setTileMap(this);
 					entities.push_back(wd);
+					break;
+				}
+				case -5: //cascada
+				{
+					Waterfall *wf = new Waterfall();
+					wf->setTileMap(this);
+					wf->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(wf);
 					break;
 				}
 				case -6: //porta inici
@@ -484,6 +493,24 @@ void TileMap::detectChangeScene(const glm::vec2 & pos, const glm::ivec2 & size, 
 			}
 		}
 	}
+}
+
+bool TileMap::waterfallCollision(const glm::vec2 & pos, const glm::ivec2 & size) const
+{
+	int x0, x1, y;
+
+	x0 = pos.x / tileSize;
+	x1 = (pos.x + size.x - 1) / tileSize;
+	y = (pos.y + size.y - 1) / tileSize;
+	for (int x = x0; x <= x1; x++)
+	{
+		if (map[y*mapSize.x + x] == 31 || map[y*mapSize.x + x] == 32)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 glm::vec2 TileMap::getMapSize()

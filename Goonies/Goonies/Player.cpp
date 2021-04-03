@@ -249,6 +249,7 @@ void Player::update(int deltaTime)
 				else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN))
 				{
 					if (status == GROUNDED && map->climbDown(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft)) {
+						posPlayer.y += 2 * map->getTileSize();
 						sprite->changeAnimation(IDLE_CLIMBING);
 						status = CLIMBING;
 					}
@@ -355,6 +356,7 @@ bool Player::getKey()
 {
 	if (!hasKey) {
 		hasKey = true;
+		gainXP(20);
 		return true;
 	}
 	return false;
@@ -383,6 +385,7 @@ void Player::rescueFriend()
 {
 	if (numFriends < 5)
 		++numFriends;
+	gainXP(200);
 }
 
 int Player::getNumFriends()

@@ -59,6 +59,7 @@ void Skull::update(int deltaTime)
 				if ((player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) && status == ALIVE) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
+					player->gainXP(5);
 				}
 				else if (dmgCD == DMG_CD) {
 					player->hurt(5); //nombre random
@@ -81,6 +82,7 @@ void Skull::update(int deltaTime)
 				if ((player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) && status == ALIVE) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
+					player->gainXP(5);
 				}
 				else if (dmgCD == DMG_CD) {
 					player->hurt(5); //nombre random

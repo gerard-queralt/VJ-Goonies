@@ -17,7 +17,7 @@ class Player
 		GROUNDED = 0, JUMPING, FALLING, PUNCHING, CLIMBING
 	};
 
-	enum SpaceKeyStatus {
+	enum KeyStatus {
 		PRESSED = 0, RELEASED, HOLD
 	};
 
@@ -64,7 +64,7 @@ private:
 	bool lookingLeft; //Boolea per recuperar l'orientacio despres d'escalar
 
 	PlayerStatus status;
-	SpaceKeyStatus spaceKeyStatus;
+	KeyStatus spaceKeyStatus;
 	int startTime;
 	int punchingTime;
 	bool keepMovingInAir;

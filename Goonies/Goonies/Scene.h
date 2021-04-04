@@ -51,6 +51,8 @@ private:
 	Texture titleimage;
 	Sprite *title;
 	int startLevelTime;
+	Texture instructionsimage;
+	Sprite *instructions;
 	Texture gameoverimage;
 	Sprite *gameover;
 	Texture endgameimage;

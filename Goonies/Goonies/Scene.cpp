@@ -20,7 +20,7 @@
 
 enum GameStates
 {
-	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, GAME_OVER, END_GAME
+	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, INSTRUCTIONS, GAME_OVER, END_GAME
 };
 
 
@@ -48,6 +48,15 @@ void Scene::init()
 	titleimage.loadFromFile("images/title.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	title = Sprite::createSprite(glm::ivec2(32.f * 8.f, 24.f * 8.f), glm::vec2(1.f, 1.f), &titleimage, &texProgram);
 	title->setPosition(glm::vec2(0.f, 0.f));
+	instructionsimage.loadFromFile("images/instructions.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	instructions = Sprite::createSprite(glm::ivec2(32.f * 8.f, 24.f * 8.f), glm::vec2(1.f, 1.f), &instructionsimage, &texProgram);
+	instructions->setPosition(glm::vec2(0.f, 0.f));
+	gameoverimage.loadFromFile("images/gameover.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	gameover = Sprite::createSprite(glm::ivec2(32.f * 8.f, 24.f * 8.f), glm::vec2(1.f, 1.f), &gameoverimage, &texProgram);
+	gameover->setPosition(glm::vec2(0.f, 0.f));
+	endgameimage.loadFromFile("images/theend.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	endgame = Sprite::createSprite(glm::ivec2(32.f * 8.f, 24.f * 8.f), glm::vec2(1.f, 1.f), &endgameimage, &texProgram);
+	endgame->setPosition(glm::vec2(0.f, 0.f));
 	projection = glm::ortho(0.f, 32.f * 8.f, 24.f * 8.f, 0.f);
 	currentTime = 0.0f;
 	currentState = MENU;
@@ -56,7 +65,7 @@ void Scene::init()
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	if (currentState != MENU) {
+	if (currentState != MENU && currentState != INSTRUCTIONS) {
 		if (startLevelTime == 0) {
 			map[currentScene - 1]->setEntitiesActive();
 		}
@@ -95,6 +104,9 @@ void Scene::render()
 		player->render();
 		renderUI();
 		break;
+	case INSTRUCTIONS:
+		instructions->render();
+		break;
 	case GAME_OVER:
 		gameover->render();
 		renderUI();
@@ -118,6 +130,9 @@ void Scene::render()
 void Scene::startGame()
 {
 	if (currentState == MENU) {
+		currentState = INSTRUCTIONS;
+	}
+	else if (currentState == INSTRUCTIONS) {
 		currentState = LEVEL1;
 		player = new Player();
 		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
@@ -183,17 +198,11 @@ void Scene::changeScene(int code)
 
 void Scene::gameOver()
 {
-	gameoverimage.loadFromFile("images/gameover.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	gameover = Sprite::createSprite(glm::ivec2(map[0]->getMapSize().x * map[0]->getTileSize(), map[0]->getMapSize().y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &gameoverimage, &texProgram);
-	gameover->setPosition(glm::vec2(0.f, 0.f));
 	currentState = GAME_OVER;
 }
 
 void Scene::endGame()
 {
-	endgameimage.loadFromFile("images/theend.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	endgame = Sprite::createSprite(glm::ivec2(map[0]->getMapSize().x * map[0]->getTileSize(), map[0]->getMapSize().y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &endgameimage, &texProgram);
-	endgame->setPosition(glm::vec2(0.f, 0.f));
 	currentState = END_GAME;
 }
 

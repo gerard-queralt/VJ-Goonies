@@ -20,7 +20,7 @@
 
 enum GameStates
 {
-	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, GAME_OVER
+	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, GAME_OVER, END_GAME
 };
 
 
@@ -99,6 +99,10 @@ void Scene::render()
 		gameover->render();
 		renderUI();
 		break;
+	case END_GAME:
+		endgame->render();
+		renderUI();
+		break;
 	default:
 		break;
 	}
@@ -153,7 +157,7 @@ void Scene::startGame()
 
 		setUpUISprites();
 	}
-	else if (currentState == GAME_OVER) {
+	else if (currentState == GAME_OVER || currentState == END_GAME) {
 		currentState = MENU;
 	}
 }
@@ -183,6 +187,14 @@ void Scene::gameOver()
 	gameover = Sprite::createSprite(glm::ivec2(map[0]->getMapSize().x * map[0]->getTileSize(), map[0]->getMapSize().y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &gameoverimage, &texProgram);
 	gameover->setPosition(glm::vec2(0.f, 0.f));
 	currentState = GAME_OVER;
+}
+
+void Scene::endGame()
+{
+	endgameimage.loadFromFile("images/theend.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	endgame = Sprite::createSprite(glm::ivec2(map[0]->getMapSize().x * map[0]->getTileSize(), map[0]->getMapSize().y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &endgameimage, &texProgram);
+	endgame->setPosition(glm::vec2(0.f, 0.f));
+	currentState = END_GAME;
 }
 
 void Scene::initShaders()

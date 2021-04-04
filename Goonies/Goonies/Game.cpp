@@ -32,6 +32,11 @@ void Game::gameOver()
 	scene.gameOver();
 }
 
+void Game::endGame()
+{
+	scene.endGame();
+}
+
 void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code

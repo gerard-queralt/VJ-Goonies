@@ -29,6 +29,7 @@ public:
 	void startGame();
 	void changeScene(int code);
 	void gameOver();
+	void endGame();
 
 private:
 	void initShaders();
@@ -52,6 +53,8 @@ private:
 	int startLevelTime;
 	Texture gameoverimage;
 	Sprite *gameover;
+	Texture endgameimage;
+	Sprite *endgame;
 
 	Texture UIimage;
 	Sprite *prerenderedUI;

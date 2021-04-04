@@ -32,6 +32,7 @@ public:
 
 	void changeScene(int code);
 	void gameOver();
+	void endGame();
 	
 	// Input callback methods
 	void keyPressed(int key);

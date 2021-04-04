@@ -178,6 +178,8 @@
     <ClCompile Include="Pandora.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="PandoraBubble.cpp" />
+    <ClCompile Include="PandoraBubble.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

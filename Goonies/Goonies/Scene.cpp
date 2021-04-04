@@ -132,7 +132,6 @@ void Scene::render()
 void Scene::startGame()
 {
 	if (currentState == MENU) {
-		Game::instance().playSound("gameMenu", true);
 		currentState = INSTRUCTIONS;
 	}
 	else if (currentState == INSTRUCTIONS) {
@@ -177,6 +176,7 @@ void Scene::startGame()
 	}
 	else if (currentState == GAME_OVER || currentState == END_GAME) {
 		currentState = MENU;
+		Game::instance().playSound("gameMenu", true);
 	}
 }
 

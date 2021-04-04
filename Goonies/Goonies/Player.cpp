@@ -38,6 +38,19 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 	spaceKeyStatus = HOLD;
 	gKeyStatus = HOLD;
+	fKeyStatus = HOLD;
+	oneKeyStatus = HOLD;
+	twoKeyStatus = HOLD;
+	threeKeyStatus = HOLD;
+	fourKeyStatus = HOLD;
+	fiveKeyStatus = HOLD;
+	lvlTP = 0;
+	sceneTP = 0;
+	sixKeyStatus = HOLD;
+	sevenKeyStatus = HOLD;
+	eightKeyStatus = HOLD;
+	nineKeyStatus = HOLD;
+	zeroKeyStatus = HOLD;
 
 	status = GROUNDED;
 	startTime = 0;
@@ -106,26 +119,9 @@ void Player::update(int deltaTime)
 				--punchingTime;
 		}
 
-		bool key = Game::instance().getKey('g'); //g
-		if (gKeyStatus == PRESSED) {
-			if (key)
-				gKeyStatus = HOLD;
-			else
-				gKeyStatus = RELEASED;
-		}
-		else if (gKeyStatus == HOLD) {
-			if (!key)
-				gKeyStatus = RELEASED;
-		}
-		else if (gKeyStatus == RELEASED) {
-			if (key)
-				gKeyStatus = PRESSED;
-		}
-		if (gKeyStatus == PRESSED) {
-			switchGodMode();
-		}
+		checkSpecialCommands();
 
-		key = Game::instance().getKey(32); //space
+		bool key = Game::instance().getKey(32); //space
 		if (spaceKeyStatus == PRESSED) {
 			if (key)
 				spaceKeyStatus = HOLD;
@@ -439,6 +435,262 @@ void Player::resetStartTime(int time)
 {
 	startTime = time;
 	sprite->changeAnimation(STAND_RIGHT);
+}
+
+void Player::checkSpecialCommands()
+{
+	bool key = Game::instance().getKey('g'); //god mode
+	if (gKeyStatus == PRESSED) {
+		if (key)
+			gKeyStatus = HOLD;
+		else
+			gKeyStatus = RELEASED;
+	}
+	else if (gKeyStatus == HOLD) {
+		if (!key)
+			gKeyStatus = RELEASED;
+	}
+	else if (gKeyStatus == RELEASED) {
+		if (key)
+			gKeyStatus = PRESSED;
+	}
+	if (gKeyStatus == PRESSED) {
+		switchGodMode();
+	}
+
+	key = Game::instance().getKey('f'); //get friend
+	if (fKeyStatus == PRESSED) {
+		if (key)
+			fKeyStatus = HOLD;
+		else
+			fKeyStatus = RELEASED;
+	}
+	else if (fKeyStatus == HOLD) {
+		if (!key)
+			fKeyStatus = RELEASED;
+	}
+	else if (fKeyStatus == RELEASED) {
+		if (key)
+			fKeyStatus = PRESSED;
+	}
+	if (fKeyStatus == PRESSED) {
+		rescueFriend();
+	}
+
+	key = Game::instance().getKey('1');
+	if (oneKeyStatus == PRESSED) {
+		if (key)
+			oneKeyStatus = HOLD;
+		else
+			oneKeyStatus = RELEASED;
+	}
+	else if (oneKeyStatus == HOLD) {
+		if (!key)
+			oneKeyStatus = RELEASED;
+	}
+	else if (oneKeyStatus == RELEASED) {
+		if (key)
+			oneKeyStatus = PRESSED;
+	}
+	if (oneKeyStatus == PRESSED) {
+		if (lvlTP == 0) {
+			lvlTP = 1;
+		}
+		else if(sceneTP == 0){
+			sceneTP = 1;
+		}
+	}
+
+	key = Game::instance().getKey('2');
+	if (twoKeyStatus == PRESSED) {
+		if (key)
+			twoKeyStatus = HOLD;
+		else
+			twoKeyStatus = RELEASED;
+	}
+	else if (twoKeyStatus == HOLD) {
+		if (!key)
+			twoKeyStatus = RELEASED;
+	}
+	else if (twoKeyStatus == RELEASED) {
+		if (key)
+			twoKeyStatus = PRESSED;
+	}
+	if (twoKeyStatus == PRESSED) {
+		if (lvlTP == 0) {
+			lvlTP = 2;
+		}
+		else if (sceneTP == 0) {
+			sceneTP = 2;
+		}
+	}
+
+	key = Game::instance().getKey('3');
+	if (threeKeyStatus == PRESSED) {
+		if (key)
+			threeKeyStatus = HOLD;
+		else
+			threeKeyStatus = RELEASED;
+	}
+	else if (threeKeyStatus == HOLD) {
+		if (!key)
+			threeKeyStatus = RELEASED;
+	}
+	else if (threeKeyStatus == RELEASED) {
+		if (key)
+			threeKeyStatus = PRESSED;
+	}
+	if (threeKeyStatus == PRESSED) {
+		if (lvlTP == 0) {
+			lvlTP = 3;
+		}
+		else if (sceneTP == 0) {
+			sceneTP = 3;
+		}
+	}
+
+	key = Game::instance().getKey('4');
+	if (fourKeyStatus == PRESSED) {
+		if (key)
+			fourKeyStatus = HOLD;
+		else
+			fourKeyStatus = RELEASED;
+	}
+	else if (fourKeyStatus == HOLD) {
+		if (!key)
+			fourKeyStatus = RELEASED;
+	}
+	else if (fourKeyStatus == RELEASED) {
+		if (key)
+			fourKeyStatus = PRESSED;
+	}
+	if (fourKeyStatus == PRESSED) {
+		if (lvlTP == 0) {
+			lvlTP = 4;
+		}
+	}
+
+	key = Game::instance().getKey('5');
+	if (fiveKeyStatus == PRESSED) {
+		if (key)
+			fiveKeyStatus = HOLD;
+		else
+			fiveKeyStatus = RELEASED;
+	}
+	else if (fiveKeyStatus == HOLD) {
+		if (!key)
+			fiveKeyStatus = RELEASED;
+	}
+	else if (fiveKeyStatus == RELEASED) {
+		if (key)
+			fiveKeyStatus = PRESSED;
+	}
+	if (fiveKeyStatus == PRESSED) {
+		if (lvlTP == 0) {
+			lvlTP = 5;
+		}
+	}
+
+	if (lvlTP != 0 && sceneTP != 0) {
+		int code = (lvlTP * 100000) + (sceneTP * 10000) + (405);
+		Game::instance().changeScene(code);
+		lvlTP = sceneTP = 0;
+	}
+
+	key = Game::instance().getKey('6'); //get helmet
+	if (sixKeyStatus == PRESSED) {
+		if (key)
+			sixKeyStatus = HOLD;
+		else
+			sixKeyStatus = RELEASED;
+	}
+	else if (sixKeyStatus == HOLD) {
+		if (!key)
+			sixKeyStatus = RELEASED;
+	}
+	else if (sixKeyStatus == RELEASED) {
+		if (key)
+			sixKeyStatus = PRESSED;
+	}
+	if (sixKeyStatus == PRESSED) {
+		givePowerUp(0);
+	}
+
+	key = Game::instance().getKey('7'); //get shoes
+	if (sevenKeyStatus == PRESSED) {
+		if (key)
+			sevenKeyStatus = HOLD;
+		else
+			sevenKeyStatus = RELEASED;
+	}
+	else if (sevenKeyStatus == HOLD) {
+		if (!key)
+			sevenKeyStatus = RELEASED;
+	}
+	else if (sevenKeyStatus == RELEASED) {
+		if (key)
+			sevenKeyStatus = PRESSED;
+	}
+	if (sevenKeyStatus == PRESSED) {
+		givePowerUp(1);
+	}
+
+	key = Game::instance().getKey('8'); //get grey watercoat
+	if (eightKeyStatus == PRESSED) {
+		if (key)
+			eightKeyStatus = HOLD;
+		else
+			eightKeyStatus = RELEASED;
+	}
+	else if (eightKeyStatus == HOLD) {
+		if (!key)
+			eightKeyStatus = RELEASED;
+	}
+	else if (eightKeyStatus == RELEASED) {
+		if (key)
+			eightKeyStatus = PRESSED;
+	}
+	if (eightKeyStatus == PRESSED) {
+		givePowerUp(2);
+	}
+
+	key = Game::instance().getKey('9'); //get blue watercoat
+	if (nineKeyStatus == PRESSED) {
+		if (key)
+			nineKeyStatus = HOLD;
+		else
+			nineKeyStatus = RELEASED;
+	}
+	else if (nineKeyStatus == HOLD) {
+		if (!key)
+			nineKeyStatus = RELEASED;
+	}
+	else if (nineKeyStatus == RELEASED) {
+		if (key)
+			nineKeyStatus = PRESSED;
+	}
+	if (nineKeyStatus == PRESSED) {
+		givePowerUp(3);
+	}
+
+	key = Game::instance().getKey('0'); //get spellbook
+	if (zeroKeyStatus == PRESSED) {
+		if (key)
+			zeroKeyStatus = HOLD;
+		else
+			zeroKeyStatus = RELEASED;
+	}
+	else if (zeroKeyStatus == HOLD) {
+		if (!key)
+			zeroKeyStatus = RELEASED;
+	}
+	else if (zeroKeyStatus == RELEASED) {
+		if (key)
+			zeroKeyStatus = PRESSED;
+	}
+	if (zeroKeyStatus == PRESSED) {
+		givePowerUp(4);
+	}
 }
 
 

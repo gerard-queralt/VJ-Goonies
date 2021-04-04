@@ -56,6 +56,8 @@ public:
 	void resetStartTime(int time);
 
 private:
+	void checkSpecialCommands();
+
 	int health;
 	int level;
 	int exp;
@@ -69,7 +71,6 @@ private:
 
 	PlayerStatus status;
 	KeyStatus spaceKeyStatus;
-	KeyStatus gKeyStatus;
 	int startTime;
 	int punchingTime;
 	bool keepMovingInAir;
@@ -80,6 +81,21 @@ private:
 	Sprite *sprite;
 	TileMap *map;
 
+	//per a comandes
+	KeyStatus gKeyStatus;
+	KeyStatus fKeyStatus;
+	KeyStatus oneKeyStatus;
+	KeyStatus twoKeyStatus;
+	KeyStatus threeKeyStatus;
+	KeyStatus fourKeyStatus;
+	KeyStatus fiveKeyStatus;
+	int lvlTP;
+	int sceneTP;
+	KeyStatus sixKeyStatus;
+	KeyStatus sevenKeyStatus;
+	KeyStatus eightKeyStatus;
+	KeyStatus nineKeyStatus;
+	KeyStatus zeroKeyStatus;
 };
 
 

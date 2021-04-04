@@ -18,7 +18,7 @@ public:
 
 	glm::vec2 getPosition();
 
-	void setPlayer(Player *player);
+	virtual void setPlayer(Player *player);
 	virtual void interact();
 
 protected:

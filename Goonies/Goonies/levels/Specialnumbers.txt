@@ -22,5 +22,6 @@
 -22 lock & green closeddoor w friend
 -23 double lock & green closeddoor w friend
 -24 enddoor
+-30 Pandora
 
 -ABXXYY tp to level A scene B at pos XX YY

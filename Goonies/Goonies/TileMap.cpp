@@ -14,6 +14,7 @@
 #include "Key.h"
 #include "Pouch.h"
 #include "EndDoor.h"
+#include "Pandora.h"
 
 
 using namespace std;
@@ -352,6 +353,14 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					endd->setTileMap(this);
 					endd->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					entities.push_back(endd);
+					break;
+				}
+				case -30: //Pandora
+				{
+					Pandora *pandora = new Pandora();
+					pandora->setTileMap(this);
+					pandora->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(pandora);
 					break;
 				}
 				default:

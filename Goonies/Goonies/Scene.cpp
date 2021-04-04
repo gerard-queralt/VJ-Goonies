@@ -20,7 +20,7 @@
 
 enum GameStates
 {
-	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, INSTRUCTIONS, GAME_OVER, END_GAME
+	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, BOSS, INSTRUCTIONS, GAME_OVER, END_GAME
 };
 
 
@@ -100,6 +100,7 @@ void Scene::render()
 	case LEVEL3:
 	case LEVEL4:
 	case LEVEL5:
+	case BOSS:
 		map[currentScene-1]->render();
 		player->render();
 		renderUI();

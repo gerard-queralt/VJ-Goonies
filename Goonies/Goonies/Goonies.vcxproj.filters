@@ -101,6 +101,12 @@
     <ClInclude Include="EndDoor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Pandora.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PandoraBubble.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -178,6 +184,12 @@
     <ClCompile Include="Waterfall.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="EndDoor.cpp" />
+    <ClCompile Include="EndDoor.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Pandora.cpp">
+      <Filter>Resource Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PandoraBubble.cpp" />
   </ItemGroup>
 </Project>

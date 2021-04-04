@@ -13,6 +13,7 @@
 #include "DoubleLockedDoor.h"
 #include "Key.h"
 #include "Pouch.h"
+#include "EndDoor.h"
 
 
 using namespace std;
@@ -343,6 +344,14 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 					int content = ((tile * -1) % 10) - 1;
 					p->setContent(content);
 					entities.push_back(p);
+					break;
+				}
+				case -24: //porta del final
+				{
+					EndDoor *endd = new EndDoor();
+					endd->setTileMap(this);
+					endd->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					entities.push_back(endd);
 					break;
 				}
 				default:

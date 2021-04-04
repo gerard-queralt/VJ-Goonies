@@ -151,6 +151,7 @@
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="DoubleLockedDoor.h" />
+    <ClInclude Include="EndDoor.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Friend.h" />
     <ClInclude Include="Game.h" />
@@ -179,6 +180,7 @@
   <ItemGroup>
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="DoubleLockedDoor.cpp" />
+    <ClCompile Include="EndDoor.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Friend.cpp" />
     <ClCompile Include="Game.cpp" />

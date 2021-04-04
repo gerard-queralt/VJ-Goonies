@@ -98,6 +98,9 @@
     <ClInclude Include="Waterfall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EndDoor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -175,5 +178,6 @@
     <ClCompile Include="Waterfall.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EndDoor.cpp" />
   </ItemGroup>
 </Project>

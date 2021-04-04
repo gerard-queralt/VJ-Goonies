@@ -1,5 +1,5 @@
 -1 skull
--2 badguy
+-2 jumping skull
 -3 stalactite
 -4 waterdrop
 -5 waterfall
@@ -21,5 +21,6 @@
 -21 lock & green closeddoor w potion
 -22 lock & green closeddoor w friend
 -23 double lock & green closeddoor w friend
+-24 enddoor
 
 -ABXXYY tp to level A scene B at pos XX YY

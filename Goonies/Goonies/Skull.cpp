@@ -2,16 +2,21 @@
 #include "Skull.h"
 
 #define SPEED 1
+#define JUMP_SPEED 1.5
 #define SPAWN_TIME 60
 #define DMG_CD 40
+#define MAX_TILE_JUMP 3
 
-enum SkullAnims
-{
+enum SkullAnims {
 	MOVE_LEFT = 0, MOVE_RIGHT, SPAWNING, DYING, NUM_ANIM
 };
 
 enum PlayerStatus {
 	GROUNDED = 0, JUMPING, FALLING, PUNCHING, CLIMBING
+};
+
+enum Behaviours {
+	STRAIGHT = 0, JUMPY
 };
 
 void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
@@ -39,6 +44,7 @@ void Skull::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 	movingLeft = true;
 
 	status = DEAD;
+	falling = false;
 	spawnTime = SPAWN_TIME;
 	deathTime = 10;
 	dmgCD = DMG_CD;
@@ -52,6 +58,20 @@ void Skull::update(int deltaTime)
 {
 	if (status == ALIVE) {
 		sprite->update(deltaTime);
+		if (behaviour == JUMPY) {
+			if (!falling) {
+				position.y -= JUMP_SPEED;
+				if (position.y <= (startPosition.y - MAX_TILE_JUMP * map->getTileSize()) || map->collisionMoveUp(position, glm::vec2(16, 8)))
+					falling = true;
+			}
+			else {
+				position.y += JUMP_SPEED;
+				if (position.y >= startPosition.y) {
+					position.y = startPosition.y;
+					falling = false;
+				}
+			}
+		}
 		if (movingLeft) {
 			if (sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
@@ -70,7 +90,7 @@ void Skull::update(int deltaTime)
 			}
 			if (map->collisionMoveLeft(position, glm::ivec2(16, 8)) ||
 				position.x < 0 ||
-				!map->collisionMoveDownEntities(glm::vec2(position.x - 8, position.y), glm::ivec2(16,12))) {
+				!map->collisionMoveDownEntities(glm::vec2(position.x - 8, startPosition.y), glm::ivec2(16,12))) {
 				position.x += SPEED;
 				movingLeft = false;
 			}
@@ -92,7 +112,7 @@ void Skull::update(int deltaTime)
 			}
 			if (map->collisionMoveRight(position, glm::ivec2(16, 8)) ||
 				position.x > (map->getMapSize().x - 2) * map->getTileSize() ||
-				!map->collisionMoveDownEntities(glm::vec2(position.x+8,position.y), glm::ivec2(16, 12))) {
+				!map->collisionMoveDownEntities(glm::vec2(position.x + 8, startPosition.y), glm::ivec2(16, 12))) {
 				position.x -= SPEED;
 				movingLeft = true;
 			}
@@ -124,11 +144,17 @@ void Skull::setIdle() {
 void Skull::setActive()
 {
 	status = SPAWNING;
+	falling = false;
 	position = startPosition;
 	sprite->setPosition(position);
 	sprite->changeAnimation(SPAWNING);
 	movingLeft = true;
 	spawnTime = SPAWN_TIME;
 	deathTime = 10;
+}
+
+void Skull::setBehaviour(int bhv)
+{
+	behaviour = bhv;
 }
 

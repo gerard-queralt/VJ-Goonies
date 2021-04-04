@@ -5,7 +5,6 @@
 #include "Game.h"
 #include "Entity.h"
 #include "Skull.h"
-#include "BadGuy.h"
 #include "Stalactite.h"
 #include "WaterDrop.h"
 #include "Waterfall.h"
@@ -174,16 +173,23 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 			else if (tile < 0) {
 				switch (tile)
 				{
-				case -1: //calavera
+				case -1: //calavera recta
 				{
 					Skull *skull = new Skull();
 					skull->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
 					skull->setTileMap(this);
+					skull->setBehaviour(0);
 					entities.push_back(skull);
 					break;
 				}
-				case -2: //malo
+				case -2: //calaver saltarina
 				{
+					Skull *skull = new Skull();
+					skull->init(glm::vec2(float(i)*tileSize, float(j)*tileSize), program);
+					skull->setTileMap(this);
+					skull->setBehaviour(1);
+					entities.push_back(skull);
+					break;
 					break;
 				}
 				case -3: //estalactita roja

@@ -47,9 +47,6 @@
     <ClInclude Include="Entity.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="BadGuy.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Skull.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
@@ -129,9 +126,6 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BadGuy.cpp">
-      <Filter>Resource Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Resource Files\Entities</Filter>

@@ -149,7 +149,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
-    <ClInclude Include="BadGuy.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="DoubleLockedDoor.h" />
     <ClInclude Include="Entity.h" />
@@ -178,7 +177,6 @@
     <ClInclude Include="Waterfall.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BadGuy.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="DoubleLockedDoor.cpp" />
     <ClCompile Include="Entity.cpp" />

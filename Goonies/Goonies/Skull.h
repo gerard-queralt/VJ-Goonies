@@ -13,7 +13,12 @@ public:
 	void setIdle();
 	void setActive();
 
+	void setBehaviour(int bhv);
+
 private:
+	int behaviour;
+	bool falling;
+
 	bool movingLeft;
 	int spawnTime;
 	int deathTime;

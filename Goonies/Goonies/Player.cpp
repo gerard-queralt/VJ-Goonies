@@ -34,11 +34,14 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	powerUps = tmp;
 	hasKey = false;
 	numFriends = 0;
+	godMode = false;
+
+	spaceKeyStatus = HOLD;
+	gKeyStatus = HOLD;
 
 	status = GROUNDED;
 	startTime = 0;
 	punchingTime = 8;
-	spaceKeyStatus = HOLD;
 	spritesheet.loadFromFile("images/playersprites.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.25f, 0.25f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(NUM_ANIM);
@@ -102,7 +105,27 @@ void Player::update(int deltaTime)
 			else
 				--punchingTime;
 		}
-		bool key = Game::instance().getKey(32); //space
+
+		bool key = Game::instance().getKey('g'); //g
+		if (gKeyStatus == PRESSED) {
+			if (key)
+				gKeyStatus = HOLD;
+			else
+				gKeyStatus = RELEASED;
+		}
+		else if (gKeyStatus == HOLD) {
+			if (!key)
+				gKeyStatus = RELEASED;
+		}
+		else if (gKeyStatus == RELEASED) {
+			if (key)
+				gKeyStatus = PRESSED;
+		}
+		if (gKeyStatus == PRESSED) {
+			switchGodMode();
+		}
+
+		key = Game::instance().getKey(32); //space
 		if (spaceKeyStatus == PRESSED) {
 			if (key)
 				spaceKeyStatus = HOLD;
@@ -117,6 +140,7 @@ void Player::update(int deltaTime)
 			if (key)
 				spaceKeyStatus = PRESSED;
 		}
+
 		if (spaceKeyStatus == PRESSED && status == GROUNDED && sprite->animation() != PUNCH_RIGHT && sprite->animation() != PUNCH_LEFT) {
 			status = PUNCHING;
 			punchingTime = 10;
@@ -328,12 +352,14 @@ void Player::heal(int heal)
 
 void Player::hurt(int dmg)
 {
-	//falta que el personatge se pose blanc
-	if (health - dmg >= 0)
-		health -= dmg;
-	else {
-		health = 0;
-		Game::instance().gameOver();
+	if (!godMode) {
+		//falta que el personatge se pose blanc
+		if (health - dmg >= 0)
+			health -= dmg;
+		else {
+			health = 0;
+			Game::instance().gameOver();
+		}
 	}
 }
 
@@ -402,6 +428,11 @@ void Player::rescueFriend()
 int Player::getNumFriends()
 {
 	return numFriends;
+}
+
+void Player::switchGodMode()
+{
+	godMode = !godMode;
 }
 
 void Player::resetStartTime(int time)

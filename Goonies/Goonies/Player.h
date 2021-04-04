@@ -51,6 +51,8 @@ public:
 	void rescueFriend();
 	int getNumFriends();
 
+	void switchGodMode();
+
 	void resetStartTime(int time);
 
 private:
@@ -61,10 +63,13 @@ private:
 	bool hasKey;
 	int numFriends;
 
+	bool godMode;
+
 	bool lookingLeft; //Boolea per recuperar l'orientacio despres d'escalar
 
 	PlayerStatus status;
 	KeyStatus spaceKeyStatus;
+	KeyStatus gKeyStatus;
 	int startTime;
 	int punchingTime;
 	bool keepMovingInAir;

@@ -60,6 +60,7 @@ void Scene::init()
 	projection = glm::ortho(0.f, 32.f * 8.f, 24.f * 8.f, 0.f);
 	currentTime = 0.0f;
 	currentState = MENU;
+	Game::instance().playSound("gameMenu", true);
 }
 
 void Scene::update(int deltaTime)
@@ -131,6 +132,7 @@ void Scene::render()
 void Scene::startGame()
 {
 	if (currentState == MENU) {
+		Game::instance().playSound("gameMenu", true);
 		currentState = INSTRUCTIONS;
 	}
 	else if (currentState == INSTRUCTIONS) {
@@ -199,11 +201,13 @@ void Scene::changeScene(int code)
 
 void Scene::gameOver()
 {
+	Game::instance().playSound("gameOver", false);
 	currentState = GAME_OVER;
 }
 
 void Scene::endGame()
 {
+	Game::instance().playSound("gameClear", false);
 	currentState = END_GAME;
 }
 
@@ -248,6 +252,7 @@ void Scene::createLevel(int lvl)
 
 	}
 	currentState = lvl;
+	Game::instance().playSound(std::to_string(currentState), true);
 	lvlNumber->changeNumber(currentState);
 	startLevelTime = START_LEVEL_TIME;
 	player->resetStartTime(startLevelTime);

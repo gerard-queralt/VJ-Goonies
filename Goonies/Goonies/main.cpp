@@ -1,8 +1,5 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include "SoundBuffer.h"
-#include "SoundDevice.h"
-#include "SoundSource.h"
 #include "Game.h"
 
 
@@ -85,15 +82,6 @@ static void idleCallback()
 
 int main(int argc, char **argv)
 {
-
-	/*SoundDevice * mysounddevice = SoundDevice::get();
-
-	uint32_t  sound1 = SoundBuffer::get()->addSoundEffect("C:\\Users\\Albert\\source\\repos\\gerard-queralt\\VJ-Goonies\\Goonies\\Goonies\\Sounds\\TheGoonies.ogg");
-
-	SoundSource mySpeaker;
-
-	mySpeaker.Play(sound1);*/
-
 	// GLUT initialization
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);

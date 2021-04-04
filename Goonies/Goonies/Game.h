@@ -33,6 +33,7 @@ public:
 	void changeScene(int code);
 	void gameOver();
 	void endGame();
+	void playSound(string filename, bool loop);
 	
 	// Input callback methods
 	void keyPressed(int key);
@@ -51,7 +52,7 @@ private:
 	Scene scene;                      // Scene to render
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
-
+	wstring s2ws(const string& s);
 };
 
 

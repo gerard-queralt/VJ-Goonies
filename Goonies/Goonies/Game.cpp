@@ -1,6 +1,9 @@
+#include <iostream>
+#include <Windows.h>
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
+#pragma comment(lib, "winmm.lib")
 
 void Game::init()
 {
@@ -35,6 +38,18 @@ void Game::gameOver()
 void Game::endGame()
 {
 	scene.endGame();
+}
+
+void Game::playSound(string filename, bool loop)
+{
+	string path = "sounds/" + filename + ".wav";
+	if (loop) {
+		PlaySound(NULL, 0, 0);
+		PlaySound(s2ws(path).c_str(), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+	}
+	else {
+		PlaySound(s2ws(path).c_str(), NULL, SND_ASYNC | SND_FILENAME);
+	}
 }
 
 void Game::keyPressed(int key)
@@ -80,6 +95,18 @@ bool Game::getKey(int key) const
 bool Game::getSpecialKey(int key) const
 {
 	return specialKeys[key];
+}
+
+wstring Game::s2ws(const string & s)
+{
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
 }
 
 

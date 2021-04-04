@@ -77,15 +77,6 @@
     <ClInclude Include="Pouch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundSource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Number.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
@@ -172,9 +163,6 @@
     <ClCompile Include="Pouch.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="SoundBuffer.cpp" />
-    <ClCompile Include="SoundDevice.cpp" />
-    <ClCompile Include="SoundSource.cpp" />
     <ClCompile Include="Friend.cpp">
       <Filter>Resource Files\Entities</Filter>
     </ClCompile>

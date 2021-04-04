@@ -167,7 +167,8 @@ void Scene::changeScene(int code)
 	if (currentState != lvl)
 		createLevel(lvl);
 	currentScene = (code / 10000) % 10;
-	map[currentScene-1]->setEntitiesActive();
+	if(startLevelTime<=0)
+		map[currentScene-1]->setEntitiesActive();
 	float x = (code % 10000) / 100;
 	float y = (code % 100);
 	y += 0.5; //per que no quedi elevat
@@ -228,6 +229,7 @@ void Scene::createLevel(int lvl)
 	lvlNumber->changeNumber(currentState);
 	startLevelTime = START_LEVEL_TIME;
 	player->resetStartTime(startLevelTime);
+	map[currentScene - 1]->setEntitiesIdle();
 }
 
 void Scene::setUpUISprites()

@@ -33,14 +33,15 @@ public:
 
 private:
 	void initShaders();
+	void createGame();
 
-	void createLevel(int lvl);
+	void changeLevel(int lvl);
 
 	void setUpUISprites();
 	void renderUI();
 
 private:
-	TileMap *map[3];
+	TileMap *map[6][3];
 	int currentScene;
 	Player *player;
 	ShaderProgram texProgram;

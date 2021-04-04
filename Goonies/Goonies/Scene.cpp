@@ -26,16 +26,20 @@ enum GameStates
 
 Scene::Scene()
 {
-	map[0] = map[1] = map[2] = NULL;
+	for (int i = 0; i < 6; ++i) {
+		map[i][0] = map[i][1] = map[i][2] = NULL;
+	}
 	player = NULL;
 }
 
 Scene::~Scene()
 {
 	if (map != NULL){
-		delete map[0];
-		delete map[1];
-		delete map[2];
+		for (int i = 0; i < 6; ++i) {
+			for (int j = 0; j < 3; ++j) {
+				delete map[i][j];
+			}
+		}
 	}
 	if(player != NULL)
 		delete player;
@@ -67,21 +71,23 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	if (currentState != MENU && currentState != INSTRUCTIONS) {
-		if (startLevelTime == 0) {
-			map[currentScene - 1]->setEntitiesActive();
-		}
-		--startLevelTime;
-		map[currentScene-1]->update(deltaTime);
-		player->update(deltaTime);
-		hpBar->update(deltaTime);
-		expBar->update(deltaTime);
-		if (currentKeyState != player->getHasKey()) {
-			if (player->getHasKey()) {
-				keyUI->setActive();
+		if (currentState != GAME_OVER && currentState != END_GAME) {
+			if (startLevelTime == 0) {
+				map[currentState - 1][currentScene - 1]->setEntitiesActive();
 			}
-			else
-				keyUI->setIdle();
-			currentKeyState = player->getHasKey();
+			--startLevelTime;
+			map[currentState - 1][currentScene - 1]->update(deltaTime);
+			player->update(deltaTime);
+			hpBar->update(deltaTime);
+			expBar->update(deltaTime);
+			if (currentKeyState != player->getHasKey()) {
+				if (player->getHasKey()) {
+					keyUI->setActive();
+				}
+				else
+					keyUI->setIdle();
+				currentKeyState = player->getHasKey();
+			}
 		}
 		keyUI->update(deltaTime);
 	}
@@ -102,7 +108,7 @@ void Scene::render()
 	case LEVEL4:
 	case LEVEL5:
 	case BOSS:
-		map[currentScene-1]->render();
+		map[currentState-1][currentScene-1]->render();
 		player->render();
 		renderUI();
 		break;
@@ -139,23 +145,25 @@ void Scene::startGame()
 		player = new Player();
 		player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 
+		createGame();
+
 		lvlNumber = new Number();
 		lvlNumber->init(glm::vec2(27 * 8.f, 1 * 8.f), texProgram);
 
 		currentScene = 1;
-		createLevel(1);
+		changeLevel(1);
 
 		scenenNumber = new Number();
-		scenenNumber->init(glm::vec2(30 * map[0]->getTileSize(), 1 * map[0]->getTileSize()), texProgram);
+		scenenNumber->init(glm::vec2(30 * map[0][0]->getTileSize(), 1 * map[0][0]->getTileSize()), texProgram);
 		scenenNumber->changeNumber(1);
 
-		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0]->getTileSize()));
-		player->setTileMap(map[0]);
-		glm::vec2 mapSize = map[0]->getMapSize();
+		player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map[0][0]->getTileSize(), INIT_PLAYER_Y_TILES * map[0][0]->getTileSize()));
+		player->setTileMap(map[0][0]);
+		glm::vec2 mapSize = map[0][0]->getMapSize();
 		startLevelTime = START_LEVEL_TIME;
 
 		UIimage.loadFromFile("images/prerenderedui.png", TEXTURE_PIXEL_FORMAT_RGBA);
-		prerenderedUI = Sprite::createSprite(glm::ivec2(mapSize.x * map[0]->getTileSize(), mapSize.y * map[0]->getTileSize()), glm::vec2(1.f, 1.f), &UIimage, &texProgram);
+		prerenderedUI = Sprite::createSprite(glm::ivec2(mapSize.x * map[0][0]->getTileSize(), mapSize.y * map[0][0]->getTileSize()), glm::vec2(1.f, 1.f), &UIimage, &texProgram);
 		prerenderedUI->setPosition(glm::vec2(0.f, 0.f));
 		
 		hpBar = new Bar();
@@ -168,7 +176,7 @@ void Scene::startGame()
 		expBar->setPlayer(player);
 		
 		keyUI = new Key();
-		keyUI->init(glm::vec2(25 * map[0]->getTileSize(), 23 * map[0]->getTileSize()), texProgram);
+		keyUI->init(glm::vec2(25 * map[0][0]->getTileSize(), 23 * map[0][0]->getTileSize()), texProgram);
 		keyUI->setIdle();
 		currentKeyState = false;
 
@@ -184,18 +192,18 @@ void Scene::startGame()
 //i XX i YY la posicio de la tile on es coloca el personatge
 void Scene::changeScene(int code)
 {
-	map[currentScene-1]->setEntitiesIdle();
+	map[currentState-1][currentScene-1]->setEntitiesIdle();
 	int lvl = code / 100000;
 	if (currentState != lvl)
-		createLevel(lvl);
+		changeLevel(lvl);
 	currentScene = (code / 10000) % 10;
 	if(startLevelTime<=0)
-		map[currentScene-1]->setEntitiesActive();
+		map[currentState-1][currentScene-1]->setEntitiesActive();
 	float x = (code % 10000) / 100;
 	float y = (code % 100);
 	y += 0.5; //per que no quedi elevat
-	player->setPosition(glm::vec2(x * map[currentScene-1]->getTileSize(), y * map[currentScene - 1]->getTileSize()));
-	player->setTileMap(map[currentScene - 1]);
+	player->setPosition(glm::vec2(x * map[currentState - 1][currentScene-1]->getTileSize(), y * map[currentState - 1][currentScene - 1]->getTileSize()));
+	player->setTileMap(map[currentState - 1][currentScene - 1]);
 	scenenNumber->changeNumber(currentScene);
 }
 
@@ -241,22 +249,28 @@ void Scene::initShaders()
 	fShader.free();
 }
 
-void Scene::createLevel(int lvl)
+void Scene::createGame()
 {
-	for (int i = 0; i < 3; ++i) {
-		string path = std::string("levels/level0") + std::to_string(lvl) + std::string("/scene0") + std::to_string(i+1) + std::string(".txt");
-		map[i] = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
-		map[i]->setEntitiesIdle();
-		map[i]->setEntitiesPlayer(player);
-		map[i]->setLvl(lvl);
+	for (int lvl = 0; lvl < 6; ++lvl) {
+		for (int scene = 0; scene < 3; ++scene) {
+			string path = std::string("levels/level0") + std::to_string(lvl + 1) + std::string("/scene0") + std::to_string(scene + 1) + std::string(".txt");
+			map[lvl][scene] = TileMap::createTileMap(path, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+			map[lvl][scene]->setEntitiesIdle();
+			map[lvl][scene]->setEntitiesPlayer(player);
+			map[lvl][scene]->setLvl(lvl+1);
 
+		}
 	}
+}
+
+void Scene::changeLevel(int lvl)
+{
 	currentState = lvl;
 	Game::instance().playSound(std::to_string(currentState), true);
 	lvlNumber->changeNumber(currentState);
 	startLevelTime = START_LEVEL_TIME;
 	player->resetStartTime(startLevelTime);
-	map[currentScene - 1]->setEntitiesIdle();
+	map[currentState-1][currentScene - 1]->setEntitiesIdle();
 }
 
 void Scene::setUpUISprites()
@@ -269,7 +283,7 @@ void Scene::setUpUISprites()
 		pwup->setAnimationSpeed(0, 8);
 		pwup->addKeyframe(0, glm::vec2(0.2f * i, 0.f));
 		pwup->changeAnimation(0);
-		pwup->setPosition(glm::vec2((0.5f+i) * map[0]->getTileSize()*2, 22 * map[0]->getTileSize()));
+		pwup->setPosition(glm::vec2((0.5f+i) * map[0][0]->getTileSize()*2, 22 * map[0][0]->getTileSize()));
 		powerUpsUI[i] = pwup;
 	}
 	
@@ -280,10 +294,10 @@ void Scene::setUpUISprites()
 		friends[i] = Sprite::createSprite(glm::ivec2(8, 8), glm::vec2(1.f, 1.f), &friendSpritesheet, &texProgram);
 		friends[i]->setNumberAnimations(0);
 		if(i < 4){
-			friends[i]->setPosition(glm::vec2((27+i) * map[0]->getTileSize(), 22 * map[0]->getTileSize()));
+			friends[i]->setPosition(glm::vec2((27+i) * map[0][0]->getTileSize(), 22 * map[0][0]->getTileSize()));
 		}
 		else
-			friends[i]->setPosition(glm::vec2((27+i-4) * map[0]->getTileSize(), 23 * map[0]->getTileSize()));
+			friends[i]->setPosition(glm::vec2((27+i-4) * map[0][0]->getTileSize(), 23 * map[0][0]->getTileSize()));
 	}
 }
 

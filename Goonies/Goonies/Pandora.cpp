@@ -218,7 +218,7 @@ void Pandora::interact()
 				}
 			}
 			else if (dmgCD == DMG_CD) {
-				player->hurt(10);
+				player->hurt(5);
 				dmgCD = 0;
 			}
 		}

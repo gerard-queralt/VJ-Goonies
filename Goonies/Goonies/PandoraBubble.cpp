@@ -2,7 +2,7 @@
 
 #define DMG_CD 60
 #define LO 0.5
-#define HI 2.0
+#define HI 1.25
 
 void PandoraBubble::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 {

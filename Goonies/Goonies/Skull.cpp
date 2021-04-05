@@ -76,7 +76,7 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
 			position.x -= SPEED;
-			if (inContactWithPlayer(position, glm::ivec2(16, 8)) && !player->getLookingLeft()) {
+			if (inContactWithPlayer(position, glm::ivec2(16, 8))) {
 				if (player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
@@ -99,7 +99,7 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
 			position.x += SPEED;
-			if(inContactWithPlayer(position, glm::ivec2(16, 8)) && player->getLookingLeft()) {
+			if(inContactWithPlayer(position, glm::ivec2(16, 8))) {
 				if (player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) {
 					status = DYING;
 					sprite->changeAnimation(DYING);

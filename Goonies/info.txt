@@ -1,0 +1,157 @@
+Videojocs 20/21 Q2 - Joc 2D: The Goonies
+
+Nom i cognoms dels integrants del grup
+--------------------------------------
+
+Gerard Queralt Ferré
+
+Albert Bertran Serrano
+
+
+Funcionalitats implementades
+----------------------------
+
+El personatge que controlem té 80 de vida representada en una barra amb 10 "quadrats" amb 8 posicions cadascun
+
+Pot obtenir experiència, representada en una barra com la de la vida
+
+	En arribar a 80 d'experiència aquesta es reinicia i el personatge es cura 5 de vida
+
+Pot recollir una clau i utilitzar-la per obrir portes
+
+	No pot recollir una clau si ja en té una
+
+Ha de rescatar 6 amics, tancats darrere portes, abans no s'obri la porta del Final Boss
+
+Pot obtenir 5 Power-Ups diferents escampats pel mapa
+
+	El casc groc el fa immune a les estalactites
+
+	Les Hyper Shoes el fan correr més ràpid
+
+	L'impermeable gris el fa immune a les gotes d'aigua
+
+	L'impermeable blau el fa immune a les cascades
+
+	El llibre verd fa que les calaveres morin quan el toquen
+
+El joc està composat per 5 escenes amb 3 pantalles cadascuna i una pantalla addicional per al Final Boss
+
+	El personatge pot moure's entre escenes fent ús de portals
+
+Hi ha 3 obstacles
+
+	Les estalactites cauen quan el personatge és a prop i li treuen 4 de vida si el toquen
+
+		Un cop han caigut no tornen a apareixer
+
+	Les gotes d'aigua cauen periòdicament i si toquen al personatge li treuen 5 de vida
+
+	Les cascades cauen periòdicament i mentre estan en contacte amb el personatge li treuen 2 de vida
+
+Hi ha 2 enemics
+
+	Calavera: es mou en línia recta i fa 5 de mal. Mor d'un cop de puny
+
+	Calavera saltarina: es mou en linia recta però va fent salts. També fa 5 de mal i mor d'un cop de puny
+
+El Final Boss del joc és Pandora, de qui parlarem en detall a la part creativa
+
+Si la vida del personatge arriba a 0 apareix la pantalla de Game Over i hem de començar des del principi
+
+Si matem a Pandora ens apareix una pantalla indicant que ens hem passat el joc
+
+So
+	Tenim efectes sonors per al Game Over i per quan completem el joc
+
+	Tenim 4 músiques de fons: una per a la pantalla inicial, dues per a les escenes del joc original i una pel combat final
+
+
+Instruccions
+------------
+
+En qualsevol moment del joc:
+
+	Esc per sortir
+
+En la pantalla inicial:
+
+	Qualsevol tecla per anar a la pantalla d'instruccions
+
+En la pantalla d'instruccions:
+
+	Qualsevol tecla per començar el joc
+
+En la pantalla de Game Over:
+
+	Qualsevol tecla per anar a la pantalla inicial
+
+En la pantalla de The End:
+
+	Qualsevol tecla per anar a la pantalla de crèdits
+
+En la pantalla de crèdits:
+
+	Qualsevol tecla per anar a la pantalla inicial
+
+En qualsevol de les escenes:
+
+	Fletxes per moure's, saltar i escalar
+
+	Espai per colpejar
+
+	Fletxa superior per entrar en un portal
+
+	Camina sobre objectes per recullir-los i utilitzar-los
+
+	G per entrar i sortir de God Mode, fent-nos immunes
+
+	F per rescatar un amic automàticament
+
+	6 per equipar el casc groc
+
+	7 per equipar les Hyper Shoes
+
+	8 per equipar l'impermeable gris
+
+	9 per equipar l'impermeable blau
+
+	0 per equipar el llibre verd
+
+	X Y per saltar a la pantalla Y de l'escena X (1 <= X <= 5, 1 <= Y <= 3)
+
+
+Part creativa
+-------------
+
+La mecànica que hem agafat d'un altre joc és el nostre Final Boss, Pandora, penúltim boss del joc Kid Icarus de la NES
+
+Pandora es mou per la pantalla i és capaç d'atravessar qualsevol tile. Fa 8 de mal i mor quan rep 10 cops de puny
+
+Va acompanyada de dues bombolles invencibles, que també es mouen lliurement per la pantalla. Aquestes fan 5 de mal
+
+La principal característica de Pandora en el Kid Icarus és la seva imprevisibilitat. Per intentar replicar-la hem utilitzat generadors de nombres pseudo-aleatoris
+
+	Així, aproximadament cada 7 segons tant Pandora com les seves bombolles alteren la seva trajectòria actual en tots dos eixos
+
+En el joc original Pandora es fa "invisible" durant un temps variable i es manté visible també en un temps variable
+
+	Nosaltres hem optat per fer aquests temps fixes: es manté visible durant uns 3 segons i es torna invisible durant uns 2 segons
+
+
+Comentaris
+----------
+
+No es pot saltar directament al Final Boss per dues raons
+
+	Primer, així simplifiquem les comandes per obtenir Power Ups
+
+	Segon, per simplificar la creació dels TileMaps hem afegit dues pantalles "buides" a l'escena 6, de manera que per cada escena esperem 3 pantalles. Així evitem que el jugador acabi per error en aquestes pantalles
+
+Hem tingut problemes implementant el so amb OpenAL i altres llibreries proposades; finalment hem conseguit implementar-lo amb la funció PlaySound de Windows. Això, és clar, té alguns inconvenients
+
+	La música només se sent en Windows
+
+	Com que la funció no permet que sonin dos sons alhora no hem pogut implementar efectes de so
+
+		Podriem haver fet que la música de fons parés, sonés l'efecte, i la música es reiniciés, però hem considerat que era una solució molt lletja

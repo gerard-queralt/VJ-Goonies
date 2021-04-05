@@ -67,7 +67,7 @@ void WaterDrop::update(int deltaTime)
 				sprite->changeAnimation(SPLASHED);
 				position.y += 2;
 				if(!player->getPowerUps()[2] /*grey watercoat*/)
-					player->hurt(1); //numero random
+					player->hurt(5);
 			}
 			else if (map->collisionMoveDown(position, glm::ivec2(4, 2), &position.y)) {
 				sprite->changeAnimation(SPLASHED);

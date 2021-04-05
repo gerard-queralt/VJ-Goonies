@@ -94,17 +94,6 @@ void Waterfall::render()
 			tmp->setPosition(startPosition);
 			middle.push_back(tmp);
 		}
-		//intent d'aconseguir l'efecte de cascada, hauriem de incrementar la y en 1 en lloc de tilesize
-		/*
-		if (stayTime < STAY_TIME && stayTime > 0) {
-			if (stayAnimationTime == 0) {
-				middle.erase(middle.begin());
-				stayAnimationTime = STAY_TIME;
-			}
-			else
-				--stayAnimationTime;
-		}
-		*/
 		for (int i = 0; i < middle.size(); ++i)
 			middle[i]->render();
 		if (stayTime <= 0) {
@@ -149,7 +138,7 @@ void Waterfall::interact()
 	for (int y = position.y; y >= startPosition.y && y >= (position.y - middle.size() * map->getTileSize()) /*top position*/ && !player->getPowerUps()[3] /*blue watercoat*/; y -= map->getTileSize()) {
 		if (inContactWithPlayer(glm::vec2(position.x+4, float(y)), glm::ivec2(16, 8))) { //ajustem a les hitboxes que esperem visualment
 			if (dmgCD == DMG_CD) {
-				player->hurt(1); //nombre random
+				player->hurt(2);
 				dmgCD = 0;
 			}
 		}

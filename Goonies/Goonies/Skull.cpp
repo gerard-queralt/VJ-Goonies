@@ -76,14 +76,14 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
 			position.x -= SPEED;
-			if (inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
+			if (inContactWithPlayer(position, glm::ivec2(16, 8)) && !player->getLookingLeft()) {
 				if (player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
 					player->gainXP(5);
 				}
 				else if (dmgCD == DMG_CD) {
-					player->hurt(5); //nombre random
+					player->hurt(5);
 					dmgCD = 0;
 				}
 					
@@ -99,14 +99,14 @@ void Skull::update(int deltaTime)
 			if (sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
 			position.x += SPEED;
-			if(inContactWithPlayer(position, glm::ivec2(16, 8))) { //potser cal una comprovacio especial per a que no mati d'esquena
+			if(inContactWithPlayer(position, glm::ivec2(16, 8)) && player->getLookingLeft()) {
 				if (player->getStatus() == PUNCHING || player->getPowerUps()[4] /*green spellbook*/) {
 					status = DYING;
 					sprite->changeAnimation(DYING);
 					player->gainXP(5);
 				}
 				else if (dmgCD == DMG_CD) {
-					player->hurt(5); //nombre random
+					player->hurt(5);
 					dmgCD = 0;
 				}
 			}

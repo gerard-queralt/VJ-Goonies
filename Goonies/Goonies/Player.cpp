@@ -31,7 +31,6 @@ enum PowerUps
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	health = 80;
-	level = 1;
 	exp = 0;
 	std::vector<bool> tmp(NUM_POWER_UPS, false);
 	powerUps.resize(NUM_POWER_UPS);
@@ -365,7 +364,7 @@ void Player::hurt(int dmg)
 	if (!godMode) {
 		flashingTime = FLASHING_TIME;
 		flashTime = FLASH_TIME;
-		if (health - dmg >= 0)
+		if (health - dmg > 0)
 			health -= dmg;
 		else {
 			health = 0;
@@ -379,7 +378,6 @@ void Player::gainXP(int exp)
 	this->exp += exp;
 	if (this->exp >= 80) {
 		int extra = this->exp / 80;
-		level += extra;
 		this->exp -= 80*extra;
 		heal(5*extra);
 	}
@@ -455,6 +453,11 @@ void Player::resetStartTime(int time)
 {
 	startTime = time;
 	sprite->changeAnimation(STAND_RIGHT);
+}
+
+bool Player::getLookingLeft()
+{
+	return lookingLeft;
 }
 
 void Player::checkSpecialCommands()

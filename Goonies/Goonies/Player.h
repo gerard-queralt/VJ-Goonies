@@ -57,11 +57,12 @@ public:
 
 	void resetStartTime(int time);
 
+	bool getLookingLeft();
+
 private:
 	void checkSpecialCommands();
 
 	int health;
-	int level;
 	int exp;
 	std::vector<bool> powerUps;
 	bool hasKey;

@@ -365,7 +365,6 @@ void Player::gainXP(int exp)
 {
 	this->exp += exp;
 	if (this->exp >= 80) {
-		PlaySound(TEXT("sounds/level.wav"), NULL, SND_FILENAME);
 		int extra = this->exp / 80;
 		level += extra;
 		this->exp -= 80*extra;
@@ -391,7 +390,6 @@ bool Player::getHasKey()
 bool Player::getKey()
 {
 	if (!hasKey) {
-		PlaySound(TEXT("sounds/key.wav"), NULL, SND_NOSTOP | SND_FILENAME);
 		hasKey = true;
 		gainXP(20);
 		return true;

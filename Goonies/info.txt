@@ -155,3 +155,5 @@ Hem tingut problemes implementant el so amb OpenAL i altres llibreries proposade
 	Com que la funció no permet que sonin dos sons alhora no hem pogut implementar efectes de so
 
 		Podriem haver fet que la música de fons parés, sonés l'efecte, i la música es reiniciés, però hem considerat que era una solució molt lletja
+		
+No hem sabut fer que el personatge es posi blanc quan li fan mal. Com a alternativa per donar feedback visual hem fet que faci pampallugues

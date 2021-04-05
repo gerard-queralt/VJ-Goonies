@@ -6,6 +6,10 @@
 
 class Pandora : public Entity
 {
+	enum Movement {
+		STAY = 0, POSITIVE, NEGATIVE
+	};
+
 public:
 	void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
@@ -28,8 +32,8 @@ private:
 
 	int invisTime;
 
-	bool movingLeft;
-	bool movingUp;
+	int horizontal;
+	int vertical;
 
 	int dmgCD;
 	int hurtCD;

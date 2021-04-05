@@ -10,8 +10,8 @@ void PandoraBubble::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderPro
 	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(1.f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(0);
 
-	movingLeft = rand() % 2;
-	movingUp = rand() % 2;
+	horizontal = rand() % 3;
+	vertical = rand() % 3;
 
 	speed = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
 
@@ -25,43 +25,35 @@ void PandoraBubble::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderPro
 void PandoraBubble::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	if (movingLeft) {
+	if (horizontal == NEGATIVE) {
 		position.x -= speed;
 		if (position.x <= 0) {
 			position.x = 0;
-			movingLeft = false;
+			horizontal = POSITIVE;
 		}
 	}
-	else {
+	else if(horizontal == POSITIVE){
 		position.x += speed;
 		if ((position.x + 16 /*size*/) >= (32 * map->getTileSize())) {
 			position.x = (32 * map->getTileSize()) - 16 /*size*/;
-			movingLeft = true;
+			horizontal = NEGATIVE;
 		}
 	}
-	if (movingUp) {
+	if (vertical == NEGATIVE) {
 		position.y -= speed;
 		if (position.y <= 2 * map->getTileSize()) {
 			position.y = 2 * map->getTileSize();
-			movingUp = false;
+			vertical = POSITIVE;
 		}
 	}
-	else {
+	else if(vertical == POSITIVE){
 		position.y += speed;
 		if ((position.y + 16 /*size*/) >= (22 * map->getTileSize())) {
 			position.y = (22 * map->getTileSize()) - 16 /*size*/;
-			movingUp = true;
+			vertical = NEGATIVE;
 		}
 	}
 	sprite->setPosition(position);
-}
-
-void PandoraBubble::setIdle()
-{
-}
-
-void PandoraBubble::setActive()
-{
 }
 
 void PandoraBubble::interact()
@@ -73,8 +65,14 @@ void PandoraBubble::interact()
 			if (dmgCD == DMG_CD) {
 				player->hurt(5);
 				dmgCD = 0;
-				movingLeft = !movingLeft;
-				movingUp = !movingUp;
+				if (horizontal == POSITIVE)
+					horizontal = NEGATIVE;
+				else if (horizontal == NEGATIVE)
+					horizontal = POSITIVE;
+				if (vertical == POSITIVE)
+					vertical = NEGATIVE;
+				else if (vertical == NEGATIVE)
+					vertical = POSITIVE;
 			}
 		}
 	}
@@ -82,8 +80,17 @@ void PandoraBubble::interact()
 
 void PandoraBubble::randomize()
 {
-	movingLeft = rand() % 2;
-	movingUp = rand() % 2;
+	//1/9 de quedar-se quieta respecte un eix i 4/9 de moure's en cadascuna de les direccions
+	horizontal = rand() % 9;
+	vertical = rand() % 9;
+	while (horizontal == STAY && vertical == STAY) {
+		horizontal = rand() % 9;
+		vertical = rand() % 9;
+	}
+	if (horizontal > STAY)
+		horizontal = horizontal % 2 + 1;
+	if (vertical > STAY)
+		vertical = vertical % 2 + 1;
 
 	speed = LO + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (HI - LO)));
 }

@@ -38,10 +38,7 @@ void Pandora::init(const glm::vec2 & tileMapPos, ShaderProgram & shaderProgram)
 
 	status = DEAD;
 
-	hp = 15;
-
-	movingLeft = rand() % 2;
-	movingUp = rand() % 2;
+	hp = 10;
 
 	invisTime = 0;
 	dmgCD = DMG_CD;
@@ -86,32 +83,32 @@ void Pandora::update(int deltaTime)
 			else
 				++invisTime;
 		}
-		if (movingLeft) {
+		if (horizontal == NEGATIVE) {
 			position.x -= SPEED;
 			if (position.x <= 0) {
 				position.x = 0;
-				movingLeft = false;
+				horizontal = POSITIVE;
 			}
 		}
-		else {
+		else if(horizontal == POSITIVE){
 			position.x += SPEED;
 			if ((position.x + 32 /*size*/) >= (32 * map->getTileSize())) {
 				position.x = (32 * map->getTileSize()) - 32 /*size*/;
-				movingLeft = true;
+				horizontal = NEGATIVE;
 			}
 		}
-		if (movingUp) {
+		if (vertical == NEGATIVE) {
 			position.y -= SPEED;
 			if (position.y <= 2 * map->getTileSize()) {
 				position.y = 2 * map->getTileSize();
-				movingUp = false;
+				vertical = POSITIVE;
 			}
 		}
-		else {
+		else if(vertical == POSITIVE){
 			position.y += SPEED;
 			if ((position.y + 32 /*size*/) >= (22 * map->getTileSize())) {
 				position.y = (22 * map->getTileSize()) - 32 /*size*/;
-				movingUp = true;
+				vertical = NEGATIVE;
 			}
 		}
 		if (flashing) {
@@ -171,8 +168,6 @@ void Pandora::setIdle()
 {
 	status = DEAD;
 	sprite->changeAnimation(VISIBLE);
-	movingLeft = rand() % 2;
-	movingUp = rand() % 2;
 	invisTime = 0;
 	dmgCD = DMG_CD;
 	hurtCD = HURT_CD;
@@ -188,8 +183,7 @@ void Pandora::setActive()
 {
 	status = ALIVE;
 	sprite->changeAnimation(VISIBLE);
-	movingLeft = rand() % 2;
-	movingUp = rand() % 2;
+	randomize();
 	invisTime = 0;
 	dmgCD = DMG_CD;
 	hurtCD = HURT_CD;
@@ -238,8 +232,17 @@ void Pandora::setPlayer(Player * player)
 
 void Pandora::randomize()
 {
-	movingLeft = rand() % 2;
-	movingUp = rand() % 2;
+	//1/9 de quedar-se quieta respecte un eix i 4/9 de moure's en cadascuna de les direccions
+	horizontal = rand() % 9;
+	vertical = rand() % 9;
+	while (horizontal == STAY && vertical == STAY) {
+		horizontal = rand() % 9;
+		vertical = rand() % 9;
+	}
+	if (horizontal > STAY)
+		horizontal = horizontal % 2 + 1;
+	if (vertical > STAY)
+		vertical = vertical % 2 + 1;
 	for (int i = 0; i < bubbles.size(); ++i) {
 		bubbles[i]->randomize();
 	}

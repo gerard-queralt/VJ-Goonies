@@ -9,7 +9,7 @@
 
 
 #define JUMP_ANGLE_STEP 4
-#define JUMP_HEIGHT 16
+#define JUMP_HEIGHT 20
 #define FALL_STEP 1
 #define SPEED 0.5
 #define SHOES_SPEED_UP 0.5

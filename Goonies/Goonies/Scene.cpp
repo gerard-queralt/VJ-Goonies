@@ -20,7 +20,7 @@
 
 enum GameStates
 {
-	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, BOSS, INSTRUCTIONS, GAME_OVER, END_GAME
+	MENU, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, BOSS, INSTRUCTIONS, GAME_OVER, END_GAME, CREDITS
 };
 
 
@@ -61,6 +61,9 @@ void Scene::init()
 	endgameimage.loadFromFile("images/theend.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	endgame = Sprite::createSprite(glm::ivec2(32.f * 8.f, 24.f * 8.f), glm::vec2(1.f, 1.f), &endgameimage, &texProgram);
 	endgame->setPosition(glm::vec2(0.f, 0.f));
+	creditsimage.loadFromFile("images/credits.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	credits = Sprite::createSprite(glm::ivec2(32.f * 8.f, 24.f * 8.f), glm::vec2(1.f, 1.f), &creditsimage, &texProgram);
+	credits->setPosition(glm::vec2(0.f, 0.f));
 	projection = glm::ortho(0.f, 32.f * 8.f, 24.f * 8.f, 0.f);
 	currentTime = 0.0f;
 	currentState = MENU;
@@ -71,7 +74,7 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	if (currentState != MENU && currentState != INSTRUCTIONS) {
-		if (currentState != GAME_OVER && currentState != END_GAME) {
+		if (currentState != GAME_OVER && currentState != END_GAME && currentState != CREDITS) {
 			if (startLevelTime == 0) {
 				map[currentState - 1][currentScene - 1]->setEntitiesActive();
 			}
@@ -122,6 +125,9 @@ void Scene::render()
 	case END_GAME:
 		endgame->render();
 		renderUI();
+		break;
+	case CREDITS:
+		credits->render();
 		break;
 	default:
 		break;
@@ -183,6 +189,9 @@ void Scene::startGame()
 		setUpUISprites();
 	}
 	else if (currentState == GAME_OVER || currentState == END_GAME) {
+		currentState = CREDITS;
+	}
+	else if (currentState == CREDITS) {
 		currentState = MENU;
 		Game::instance().playSound("gameMenu", true);
 	}

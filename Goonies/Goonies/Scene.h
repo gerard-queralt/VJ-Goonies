@@ -58,6 +58,8 @@ private:
 	Sprite *gameover;
 	Texture endgameimage;
 	Sprite *endgame;
+	Texture creditsimage;
+	Sprite *credits;
 
 	Texture UIimage;
 	Sprite *prerenderedUI;

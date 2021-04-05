@@ -74,9 +74,6 @@
     <ClInclude Include="SubBar.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Pouch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Number.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
@@ -86,17 +83,20 @@
     <ClInclude Include="DoubleLockedDoor.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Waterfall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EndDoor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pandora.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="PandoraBubble.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EndDoor.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Pouch.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Waterfall.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

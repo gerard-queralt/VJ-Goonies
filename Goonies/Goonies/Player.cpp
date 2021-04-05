@@ -431,6 +431,11 @@ void Player::switchGodMode()
 	godMode = !godMode;
 }
 
+bool Player::getGodMode()
+{
+	return godMode;
+}
+
 void Player::resetStartTime(int time)
 {
 	startTime = time;

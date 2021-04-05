@@ -53,6 +53,8 @@ public:
 
 	void switchGodMode();
 
+	bool getGodMode();
+
 	void resetStartTime(int time);
 
 private:

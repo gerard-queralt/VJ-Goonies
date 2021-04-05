@@ -72,6 +72,8 @@ private:
 	Texture powerUpsSpritesheet;
 	std::vector<Sprite *> friends;
 	Texture friendSpritesheet;
+	Sprite *godmode;
+	Texture godmodeSpritesheet;
 };
 
 

@@ -275,6 +275,7 @@ void Scene::changeLevel(int lvl)
 
 void Scene::setUpUISprites()
 {
+	//Power Ups
 	powerUpsSpritesheet.loadFromFile("images/powerups.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	powerUpsUI.resize(NUM_POWER_UPS);
 	for (int i = 0; i < powerUpsUI.size(); ++i) {
@@ -299,6 +300,11 @@ void Scene::setUpUISprites()
 		else
 			friends[i]->setPosition(glm::vec2((27+i-4) * map[0][0]->getTileSize(), 23 * map[0][0]->getTileSize()));
 	}
+
+	//God mode text
+	godmodeSpritesheet.loadFromFile("images/godmode.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	godmode = Sprite::createSprite(glm::ivec2(64, 8), glm::vec2(1.f, 1.f), &godmodeSpritesheet, &texProgram);
+	godmode->setPosition(glm::vec2(map[0][0]->getTileSize(), 0));
 }
 
 void Scene::renderUI()
@@ -315,6 +321,8 @@ void Scene::renderUI()
 	}
 	for (int i = 0; i < player->getNumFriends(); ++i)
 		friends[i]->render();
+	if (player->getGodMode())
+		godmode->render();
 }
 
 

@@ -1,9 +1,11 @@
-#include <cmath>
 #include <iostream>
+#include <Windows.h>
+#include <cmath>
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Player.h"
 #include "Game.h"
+#pragma comment(lib, "winmm.lib")
 
 
 #define JUMP_ANGLE_STEP 4
@@ -363,6 +365,7 @@ void Player::gainXP(int exp)
 {
 	this->exp += exp;
 	if (this->exp >= 80) {
+		PlaySound(TEXT("sounds/level.wav"), NULL, SND_FILENAME);
 		int extra = this->exp / 80;
 		level += extra;
 		this->exp -= 80*extra;
@@ -388,6 +391,7 @@ bool Player::getHasKey()
 bool Player::getKey()
 {
 	if (!hasKey) {
+		PlaySound(TEXT("sounds/key.wav"), NULL, SND_NOSTOP | SND_FILENAME);
 		hasKey = true;
 		gainXP(20);
 		return true;

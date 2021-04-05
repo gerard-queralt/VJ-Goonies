@@ -14,6 +14,8 @@
 #define SPEED 0.5
 #define SHOES_SPEED_UP 0.5
 #define CLIMB_SPEED 1
+#define FLASH_TIME 16
+#define FLASHING_TIME 40
 
 
 enum PlayerAnims
@@ -53,6 +55,10 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	eightKeyStatus = HOLD;
 	nineKeyStatus = HOLD;
 	zeroKeyStatus = HOLD;
+
+	flashing = false;
+	flashingTime = 0;
+	flashTime = 0;
 
 	status = GROUNDED;
 	startTime = 0;
@@ -282,6 +288,13 @@ void Player::update(int deltaTime)
 				}
 			}
 		}
+		if (flashingTime > 0) {
+			--flashingTime;
+			if (flashTime == FLASH_TIME)
+				flashing = !flashing;
+		}
+		else
+			flashing = false;
 	}
 	else
 		--startTime;
@@ -308,9 +321,6 @@ void Player::update(int deltaTime)
 	map->detectChangeScene(posPlayer, glm::ivec2(16, 18), state);
 	if (state == 0) { //mirem a dalt i a baix
 		map->detectChangeScene(posPlayer, glm::ivec2(16, 16), 3);
-		//corregim posició
-		//map->climbUp(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft);
-		//map->climbDown(posPlayer, glm::ivec2(16, 16), &posPlayer.x, lookingLeft);
 	}
 	
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
@@ -318,7 +328,9 @@ void Player::update(int deltaTime)
 
 void Player::render()
 {
-	sprite->render();
+	if (!flashing) {
+		sprite->render();
+	}
 }
 
 void Player::setTileMap(TileMap *tileMap)
@@ -351,7 +363,8 @@ void Player::heal(int heal)
 void Player::hurt(int dmg)
 {
 	if (!godMode) {
-		//falta que el personatge se pose blanc
+		flashingTime = FLASHING_TIME;
+		flashTime = FLASH_TIME;
 		if (health - dmg >= 0)
 			health -= dmg;
 		else {

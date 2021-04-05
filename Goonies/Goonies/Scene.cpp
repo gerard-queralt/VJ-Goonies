@@ -188,10 +188,10 @@ void Scene::startGame()
 
 		setUpUISprites();
 	}
-	else if (currentState == GAME_OVER || currentState == END_GAME) {
+	else if (currentState == END_GAME) {
 		currentState = CREDITS;
 	}
-	else if (currentState == CREDITS) {
+	else if (currentState == GAME_OVER || currentState == CREDITS) {
 		currentState = MENU;
 		Game::instance().playSound("gameMenu", true);
 	}

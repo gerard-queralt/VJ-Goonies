@@ -83,6 +83,11 @@ private:
 	Sprite *sprite;
 	TileMap *map;
 
+	//per a pampallugues
+	bool flashing;
+	int flashingTime; //temps fent pampallugues
+	int flashTime; //temps entre pampallugues
+
 	//per a comandes
 	KeyStatus gKeyStatus;
 	KeyStatus fKeyStatus;

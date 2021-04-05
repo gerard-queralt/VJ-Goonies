@@ -7,7 +7,7 @@
 #define DMG_CD 40
 #define HURT_CD 40
 #define FLASH_TIME 3
-#define FLASHING_TIME 25
+#define FLASHING_TIME 40
 #define RNG_TIME 300
 #define VICTORY_LAP 300
 #define SPEED 0.5

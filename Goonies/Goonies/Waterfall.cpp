@@ -147,7 +147,7 @@ void Waterfall::setActive()
 void Waterfall::interact()
 {
 	for (int y = position.y; y >= startPosition.y && y >= (position.y - middle.size() * map->getTileSize()) /*top position*/ && !player->getPowerUps()[3] /*blue watercoat*/; y -= map->getTileSize()) {
-		if (inContactWithPlayer(glm::vec2(position.x, float(y)), glm::ivec2(24, 8))) {
+		if (inContactWithPlayer(glm::vec2(position.x+4, float(y)), glm::ivec2(16, 8))) { //ajustem a les hitboxes que esperem visualment
 			if (dmgCD == DMG_CD) {
 				player->hurt(1); //nombre random
 				dmgCD = 0;

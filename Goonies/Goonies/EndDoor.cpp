@@ -24,6 +24,6 @@ void EndDoor::interact()
 	if (status == DEAD && inContactWithPlayer(position, glm::ivec2(24, 32))) {
 		if (Game::instance().getSpecialKey(GLUT_KEY_UP))
 			//Game::instance().endGame();
-			Game::instance().changeScene(610405);
+			Game::instance().changeScene(610315);
 	}
 }

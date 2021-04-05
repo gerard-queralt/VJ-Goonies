@@ -1,9 +1,11 @@
-#include <cmath>
 #include <iostream>
+#include <Windows.h>
+#include <cmath>
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Player.h"
 #include "Game.h"
+#pragma comment(lib, "winmm.lib")
 
 
 #define JUMP_ANGLE_STEP 4

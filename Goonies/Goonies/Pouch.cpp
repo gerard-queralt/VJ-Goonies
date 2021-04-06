@@ -64,7 +64,7 @@ void Pouch::interact()
 			player->givePowerUp(content);
 			break;
 		case POTION:
-			player->heal(5); //random number
+			player->heal(15);
 			break;
 		default:
 			break;

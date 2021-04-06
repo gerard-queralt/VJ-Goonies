@@ -524,7 +524,7 @@ bool TileMap::climbDown(const glm::vec2 &pos, const glm::ivec2 &size, float *pos
 	{
 		if (map[y*mapSize.x + x] == 100 /*tile liana al sostre*/)
 		{
-			if (*posX != (y*mapSize.x + x) % mapSize.x) //crec que es aixi ``'
+			if (*posX != (y*mapSize.x + x) % mapSize.x)
 			{
 				*posX = (y*mapSize.x + x) % mapSize.x * tileSize - 3;
 				return true;

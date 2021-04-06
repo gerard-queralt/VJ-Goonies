@@ -7,7 +7,6 @@ class Waterfall : public Entity
 {
 public:
 	void init(const glm::vec2 &tileMapPos, ShaderProgram &shaderProgram);
-	//void update(int deltaTime);
 	void render();
 	
 	void setIdle();
@@ -26,7 +25,6 @@ private:
 	int fallTime;
 	int secondFallTime;
 	int stayTime;
-	//int stayAnimationTime;
 	int cycleTime;
 	int dmgCD;
 };

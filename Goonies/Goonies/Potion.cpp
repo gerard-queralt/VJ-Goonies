@@ -29,7 +29,7 @@ void Potion::setActive()
 void Potion::interact()
 {
 	if (status == ALIVE && inContactWithPlayer(position, glm::ivec2(8, 8))) {
-		player->heal(15);
+		player->heal(10);
 		status = DEAD;
 	}
 }

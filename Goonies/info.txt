@@ -163,3 +163,5 @@ Hem tingut problemes implementant el so amb OpenAL i altres llibreries proposade
 		Podriem haver fet que la música de fons parés, sonés l'efecte, i la música es reiniciés, però hem considerat que era una solució molt lletja
 		
 No hem sabut fer que el personatge es posi blanc quan li fan mal. Com a alternativa per donar feedback visual hem fet que faci pampallugues
+
+En quan al mal que fan els enemics o els obstacles l'hem reduit respecte la versió original del joc ja que creiem que podria ser realment complicat superar el joc amb les condicions del joc original

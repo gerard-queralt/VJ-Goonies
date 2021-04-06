@@ -24,6 +24,8 @@ public:
 protected:
 	bool inContactWithPlayer(const glm::vec2 &entityPosition, const glm::ivec2 &entitySize);
 
+	bool hitByPunch(const glm::vec2 &entityPosition, const glm::ivec2 &entitySize);
+
 	enum EntityStatus {
 		ALIVE = 0, DEAD, SPAWNING, DYING
 	};

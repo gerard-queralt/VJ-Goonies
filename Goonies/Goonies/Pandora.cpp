@@ -203,7 +203,7 @@ void Pandora::interact()
 		if (hurtCD < HURT_CD)
 			++hurtCD;
 		if (inContactWithPlayer(position, glm::ivec2(32, 32))) {
-			if (hurtCD == HURT_CD && player->getStatus() == PUNCHING) {
+			if (hurtCD == HURT_CD && player->getStatus() == PUNCHING && hitByPunch(position, glm::ivec2(32, 32))) {
 				--hp;
 				hurtCD = 0;
 				flashing = true;

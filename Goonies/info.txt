@@ -138,7 +138,7 @@ Va acompanyada de dues bombolles invencibles, que també es mouen lliurement per
 
 La principal característica de Pandora en el Kid Icarus és la seva imprevisibilitat. Per intentar replicar-la hem utilitzat generadors de nombres pseudo-aleatoris
 
-	Així, aproximadament cada 7 segons tant Pandora com les seves bombolles alteren la seva trajectòria actual en tots dos eixos
+	Així, aproximadament cada 7 segons tant Pandora com les seves bombolles alteren la seva trajectòria actual en tots dos eixos. A més, les bombolles també alteren la seva velocitat
 
 En el joc original Pandora es fa "invisible" durant un temps variable i es manté visible també en un temps variable
 

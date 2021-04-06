@@ -19,9 +19,13 @@ Pot obtenir experiència, representada en una barra com la de la vida
 
 Pot recollir una clau i utilitzar-la per obrir portes
 
+	Recollir una clau dona 20 d'experiència
+	
 	No pot recollir una clau si ja en té una
 
 Ha de rescatar 6 amics, tancats darrere portes, abans no s'obri la porta del Final Boss
+
+	Rescatar un amic dona 200 d'experiència
 
 Pot obtenir 5 Power-Ups diferents escampats pel mapa
 
@@ -51,9 +55,9 @@ Hi ha 3 obstacles
 
 Hi ha 2 enemics
 
-	Calavera: es mou en línia recta i fa 5 de mal. Mor d'un cop de puny
+	Calavera: es mou en línia recta i fa 5 de mal. Mor d'un cop de puny i dona 5 de experiència
 
-	Calavera saltarina: es mou en linia recta però va fent salts. També fa 5 de mal i mor d'un cop de puny
+	Calavera saltarina: es mou en linia recta però va fent salts. També fa 5 de mal i mor d'un cop de puny, donant 5 d'experiència
 
 El Final Boss del joc és Pandora, de qui parlarem en detall a la part creativa
 

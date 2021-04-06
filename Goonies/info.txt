@@ -17,6 +17,8 @@ Pot obtenir experiència, representada en una barra com la de la vida
 
 	En arribar a 80 d'experiència aquesta es reinicia i el personatge es cura 5 de vida
 
+Pot recollir pocions que curen 15 de vida
+
 Pot recollir una clau i utilitzar-la per obrir portes
 
 	Recollir una clau dona 20 d'experiència
